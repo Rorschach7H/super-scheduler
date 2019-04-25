@@ -51,7 +51,7 @@ public class ServiceLoader {
             if (definition == null) {
                 throw new IllegalStateException("Service loader could not load name:" + name + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
             }
-
+            HashMap
             // 用来保证每个节点都是一个各自的对象
             IdentityUniqueKey uniqueKey = new IdentityUniqueKey(identity, definition);
 

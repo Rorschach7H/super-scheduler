@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.manager;
 
-import com.meixiaoxi.scheduler.config.CommonConfig;
+import com.meixiaoxi.scheduler.config.RedisConfig;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -26,7 +26,7 @@ public class RedissonManager implements ApplicationContextAware {
     private static final Object lock = new Object();
 
     private static RedissonClient redissonClient;
-    private static CommonConfig commonConfig;
+    private static RedisConfig redisConfig;
 
     /**
      * 初始化Redisson
@@ -35,14 +35,14 @@ public class RedissonManager implements ApplicationContextAware {
         try {
             Config config = new Config();
             config.useSentinelServers()
-                    .setMasterName(commonConfig.getMasterName())
-                    .addSentinelAddress(commonConfig.getRedisUrls())
+                    .setMasterName(redisConfig.getMasterName())
+                    .addSentinelAddress(redisConfig.getRedisUrls())
                     //同任何节点建立连接时的等待超时。时间单位是毫秒。默认：10000
-                    .setConnectTimeout(commonConfig.getConnectTimeout())
+                    .setConnectTimeout(redisConfig.getConnectTimeout())
                     //如果尝试达到 retryAttempts（命令失败重试次数） 仍然不能将命令发送至某个指定的节点时，将抛出错误。如果尝试在此限制之内发送成功，则开始启用 timeout（命令等待超时） 计时。默认值：3
                     .setRetryAttempts(5)
                     //在一条命令发送失败以后，等待重试发送的时间间隔。时间单位是毫秒。     默认值：1500
-                    .setRetryInterval(commonConfig.getRetryInterval());
+                    .setRetryInterval(redisConfig.getRetryInterval());
             redissonClient = Redisson.create(config);
         } catch (Exception e) {
             throw new RuntimeException("连接redis出现异常", e);
@@ -67,6 +67,6 @@ public class RedissonManager implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        commonConfig = applicationContext.getBean(CommonConfig.class);
+        redisConfig = applicationContext.getBean(RedisConfig.class);
     }
 }

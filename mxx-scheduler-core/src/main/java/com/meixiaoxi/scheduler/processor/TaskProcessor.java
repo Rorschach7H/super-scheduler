@@ -29,7 +29,7 @@ public interface TaskProcessor {
      * @param objectId
      * @return
      */
-    boolean deleteTask(Long objectId);
+    boolean removeTask(Long objectId);
 
     /**
      * 执行任务

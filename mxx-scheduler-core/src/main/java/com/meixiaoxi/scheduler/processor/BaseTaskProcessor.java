@@ -56,7 +56,7 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
     }
 
     @Override
-    public boolean deleteTask(Long objectId) {
+    public boolean removeTask(Long objectId) {
         return false;
     }
 
