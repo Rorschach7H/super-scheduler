@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.meixiaoxi.scheduler.persistence.TaskInfoMapper">
-  <resultMap id="BaseResultMap" type="com.meixiaoxi.scheduler.persistence.entity.TaskInfo">
+<mapper namespace="com.meixiaoxi.scheduler.core.persistence.TaskInfoMapper">
+  <resultMap id="BaseResultMap" type="com.meixiaoxi.scheduler.core.persistence.entity.TaskInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="task_name" jdbcType="VARCHAR" property="taskName" />
     <result column="object_id" jdbcType="BIGINT" property="objectId" />
@@ -31,7 +31,7 @@
     delete from t_task_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.meixiaoxi.scheduler.persistence.entity.TaskInfo">
+  <insert id="insert" parameterType="com.meixiaoxi.scheduler.core.persistence.entity.TaskInfo">
     insert into t_task_info (id, task_name, object_id, 
       task_group, execute_time, same_execute_time_queue, 
       task_type, failed_count, remarks, 
@@ -43,7 +43,7 @@
       #{executeState,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.meixiaoxi.scheduler.persistence.entity.TaskInfo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.meixiaoxi.scheduler.core.persistence.entity.TaskInfo" useGeneratedKeys="true" keyProperty="id">
     insert into t_task_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,7 +128,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.meixiaoxi.scheduler.persistence.entity.TaskInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.meixiaoxi.scheduler.core.persistence.entity.TaskInfo">
     update t_task_info
     <set>
       <if test="taskName != null">
@@ -170,7 +170,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.meixiaoxi.scheduler.persistence.entity.TaskInfo">
+  <update id="updateByPrimaryKey" parameterType="com.meixiaoxi.scheduler.core.persistence.entity.TaskInfo">
     update t_task_info
     set task_name = #{taskName,jdbcType=VARCHAR},
       object_id = #{objectId,jdbcType=BIGINT},

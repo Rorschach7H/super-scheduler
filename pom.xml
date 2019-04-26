@@ -11,14 +11,12 @@
 
     <modules>
         <module>mxx-scheduler-core</module>
-        <module>mxx-scheduler-consumer</module>
+        <module>mxx-scheduler-task</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.16.18</lombok.version>
-        <spring-data-redis.version>1.7.4.RELEASE</spring-data-redis.version>
-        <jedis.version>2.9.0</jedis.version>
         <commons-lang3.version>3.5</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <fastjson.version>1.2.46</fastjson.version>
@@ -47,14 +45,14 @@
             </properties>
         </profile>
     </profiles>
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 </project>
