@@ -1,20 +1,20 @@
 package com.meixiaoxi.scheduler.core.network;
 
-import com.meixiaoxi.scheduler.core.network.message.MxxHeader;
-import com.meixiaoxi.scheduler.core.network.message.MxxMessage;
+import com.meixiaoxi.scheduler.core.network.message.Header;
+import com.meixiaoxi.scheduler.core.network.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 @ChannelHandler.Sharable
-public class Encoder extends MessageToByteEncoder<MxxMessage> {
+public class Encoder extends MessageToByteEncoder<Message> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, MxxMessage message, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Message message, ByteBuf out) throws Exception {
 
         // 将Message转换成二进制数据
-        MxxHeader header = message.getHeader();
+        Header header = message.getHeader();
 
         // 这里写入的顺序就是协议的顺序.
 

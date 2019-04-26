@@ -1,7 +1,7 @@
 package com.meixiaoxi.scheduler.core.network;
 
-import com.meixiaoxi.scheduler.core.network.message.MxxHeader;
-import com.meixiaoxi.scheduler.core.network.message.MxxMessage;
+import com.meixiaoxi.scheduler.core.network.message.Header;
+import com.meixiaoxi.scheduler.core.network.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -23,12 +23,12 @@ public class Decoder extends ByteToMessageDecoder {
         String sessionId = new String(sessionByte);
 
         // 组装协议头
-        MxxHeader header = new MxxHeader(version, contentLength, sessionId);
+        Header header = new Header(version, contentLength, sessionId);
 
         // 读取消息内容
         byte[] content = in.readBytes(in.readableBytes()).array();
 
-        MxxMessage message = new MxxMessage(header, new String(content));
+        Message message = new Message(header, new String(content));
 
         out.add(message);
     }

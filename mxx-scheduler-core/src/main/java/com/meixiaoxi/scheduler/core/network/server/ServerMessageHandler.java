@@ -1,12 +1,12 @@
 package com.meixiaoxi.scheduler.core.network.server;
 
-import com.meixiaoxi.scheduler.core.network.message.MxxMessage;
+import com.meixiaoxi.scheduler.core.network.message.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class ServerMessageHandler extends SimpleChannelInboundHandler<MxxMessage> {
+public class ServerMessageHandler extends SimpleChannelInboundHandler<Message> {
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, MxxMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
         // 简单地打印出server接收到的消息
         System.out.println(msg.toString());
     }
