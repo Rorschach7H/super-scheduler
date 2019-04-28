@@ -1,10 +1,11 @@
 package com.meixiaoxi.scheduler.core.processor;
 
 import com.alibaba.fastjson.JSON;
-import com.meixiaoxi.scheduler.core.handler.TaskPersistenceHandler;
+import com.meixiaoxi.scheduler.store.jdbc.PersistenceHandler;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
 import com.meixiaoxi.scheduler.core.model.Task;
 import org.apache.commons.collections4.CollectionUtils;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,16 +23,17 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
 
     private static Logger log = LoggerFactory.getLogger(PersistenceTaskProcessor.class);
 
-    private TaskPersistenceHandler taskPersistenceHandler;
+    private PersistenceHandler persistenceHandler;
 
-    public PersistenceTaskProcessor(TaskPersistenceHandler taskPersistenceHandler) {
-        this.taskPersistenceHandler = taskPersistenceHandler;
+    public PersistenceTaskProcessor(RedissonClient redissonClient, PersistenceHandler persistenceHandler) {
+        this.redissonClient = redissonClient;
+        this.persistenceHandler = persistenceHandler;
     }
 
     public boolean addTask(Task taskInfo) {
         try {
             if (super.addTask(taskInfo)) {
-                return taskPersistenceHandler.add(taskInfo);
+                return persistenceHandler.add(taskInfo);
             }
         } catch (Exception e) {
             log.error("添加任务出现异常！taskInfo=" + JSON.toJSONString(taskInfo), e);
@@ -51,7 +53,7 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
         try {
             List<Task> taskInfoList = super.executeTask(taskGroup, handler);
             if (CollectionUtils.isNotEmpty(taskInfoList)) {
-                taskPersistenceHandler.update(taskInfoList);
+                persistenceHandler.update(taskInfoList);
             }
             return taskInfoList;
         } catch (Exception e) {
@@ -66,7 +68,7 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
         try {
             for (Task task : tasks) {
                 task.setExecuteState(Task.ExecuteState.WAIT_EXECUTE.getCode());
-                if (taskPersistenceHandler.update(task)) {
+                if (persistenceHandler.update(task)) {
                     super.addTask(task);
                 }
             }

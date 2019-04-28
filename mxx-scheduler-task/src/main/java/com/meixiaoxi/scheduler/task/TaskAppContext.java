@@ -1,7 +1,7 @@
 package com.meixiaoxi.scheduler.task;
 
-import com.meixiaoxi.scheduler.core.config.Config;
-import com.meixiaoxi.scheduler.core.context.AppContext;
+import com.meixiaoxi.scheduler.config.Config;
+import com.meixiaoxi.scheduler.AppContext;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 import org.redisson.api.RedissonClient;
 
@@ -27,6 +27,10 @@ public class TaskAppContext extends AppContext {
 
     public Map<String, String> taskExecuteHandlerMap = new HashMap<>();
     public List<String> executeHandlerAlisList = new ArrayList<>();
+
+    public TaskAppContext(Config config) {
+        super(config);
+    }
 
     public TaskAppContext(Config config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         super(config, redissonClient, taskProcessor);

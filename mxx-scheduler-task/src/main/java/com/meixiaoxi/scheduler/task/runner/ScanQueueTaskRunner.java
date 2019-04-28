@@ -2,9 +2,8 @@ package com.meixiaoxi.scheduler.task.runner;
 
 
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
-import com.meixiaoxi.scheduler.core.result.Result;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
-import com.meixiaoxi.scheduler.task.annotation.EnabledTaskHandler;
+import com.meixiaoxi.scheduler.annotation.EnabledTaskHandler;
 
 import java.util.ServiceLoader;
 
@@ -21,14 +20,15 @@ import java.util.ServiceLoader;
  * -----------------------------------------------------------
  * 2019-04-25    meixiaoxi       v1.0.0           创建
  */
-public class ScanQueueTaskRunner implements TaskRunner {
+public class ScanQueueTaskRunner extends TaskRunner<TaskAppContext> {
+
+    public ScanQueueTaskRunner(TaskAppContext context) {
+        this.context = context;
+    }
+
     @Override
-    public Result run(TaskAppContext context) {
-
-        TaskRunner taskRunner = new NettyServerRunner();
-        taskRunner.run(context);
-
-        return null;
+    public void run() {
+        runNext();
     }
 
     private void registerTaskHandler(TaskAppContext context) {
@@ -42,4 +42,5 @@ public class ScanQueueTaskRunner implements TaskRunner {
             }
         });
     }
+
 }

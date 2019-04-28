@@ -1,8 +1,7 @@
 package com.meixiaoxi.scheduler.task.runner;
 
-import com.meixiaoxi.scheduler.core.config.CommonConfig;
-import com.meixiaoxi.scheduler.core.network.server.ServerMessageInitializer;
-import com.meixiaoxi.scheduler.core.result.Result;
+import com.meixiaoxi.scheduler.config.CommonConfig;
+import com.meixiaoxi.scheduler.network.server.ServerMessageInitializer;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -25,10 +24,14 @@ import java.net.InetSocketAddress;
  * -----------------------------------------------------------
  * 2019-04-26    meixiaoxi       v1.0.0           创建
  */
-public class NettyServerRunner implements TaskRunner {
+public class NettyServerRunner extends TaskRunner<TaskAppContext> {
+
+    public NettyServerRunner(TaskAppContext context) {
+        this.context = context;
+    }
 
     @Override
-    public Result run(TaskAppContext context) {
+    public void run() {
         CommonConfig config = context.getConfig();
         int port = config.getPort() == 0 ? 9088 : config.getPort();
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -45,6 +48,6 @@ public class NettyServerRunner implements TaskRunner {
                 channelFuture.cause().printStackTrace();
             }
         });
-        return null;
+        runNext();
     }
 }

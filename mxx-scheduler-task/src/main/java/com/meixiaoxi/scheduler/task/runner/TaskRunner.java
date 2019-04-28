@@ -1,7 +1,6 @@
 package com.meixiaoxi.scheduler.task.runner;
 
-import com.meixiaoxi.scheduler.core.result.Result;
-import com.meixiaoxi.scheduler.task.TaskAppContext;
+import com.meixiaoxi.scheduler.AppContext;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -16,6 +15,27 @@ import com.meixiaoxi.scheduler.task.TaskAppContext;
  * -----------------------------------------------------------
  * 2019-04-25    meixiaoxi       v1.0.0           创建
  */
-public interface TaskRunner {
-    Result run(TaskAppContext context);
+public abstract class TaskRunner<Context extends AppContext> {
+
+    Context context;
+    private TaskRunner nextRunner;
+
+    TaskRunner() {
+    }
+
+    public abstract void run();
+
+    void runNext() {
+        if (nextRunner != null) {
+            nextRunner.run();
+        }
+    }
+
+    public void setNext(TaskRunner next) {
+        nextRunner = next;
+    }
+
+    public Context getContext() {
+        return context;
+    }
 }
