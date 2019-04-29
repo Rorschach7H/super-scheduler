@@ -1,7 +1,7 @@
-package com.meixiaoxi.scheduler.network;
+package com.meixiaoxi.scheduler.task.network;
 
-import com.meixiaoxi.scheduler.network.message.Header;
-import com.meixiaoxi.scheduler.network.message.Message;
+import com.meixiaoxi.scheduler.message.Header;
+import com.meixiaoxi.scheduler.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;

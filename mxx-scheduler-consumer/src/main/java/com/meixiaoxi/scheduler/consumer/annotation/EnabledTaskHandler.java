@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.annotation;
+package com.meixiaoxi.scheduler.consumer.annotation;
 
 import java.lang.annotation.*;
 

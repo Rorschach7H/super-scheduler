@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.task;
 
-import com.meixiaoxi.scheduler.config.Config;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.runner.InitContextRunner;
 import com.meixiaoxi.scheduler.task.runner.NettyServerRunner;
 import com.meixiaoxi.scheduler.task.runner.ScanQueueTaskRunner;
@@ -20,9 +20,9 @@ import com.meixiaoxi.scheduler.task.runner.ScanQueueTaskRunner;
  */
 public class SchedulerTask {
 
-    private Config config;
+    private SchedulerConfig config;
 
-    public SchedulerTask(Config config) {
+    public SchedulerTask(SchedulerConfig config) {
         this.config = config;
     }
 

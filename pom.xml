@@ -11,7 +11,10 @@
 
     <modules>
         <module>mxx-scheduler-core</module>
+        <module>mxx-scheduler-facade</module>
         <module>mxx-scheduler-task</module>
+        <module>mxx-scheduler-producer</module>
+        <module>mxx-scheduler-consumer</module>
     </modules>
 
     <properties>
@@ -45,14 +48,14 @@
             </properties>
         </profile>
     </profiles>
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>spring-milestones</id>-->
+    <!--            <name>Spring Milestones</name>-->
+    <!--            <url>https://repo.spring.io/milestone</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 </project>

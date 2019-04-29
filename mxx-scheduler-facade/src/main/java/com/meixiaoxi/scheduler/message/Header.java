@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.network.message;
+package com.meixiaoxi.scheduler.message;
 
 import java.io.Serializable;
 

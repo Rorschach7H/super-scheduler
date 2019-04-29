@@ -1,8 +1,8 @@
 package com.meixiaoxi.scheduler.task.runner;
 
-import com.meixiaoxi.scheduler.config.CommonConfig;
-import com.meixiaoxi.scheduler.network.server.ServerMessageInitializer;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
+import com.meixiaoxi.scheduler.task.network.server.ServerMessageInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -32,8 +32,8 @@ public class NettyServerRunner extends TaskRunner<TaskAppContext> {
 
     @Override
     public void run() {
-        CommonConfig config = context.getConfig();
-        int port = config.getPort() == 0 ? 9088 : config.getPort();
+        SchedulerConfig config = null;
+        int port = 9088;
         NioEventLoopGroup group = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(group)

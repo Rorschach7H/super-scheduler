@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.store.jdbc.datasource;
 
-import com.meixiaoxi.scheduler.core.Config;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.spi.SPI;
 
 import javax.sql.DataSource;
@@ -11,6 +11,5 @@ import javax.sql.DataSource;
 @SPI(defaultValue = "mysql")
 public interface DataSourceProvider {
 
-    DataSource getDataSource(Config config);
-
+    DataSource getDataSource(SchedulerConfig config);
 }

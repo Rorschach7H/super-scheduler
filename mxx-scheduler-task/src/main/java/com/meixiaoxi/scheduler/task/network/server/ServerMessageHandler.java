@@ -1,6 +1,6 @@
-package com.meixiaoxi.scheduler.network.server;
+package com.meixiaoxi.scheduler.task.network.server;
 
-import com.meixiaoxi.scheduler.network.message.Message;
+import com.meixiaoxi.scheduler.message.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

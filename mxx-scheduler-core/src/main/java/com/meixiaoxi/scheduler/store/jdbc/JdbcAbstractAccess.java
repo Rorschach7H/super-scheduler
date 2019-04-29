@@ -1,11 +1,9 @@
 package com.meixiaoxi.scheduler.store.jdbc;
 
 import com.meixiaoxi.scheduler.common.FileUtil;
-import com.meixiaoxi.scheduler.core.Config;
 import com.meixiaoxi.scheduler.core.constant.Constants;
-import com.meixiaoxi.scheduler.core.constant.ExtConfig;
-import com.meixiaoxi.scheduler.store.jdbc.exception.JdbcException;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,11 +13,11 @@ import java.io.InputStream;
 public abstract class JdbcAbstractAccess {
 
     private SqlTemplate sqlTemplate;
-    private Config config;
+    private DataSource dataSource;
 
-    public JdbcAbstractAccess(Config config) {
-        this.config = config;
-        this.sqlTemplate = SqlTemplateFactory.create(config);
+    public JdbcAbstractAccess(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.sqlTemplate = SqlTemplateFactory.create(dataSource);
     }
 
     public SqlTemplate getSqlTemplate() {
@@ -38,15 +36,5 @@ public abstract class JdbcAbstractAccess {
     protected String readSqlFile(String path, String tableName) {
         String sql = readSqlFile(path);
         return sql.replace("{tableName}", tableName);
-    }
-
-    protected void createTable(String sql) throws JdbcException {
-        if (config.getParameter(ExtConfig.NEED_CREATE_DB_TABLE, true)) {
-            try {
-                getSqlTemplate().createTable(sql);
-            } catch (Exception e) {
-                throw new JdbcException("Create table error, sql=" + sql, e);
-            }
-        }
     }
 }

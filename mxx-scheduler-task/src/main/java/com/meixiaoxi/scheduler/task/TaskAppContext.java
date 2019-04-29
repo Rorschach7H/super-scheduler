@@ -1,14 +1,10 @@
 package com.meixiaoxi.scheduler.task;
 
-import com.meixiaoxi.scheduler.config.Config;
 import com.meixiaoxi.scheduler.AppContext;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 import org.redisson.api.RedissonClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -28,11 +24,11 @@ public class TaskAppContext extends AppContext {
     public Map<String, String> taskExecuteHandlerMap = new HashMap<>();
     public List<String> executeHandlerAlisList = new ArrayList<>();
 
-    public TaskAppContext(Config config) {
+    public TaskAppContext(Properties config) {
         super(config);
     }
 
-    public TaskAppContext(Config config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
+    public TaskAppContext(Properties config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         super(config, redissonClient, taskProcessor);
     }
 

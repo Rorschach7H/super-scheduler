@@ -1,8 +1,9 @@
 package com.meixiaoxi.scheduler;
 
-import com.meixiaoxi.scheduler.config.Config;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 import org.redisson.api.RedissonClient;
+
+import java.util.Properties;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -22,7 +23,7 @@ public abstract class AppContext {
     /**
      * 系统配置
      */
-    private Config config;
+    private Properties config;
     /**
      * redisson连接客户端
      */
@@ -33,21 +34,21 @@ public abstract class AppContext {
      */
     private TaskProcessor taskProcessor;
 
-    public AppContext(Config config) {
+    public AppContext(Properties config) {
         this.config = config;
     }
 
-    public AppContext(Config config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
+    public AppContext(Properties config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         this.config = config;
         this.redissonClient = redissonClient;
         this.taskProcessor = taskProcessor;
     }
 
-    public Config getConfig() {
+    public Properties getConfig() {
         return config;
     }
 
-    public void setConfig(Config config) {
+    public void setConfig(Properties config) {
         this.config = config;
     }
 

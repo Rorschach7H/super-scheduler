@@ -1,10 +1,10 @@
 package com.meixiaoxi.scheduler.store.jdbc.datasource;
 
-import com.meixiaoxi.scheduler.core.Config;
-import com.meixiaoxi.scheduler.core.constant.ExtConfig;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import org.h2.jdbcx.JdbcDataSource;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,11 +17,11 @@ public class H2DataSourceProvider implements DataSourceProvider {
 
     private static final Object lock = new Object();
 
-    public DataSource getDataSource(Config config) {
+    public DataSource getDataSource(SchedulerConfig config) {
 
-        String url = config.getParameter(ExtConfig.JDBC_URL);
-        String username = config.getParameter(ExtConfig.JDBC_USERNAME);
-        String password = config.getParameter(ExtConfig.JDBC_PASSWORD);
+        String url = "";
+        String username = "";
+        String password = "";
 
         String cachedKey = url + username + password;
 
@@ -45,11 +45,11 @@ public class H2DataSourceProvider implements DataSourceProvider {
         return dataSource;
     }
 
-    private DataSource createDataSource(Config config) throws ClassNotFoundException {
+    private DataSource createDataSource(SchedulerConfig config) throws ClassNotFoundException {
 
-        String url = config.getParameter(ExtConfig.JDBC_URL);
-        String username = config.getParameter(ExtConfig.JDBC_USERNAME);
-        String password = config.getParameter(ExtConfig.JDBC_PASSWORD);
+        String url = "";
+        String username = "";
+        String password = "";
 
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setUrl(url);
