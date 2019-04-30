@@ -2,7 +2,7 @@ package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
-import com.meixiaoxi.scheduler.task.network.server.ServerMessageInitializer;
+import com.meixiaoxi.scheduler.task.server.ServerMessageInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

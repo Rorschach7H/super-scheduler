@@ -1,7 +1,7 @@
-package com.meixiaoxi.scheduler.task.network.client;
+package com.meixiaoxi.scheduler.client;
 
-import com.meixiaoxi.scheduler.task.network.Decoder;
-import com.meixiaoxi.scheduler.task.network.Encoder;
+import com.meixiaoxi.scheduler.handler.Decoder;
+import com.meixiaoxi.scheduler.handler.Encoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
