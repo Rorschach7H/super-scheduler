@@ -1,7 +1,7 @@
 package com.meixiaoxi.scheduler.store.jdbc;
 
 import com.meixiaoxi.scheduler.common.FileUtil;
-import com.meixiaoxi.scheduler.core.constant.Constants;
+import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public abstract class JdbcAbstractAccess {
     protected String readSqlFile(String path) {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
         try {
-            return FileUtil.read(is, Constants.CHARSET);
+            return FileUtil.read(is, ConstantsUtil.CHARSET);
         } catch (IOException e) {
             throw new RuntimeException("Read sql file : [" + path + "] error ", e);
         }

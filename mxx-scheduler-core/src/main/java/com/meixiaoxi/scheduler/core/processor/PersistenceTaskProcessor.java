@@ -1,9 +1,9 @@
 package com.meixiaoxi.scheduler.core.processor;
 
 import com.alibaba.fastjson.JSON;
-import com.meixiaoxi.scheduler.store.jdbc.PersistenceHandler;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
-import com.meixiaoxi.scheduler.core.model.Task;
+import com.meixiaoxi.scheduler.core.task.TaskOperate;
+import com.meixiaoxi.scheduler.core.task.domain.TaskPo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -23,17 +23,17 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
 
     private static Logger log = LoggerFactory.getLogger(PersistenceTaskProcessor.class);
 
-    private PersistenceHandler persistenceHandler;
+    private TaskOperate taskOperate;
 
-    public PersistenceTaskProcessor(RedissonClient redissonClient, PersistenceHandler persistenceHandler) {
+    public PersistenceTaskProcessor(RedissonClient redissonClient, TaskOperate taskOperate) {
         this.redissonClient = redissonClient;
-        this.persistenceHandler = persistenceHandler;
+        this.taskOperate = taskOperate;
     }
 
-    public boolean addTask(Task taskInfo) {
+    public boolean addTask(TaskPo taskInfo) {
         try {
             if (super.addTask(taskInfo)) {
-                return persistenceHandler.add(taskInfo);
+                return taskOperate.insert(taskInfo);
             }
         } catch (Exception e) {
             log.error("添加任务出现异常！taskInfo=" + JSON.toJSONString(taskInfo), e);
@@ -49,11 +49,11 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
      * @param taskGroup
      * @param handler
      */
-    public List<Task> executeTask(String taskGroup, TaskExecuteHandler handler) {
+    public List<TaskPo> executeTask(String taskGroup, TaskExecuteHandler handler) {
         try {
-            List<Task> taskInfoList = super.executeTask(taskGroup, handler);
+            List<TaskPo> taskInfoList = super.executeTask(taskGroup, handler);
             if (CollectionUtils.isNotEmpty(taskInfoList)) {
-                persistenceHandler.update(taskInfoList);
+                taskOperate.updateBatch(taskInfoList);
             }
             return taskInfoList;
         } catch (Exception e) {
@@ -63,12 +63,12 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
     }
 
     @Override
-    public void addUnReadyTaskToQueue(List<Task> tasks) {
+    public void addUnReadyTaskToQueue(List<TaskPo> tasks) {
         log.info("将未就绪任务添加到执行队列tasks={}", JSON.toJSONString(tasks));
         try {
-            for (Task task : tasks) {
-                task.setExecuteState(Task.ExecuteState.WAIT_EXECUTE.getCode());
-                if (persistenceHandler.update(task)) {
+            for (TaskPo task : tasks) {
+                task.setExecuteState(TaskPo.ExecuteState.WAIT_EXECUTE.getCode());
+                if (taskOperate.update(task)) {
                     super.addTask(task);
                 }
             }

@@ -4,7 +4,6 @@ import com.meixiaoxi.scheduler.SchedulerConfig;
 import org.h2.jdbcx.JdbcDataSource;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

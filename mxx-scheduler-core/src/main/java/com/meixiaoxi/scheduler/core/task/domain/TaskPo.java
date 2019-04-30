@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.core.model;
+package com.meixiaoxi.scheduler.core.task.domain;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @Date 2018/7/6 10:14
  * @Version V1.0
  */
-public class Task {
+public class TaskPo {
 
     /**
      * 任务ID

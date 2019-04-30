@@ -1,11 +1,9 @@
 package com.meixiaoxi.scheduler.store.cache;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.exception.RedissonException;
+import com.meixiaoxi.scheduler.store.cache.exception.RedissonException;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-
-import java.util.Properties;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -20,7 +18,7 @@ import java.util.Properties;
  * -----------------------------------------------------------
  * 2019-03-01    meixiaoxi       v1.0.0           创建
  */
-public final class RedissonManager {
+public final class RedissonFactory {
 
     private static final Object lock = new Object();
 

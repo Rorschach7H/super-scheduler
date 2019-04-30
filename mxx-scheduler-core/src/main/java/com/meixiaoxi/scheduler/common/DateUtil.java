@@ -1,7 +1,8 @@
 package com.meixiaoxi.scheduler.common;
 
 
-import com.meixiaoxi.scheduler.exception.TaskTimeException;
+import com.meixiaoxi.scheduler.common.exception.TaskTimeException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

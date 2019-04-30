@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.exception;
+package com.meixiaoxi.scheduler.lock.exception;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi

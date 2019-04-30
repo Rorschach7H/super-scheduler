@@ -1,7 +1,7 @@
 package com.meixiaoxi.scheduler.core.processor;
 
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
-import com.meixiaoxi.scheduler.core.model.Task;
+import com.meixiaoxi.scheduler.core.task.domain.TaskPo;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface TaskProcessor {
      * @param taskInfo
      * @return
      */
-    boolean addTask(Task taskInfo);
+    boolean addTask(TaskPo taskInfo);
 
     /**
      * 删除任务
@@ -37,12 +37,12 @@ public interface TaskProcessor {
      * @param taskGroup
      * @param handler
      */
-    List<Task> executeTask(String taskGroup, TaskExecuteHandler handler);
+    List<TaskPo> executeTask(String taskGroup, TaskExecuteHandler handler);
 
     /**
      * 添加未就绪任务为等待执行
      *
      * @param taskList
      */
-    void addUnReadyTaskToQueue(List<Task> taskList);
+    void addUnReadyTaskToQueue(List<TaskPo> taskList);
 }

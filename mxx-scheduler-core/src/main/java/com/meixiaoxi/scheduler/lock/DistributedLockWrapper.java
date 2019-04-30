@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.lock;
 
-import com.meixiaoxi.scheduler.store.cache.RedissonManager;
+import com.meixiaoxi.scheduler.store.cache.RedissonFactory;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
@@ -25,7 +25,7 @@ public class DistributedLockWrapper implements DistributedLock {
     }
 
     public DistributedLockWrapper(String key) {
-        RedissonClient redissonClient = RedissonManager.getRedissonClient();
+        RedissonClient redissonClient = RedissonFactory.getRedissonClient();
         this.lock = redissonClient.getLock(key);
     }
 

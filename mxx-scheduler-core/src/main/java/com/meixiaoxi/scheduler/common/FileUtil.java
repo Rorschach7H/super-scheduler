@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.common;
 
-import com.meixiaoxi.scheduler.core.constant.Constants;
+import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
@@ -59,7 +59,7 @@ public class FileUtil {
         String data = null;
         while ((data = br.readLine()) != null) {
             content.append(data);
-            content.append(Constants.LINE_SEPARATOR);
+            content.append(ConstantsUtil.LINE_SEPARATOR);
         }
         return content.toString();
     }

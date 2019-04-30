@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.meixiaoxi.scheduler.common.DateUtil;
 import com.meixiaoxi.scheduler.common.TaskConstUtil;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
-import com.meixiaoxi.scheduler.core.model.Task;
+import com.meixiaoxi.scheduler.core.task.domain.TaskPo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RScoredSortedSet;
@@ -40,7 +40,7 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
     }
 
     @Override
-    public boolean addTask(Task taskInfo) {
+    public boolean addTask(TaskPo taskInfo) {
         try {
             if (check(taskInfo)) {
                 long timestamp = DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), TaskConstUtil.TIME_YYYYMMDDHHMMSS);
@@ -69,10 +69,10 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
      * @param handler
      */
     @Override
-    public List<Task> executeTask(String taskGroup, TaskExecuteHandler handler) {
+    public List<TaskPo> executeTask(String taskGroup, TaskExecuteHandler handler) {
         try {
-            List<Task> taskInfoList = popTaskList(taskGroup);
-            for (Task taskInfo : taskInfoList) {
+            List<TaskPo> taskInfoList = popTaskList(taskGroup);
+            for (TaskPo taskInfo : taskInfoList) {
                 if (handler.executeTask(taskInfo)) {
                     taskInfo.setExecuteState((byte) 1);
                     continue;
@@ -100,12 +100,12 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
         return null;
     }
 
-    private List<Task> popTaskList(String taskGroup) {
+    private List<TaskPo> popTaskList(String taskGroup) {
         long timestamp = new Date().getTime() / 1000;
-        List<Task> taskInfoList = new ArrayList<>();
+        List<TaskPo> taskInfoList = new ArrayList<>();
         while (true) {
             try {
-                Set<Task> taskInfoSet = getAndRemoveTaskByScore(taskGroup, timestamp);
+                Set<TaskPo> taskInfoSet = getAndRemoveTaskByScore(taskGroup, timestamp);
                 if (CollectionUtils.isEmpty(taskInfoSet)) {
                     break;
                 }
@@ -127,19 +127,19 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
      * @param timestamp
      * @return
      */
-    private Set<Task> getAndRemoveTaskByScore(String taskGroup, long timestamp) {
+    private Set<TaskPo> getAndRemoveTaskByScore(String taskGroup, long timestamp) {
         RScoredSortedSet<String> sortedSet = redissonClient.getScoredSortedSet(taskGroup + postfix);
         Collection<ScoredEntry<String>> taskInfoList =
                 sortedSet.entryRange(0, false, timestamp, true);
         if (CollectionUtils.isNotEmpty(taskInfoList)) {
             //如果获取到最要执行的任务，那么进行从任务组出移除
             sortedSet.removeRangeByScore(0, false, timestamp, true);
-            return taskInfoList.stream().map(entry -> JSON.parseObject(entry.getValue(), Task.class)).collect(Collectors.toSet());
+            return taskInfoList.stream().map(entry -> JSON.parseObject(entry.getValue(), TaskPo.class)).collect(Collectors.toSet());
         }
         return null;
     }
 
-    private boolean check(Task taskInfo) {
+    private boolean check(TaskPo taskInfo) {
         if (StringUtils.isBlank(taskInfo.getExecuteTime())) {
             log.warn("taskInfo无执行时间！");
             return false;

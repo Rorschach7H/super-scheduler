@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.core.constant;
+package com.meixiaoxi.scheduler.constant;
 
 import java.util.regex.Pattern;
 
@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
  * -----------------------------------------------------------
  * 2019-04-28    meixiaoxi       v1.0.0           创建
  */
-public interface Constants {
-    Pattern COMMA_SPLIT_PATTERN = Pattern.compile("\\s*[,]+\\s*");
-    String LINE_SEPARATOR = System.getProperty("line.separator");
-    String CHARSET = "UTF-8";
+public interface ConstantsUtil {
+    public Pattern COMMA_SPLIT_PATTERN = Pattern.compile("\\s*[,]+\\s*");
+    public String LINE_SEPARATOR = System.getProperty("line.separator");
+    public String CHARSET = "UTF-8";
 }
