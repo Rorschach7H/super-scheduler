@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler.core.task;
 
-import com.meixiaoxi.scheduler.core.task.domain.TaskPo;
+import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
 import com.meixiaoxi.scheduler.spi.SPI;
 
@@ -16,17 +16,17 @@ import java.util.List;
  */
 @SPI(defaultValue = "mysql")
 public interface TaskOperate {
-    boolean insert(TaskPo task);
+    boolean insert(RunExecutingTask task);
 
-    boolean insertBatch(List<TaskPo> task);
+    boolean insertBatch(List<RunExecutingTask> task);
 
-    boolean update(TaskPo task);
+    boolean update(RunExecutingTask task);
 
-    boolean updateBatch(List<TaskPo> tasks);
+    boolean updateBatch(List<RunExecutingTask> tasks);
 
     int delete(Long taskId);
 
-    TaskPo select(Long id);
+    RunExecutingTask select(Long id);
 
-    List<TaskPo> select(TaskQuery query);
+    List<RunExecutingTask> select(TaskQuery query);
 }

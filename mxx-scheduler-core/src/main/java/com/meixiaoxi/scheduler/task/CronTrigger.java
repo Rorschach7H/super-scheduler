@@ -1,8 +1,11 @@
-package com.meixiaoxi.scheduler.cron;
+package com.meixiaoxi.scheduler.task;
 
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * cron触发器
+ */
 public class CronTrigger implements Trigger {
 
     private final CronSequenceGenerator sequenceGenerator;

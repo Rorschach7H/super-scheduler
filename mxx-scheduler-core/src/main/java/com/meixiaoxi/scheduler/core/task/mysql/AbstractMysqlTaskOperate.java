@@ -1,7 +1,7 @@
 package com.meixiaoxi.scheduler.core.task.mysql;
 
 import com.meixiaoxi.scheduler.core.task.TaskOperate;
-import com.meixiaoxi.scheduler.core.task.domain.TaskPo;
+import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
 import com.meixiaoxi.scheduler.store.jdbc.JdbcAbstractAccess;
 
@@ -29,22 +29,22 @@ public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements Task
 
 
     @Override
-    public boolean insert(TaskPo task) {
+    public boolean insert(RunExecutingTask task) {
         return false;
     }
 
     @Override
-    public boolean insertBatch(List<TaskPo> task) {
+    public boolean insertBatch(List<RunExecutingTask> task) {
         return false;
     }
 
     @Override
-    public boolean update(TaskPo task) {
+    public boolean update(RunExecutingTask task) {
         return false;
     }
 
     @Override
-    public boolean updateBatch(List<TaskPo> tasks) {
+    public boolean updateBatch(List<RunExecutingTask> tasks) {
         return false;
     }
 
@@ -54,12 +54,12 @@ public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements Task
     }
 
     @Override
-    public TaskPo select(Long id) {
+    public RunExecutingTask select(Long id) {
         return null;
     }
 
     @Override
-    public List<TaskPo> select(TaskQuery query) {
+    public List<RunExecutingTask> select(TaskQuery query) {
         return null;
     }
 }

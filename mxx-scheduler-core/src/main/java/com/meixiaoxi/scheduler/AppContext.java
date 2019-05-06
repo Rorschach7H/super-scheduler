@@ -24,10 +24,6 @@ public abstract class AppContext {
      * 系统配置
      */
     private Properties config;
-    /**
-     * redisson连接客户端
-     */
-    private RedissonClient redissonClient;
 
     /**
      * 任务处理
@@ -40,7 +36,6 @@ public abstract class AppContext {
 
     public AppContext(Properties config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         this.config = config;
-        this.redissonClient = redissonClient;
         this.taskProcessor = taskProcessor;
     }
 
@@ -50,14 +45,6 @@ public abstract class AppContext {
 
     public void setConfig(Properties config) {
         this.config = config;
-    }
-
-    public RedissonClient getRedissonClient() {
-        return redissonClient;
-    }
-
-    public void setRedissonClient(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
     }
 
     public TaskProcessor getTaskProcessor() {
