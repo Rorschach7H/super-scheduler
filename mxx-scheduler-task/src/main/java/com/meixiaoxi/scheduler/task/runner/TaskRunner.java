@@ -17,7 +17,7 @@ import com.meixiaoxi.scheduler.AppContext;
  */
 public abstract class TaskRunner<Context extends AppContext> {
 
-    private Runnable runnable;
+    protected Runnable runnable;
 
     Context context;
     private TaskRunner nextRunner;
@@ -26,13 +26,7 @@ public abstract class TaskRunner<Context extends AppContext> {
         runnable = TaskRunner.this::run;
     }
 
-    public abstract void run();
-
-    void runNext() {
-        if (nextRunner != null) {
-            nextRunner.run();
-        }
-    }
+    protected abstract void run();
 
     public void setNext(TaskRunner next) {
         nextRunner = next;
@@ -44,5 +38,8 @@ public abstract class TaskRunner<Context extends AppContext> {
 
     public void start() {
         new Thread(this.runnable).start();
+        if(nextRunner != null){
+            nextRunner.start();
+        }
     }
 }

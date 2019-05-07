@@ -2,6 +2,8 @@ package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -18,6 +20,8 @@ import com.meixiaoxi.scheduler.task.TaskAppContext;
  */
 public class InitContextRunner extends TaskRunner<TaskAppContext> {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     private SchedulerConfig config;
 
     public InitContextRunner(SchedulerConfig config) {
@@ -25,8 +29,8 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     }
 
     @Override
-    public void run() {
+    protected void run() {
+        log.info("initContextRunner start...");
         context = new TaskAppContext(config);
-        runNext();
     }
 }

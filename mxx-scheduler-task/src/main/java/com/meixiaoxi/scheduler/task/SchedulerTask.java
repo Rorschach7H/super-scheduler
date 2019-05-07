@@ -35,6 +35,7 @@ public class SchedulerTask {
         //初始化任务队列扫描启动器
         ScanQueueTaskRunner taskRunner = new ScanQueueTaskRunner(context);
         //进行任务启动编排
+        initContextRunner.setNext(serverRunner);
         serverRunner.setNext(taskRunner);
 
         //启动任务链

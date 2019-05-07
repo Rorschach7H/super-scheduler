@@ -19,6 +19,6 @@ public class NettyServerRunnerTest {
 
     public static void main(String[] args) {
         NettyServerRunner runner = new NettyServerRunner(null);
-        runner.run();
+        runner.start();
     }
 }

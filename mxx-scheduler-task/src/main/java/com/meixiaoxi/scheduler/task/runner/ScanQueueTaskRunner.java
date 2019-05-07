@@ -2,6 +2,8 @@ package com.meixiaoxi.scheduler.task.runner;
 
 
 import com.meixiaoxi.scheduler.task.TaskAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -18,12 +20,14 @@ import com.meixiaoxi.scheduler.task.TaskAppContext;
  */
 public class ScanQueueTaskRunner extends TaskRunner<TaskAppContext> {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     public ScanQueueTaskRunner(TaskAppContext context) {
         this.context = context;
     }
 
     @Override
-    public void run() {
-        runNext();
+    protected void run() {
+        log.info("scanQueueTaskRunner start...");
     }
 }

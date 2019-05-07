@@ -8,6 +8,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 
@@ -26,12 +28,15 @@ import java.net.InetSocketAddress;
  */
 public class NettyServerRunner extends TaskRunner<TaskAppContext> {
 
+    private Logger log = LoggerFactory.getLogger(NettyServerRunner.class);
+
     public NettyServerRunner(TaskAppContext context) {
         this.context = context;
     }
 
     @Override
-    public void run() {
+    protected void run() {
+        log.info("nettyServerRunner start...");
         SchedulerConfig config = null;
         int port = 9088;
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -48,6 +53,5 @@ public class NettyServerRunner extends TaskRunner<TaskAppContext> {
                 channelFuture.cause().printStackTrace();
             }
         });
-        runNext();
     }
 }
