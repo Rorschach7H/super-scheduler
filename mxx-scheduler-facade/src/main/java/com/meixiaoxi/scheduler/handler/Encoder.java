@@ -7,6 +7,8 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
+import java.nio.charset.StandardCharsets;
+
 @ChannelHandler.Sharable
 public class Encoder extends MessageToByteEncoder<Message> {
 
@@ -23,7 +25,9 @@ public class Encoder extends MessageToByteEncoder<Message> {
         out.writeInt(message.getContent().length());
         out.writeBytes(header.getSessionId().getBytes());
 
+        byte[] bytes = message.getContent().getBytes(StandardCharsets.UTF_8);
+        out.writeInt(bytes.length);
         // 写入消息主体信息
-        out.writeBytes(message.getContent().getBytes());
+        out.writeBytes(bytes);
     }
 }

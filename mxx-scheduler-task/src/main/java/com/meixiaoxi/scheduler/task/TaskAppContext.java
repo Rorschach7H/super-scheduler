@@ -1,6 +1,7 @@
 package com.meixiaoxi.scheduler.task;
 
 import com.meixiaoxi.scheduler.AppContext;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 import org.redisson.api.RedissonClient;
 
@@ -21,25 +22,14 @@ import java.util.*;
  */
 public class TaskAppContext extends AppContext {
 
-    public Map<String, String> taskExecuteHandlerMap = new HashMap<>();
+    public Map<String, Runnable> runnerLinkedMap = new HashMap<>();
     public List<String> executeHandlerAlisList = new ArrayList<>();
 
-    public TaskAppContext(Properties config) {
+    public TaskAppContext(SchedulerConfig config) {
         super(config);
     }
 
-    public TaskAppContext(Properties config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
+    public TaskAppContext(SchedulerConfig config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         super(config, redissonClient, taskProcessor);
-    }
-
-    public void putTaskExecuteHandler(String alis, String fullClassName) {
-        taskExecuteHandlerMap.put(alis, fullClassName);
-        executeHandlerAlisList.add(alis);
-    }
-
-    public String removeTaskExecuteHandler(String alis) {
-        String fullClassName = taskExecuteHandlerMap.remove(alis);
-        executeHandlerAlisList.remove(alis);
-        return fullClassName;
     }
 }

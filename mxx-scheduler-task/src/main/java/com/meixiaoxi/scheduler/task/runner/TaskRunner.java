@@ -17,10 +17,13 @@ import com.meixiaoxi.scheduler.AppContext;
  */
 public abstract class TaskRunner<Context extends AppContext> {
 
+    private Runnable runnable;
+
     Context context;
     private TaskRunner nextRunner;
 
     TaskRunner() {
+        runnable = TaskRunner.this::run;
     }
 
     public abstract void run();
@@ -37,5 +40,9 @@ public abstract class TaskRunner<Context extends AppContext> {
 
     public Context getContext() {
         return context;
+    }
+
+    public void start() {
+        new Thread(this.runnable).start();
     }
 }

@@ -23,27 +23,27 @@ public abstract class AppContext {
     /**
      * 系统配置
      */
-    private Properties config;
+    private SchedulerConfig config;
 
     /**
      * 任务处理
      */
     private TaskProcessor taskProcessor;
 
-    public AppContext(Properties config) {
+    public AppContext(SchedulerConfig config) {
         this.config = config;
     }
 
-    public AppContext(Properties config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
+    public AppContext(SchedulerConfig config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
         this.config = config;
         this.taskProcessor = taskProcessor;
     }
 
-    public Properties getConfig() {
+    public SchedulerConfig getConfig() {
         return config;
     }
 
-    public void setConfig(Properties config) {
+    public void setConfig(SchedulerConfig config) {
         this.config = config;
     }
 

@@ -26,5 +26,7 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
 
     @Override
     public void run() {
+        context = new TaskAppContext(config);
+        runNext();
     }
 }

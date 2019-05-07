@@ -38,6 +38,6 @@ public class SchedulerTask {
         serverRunner.setNext(taskRunner);
 
         //启动任务链
-        initContextRunner.run();
+        initContextRunner.start();
     }
 }

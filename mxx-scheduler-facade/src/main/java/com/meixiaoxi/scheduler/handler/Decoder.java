@@ -24,12 +24,12 @@ public class Decoder extends ByteToMessageDecoder {
 
         // 组装协议头
         Header header = new Header(version, contentLength, sessionId);
-
+        // 消息内容长度
+        int length = in.readInt();
+        byte[] content = new byte[length];
         // 读取消息内容
-        byte[] content = in.readBytes(in.readableBytes()).array();
-
+        in.readBytes(content);
         Message message = new Message(header, new String(content));
-
         out.add(message);
     }
 }
