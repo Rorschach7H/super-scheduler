@@ -27,7 +27,6 @@ public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements Task
         super(dataSource);
     }
 
-
     @Override
     public boolean insert(RunExecutingTask task) {
         return false;

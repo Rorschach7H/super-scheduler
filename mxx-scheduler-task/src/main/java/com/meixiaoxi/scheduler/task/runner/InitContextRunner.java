@@ -1,7 +1,10 @@
 package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
+import com.meixiaoxi.scheduler.core.processor.PersistenceTaskProcessor;
+import com.meixiaoxi.scheduler.store.cache.RedissonFactory;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +34,7 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     @Override
     protected void run(TaskAppContext context) {
         log.info("initContextRunner start...");
-        config.put("hello", "world");
+        PersistenceTaskProcessor taskProcessor = new PersistenceTaskProcessor(config);
     }
 
     public void start() {

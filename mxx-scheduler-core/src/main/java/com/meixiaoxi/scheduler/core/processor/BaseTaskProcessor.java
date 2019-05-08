@@ -1,11 +1,13 @@
 package com.meixiaoxi.scheduler.core.processor;
 
 import com.alibaba.fastjson.JSON;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.common.DateUtil;
 import com.meixiaoxi.scheduler.common.TaskConstUtil;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
 import com.meixiaoxi.scheduler.core.task.domain.ExecuteState;
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
+import com.meixiaoxi.scheduler.store.cache.RedissonFactory;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RScoredSortedSet;
@@ -31,13 +33,10 @@ public abstract class BaseTaskProcessor implements TaskProcessor {
 
     private static String postfix = "_nmslwsnd";
 
-    RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    public BaseTaskProcessor() {
-    }
-
-    public BaseTaskProcessor(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
+    public BaseTaskProcessor(SchedulerConfig config) {
+        redissonClient = RedissonFactory.getRedissonClient(config);
     }
 
     @Override

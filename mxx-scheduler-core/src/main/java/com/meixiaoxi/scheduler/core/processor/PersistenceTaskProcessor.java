@@ -1,6 +1,7 @@
 package com.meixiaoxi.scheduler.core.processor;
 
 import com.alibaba.fastjson.JSON;
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
 import com.meixiaoxi.scheduler.core.task.TaskOperate;
 import com.meixiaoxi.scheduler.core.task.domain.ExecuteState;
@@ -26,8 +27,8 @@ public class PersistenceTaskProcessor extends BaseTaskProcessor {
 
     private TaskOperate taskOperate;
 
-    public PersistenceTaskProcessor(RedissonClient redissonClient, TaskOperate taskOperate) {
-        this.redissonClient = redissonClient;
+    public PersistenceTaskProcessor(SchedulerConfig config) {
+        super(config);
         this.taskOperate = taskOperate;
     }
 

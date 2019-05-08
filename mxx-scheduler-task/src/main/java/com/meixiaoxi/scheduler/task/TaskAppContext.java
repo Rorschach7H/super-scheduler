@@ -29,7 +29,7 @@ public class TaskAppContext extends AppContext {
         super(config);
     }
 
-    public TaskAppContext(SchedulerConfig config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
-        super(config, redissonClient, taskProcessor);
+    public TaskAppContext(SchedulerConfig config, TaskProcessor taskProcessor) {
+        super(config, taskProcessor);
     }
 }

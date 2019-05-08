@@ -4,6 +4,7 @@ import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.store.cache.exception.RedissonException;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -29,7 +30,7 @@ public final class RedissonFactory {
      */
     private static void init(SchedulerConfig config) {
         try {
-            org.redisson.config.Config redissonConfig = new org.redisson.config.Config();
+            Config redissonConfig = new Config();
 //            redissonConfig.useSentinelServers()
 //                    .setMasterName(config.getParameter(ExtConfig))
 //                    .addSentinelAddress(redisConfig.getRedisUrls())

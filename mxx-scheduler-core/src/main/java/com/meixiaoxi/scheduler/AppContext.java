@@ -34,7 +34,7 @@ public abstract class AppContext {
         this.config = config;
     }
 
-    public AppContext(SchedulerConfig config, RedissonClient redissonClient, TaskProcessor taskProcessor) {
+    public AppContext(SchedulerConfig config, TaskProcessor taskProcessor) {
         this.config = config;
         this.taskProcessor = taskProcessor;
     }
