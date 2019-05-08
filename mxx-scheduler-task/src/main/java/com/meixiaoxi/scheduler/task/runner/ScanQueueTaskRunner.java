@@ -22,12 +22,8 @@ public class ScanQueueTaskRunner extends TaskRunner<TaskAppContext> {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public ScanQueueTaskRunner(TaskAppContext context) {
-        this.context = context;
-    }
-
     @Override
-    protected void run() {
+    protected void run(TaskAppContext context) {
         log.info("scanQueueTaskRunner start...");
     }
 }

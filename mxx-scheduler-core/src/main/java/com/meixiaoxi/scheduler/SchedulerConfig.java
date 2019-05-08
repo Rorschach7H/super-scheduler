@@ -1,7 +1,6 @@
 package com.meixiaoxi.scheduler;
 
 import com.meixiaoxi.scheduler.common.exception.ConfigException;
-import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,67 +20,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SchedulerConfig extends ConcurrentHashMap<String, Object> {
     private int port = 9088;
 
-    public Integer getIntProperty(String key) {
-        Object value = get(key);
-        if (value instanceof Integer) {
-            return (Integer) value;
-        } else {
-            throw new ConfigException("the key with property type is not Integer!");
-        }
-    }
-
-    public Short getShortProperty(String key) {
-        Object value = get(key);
-        if (value instanceof Short) {
-            return (Short) value;
-        } else {
-            throw new ConfigException("the key with property type is not Short!");
-        }
-    }
-
-    public Long getLongProperty(String key) {
-        Object value = get(key);
-        if (value instanceof Long) {
-            return (Long) value;
-        } else {
-            throw new ConfigException("the key with property type is not Long!");
-        }
-    }
-
-    public Float getFloatProperty(String key) {
-        Object value = get(key);
-        if (value instanceof Float) {
-            return (Float) value;
-        } else {
-            throw new ConfigException("the key with property type is not Float!");
-        }
-    }
-
-    public Double getDoubleProperty(String key) {
-        Object value = get(key);
-        if (value instanceof Double) {
-            return (Double) value;
-        } else {
-            throw new ConfigException("the key with property type is not Double!");
-        }
-    }
-
-    public String getStringProperty(String key) {
+    @SuppressWarnings("unchecked")
+    public <T> T getProperty(String key, Class<T> clazz) {
         Object value = get(key);
         if (value != null) {
-            return value + "";
-        } else {
-            return null;
+            if (clazz == value.getClass()) {
+                return (T) value;
+            } else {
+                throw new ConfigException("The value type with key-" + key + " is not [" + clazz.getName() + "]!");
+            }
         }
-    }
-
-    public String[] getStringArrayProperty(String key) {
-        Object value = get(key);
-        if (value != null) {
-            return ConstantsUtil.COMMA_SPLIT_PATTERN.split(value + "");
-        } else {
-            return null;
-        }
+        return null;
     }
 
     public int getPort() {

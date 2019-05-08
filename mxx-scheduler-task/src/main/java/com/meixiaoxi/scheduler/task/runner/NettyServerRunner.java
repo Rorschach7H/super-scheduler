@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.task.runner;
 
+import com.alibaba.fastjson.JSON;
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
 import com.meixiaoxi.scheduler.task.server.ServerMessageInitializer;
@@ -30,14 +31,11 @@ public class NettyServerRunner extends TaskRunner<TaskAppContext> {
 
     private Logger log = LoggerFactory.getLogger(NettyServerRunner.class);
 
-    public NettyServerRunner(TaskAppContext context) {
-        this.context = context;
-    }
-
     @Override
-    protected void run() {
+    protected void run(TaskAppContext context) {
         log.info("nettyServerRunner start...");
-        SchedulerConfig config = null;
+        SchedulerConfig config = context.getConfig();
+        log.info("context: {}", JSON.toJSONString(context));
         int port = 9088;
         NioEventLoopGroup group = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();

@@ -1,9 +1,11 @@
 package com.meixiaoxi.scheduler.task;
 
+import com.meixiaoxi.scheduler.AppContext;
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.runner.InitContextRunner;
 import com.meixiaoxi.scheduler.task.runner.NettyServerRunner;
 import com.meixiaoxi.scheduler.task.runner.ScanQueueTaskRunner;
+import com.meixiaoxi.scheduler.task.runner.TaskRunner;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -29,11 +31,10 @@ public class SchedulerTask {
     public void start() {
         //初始化系统上下文生成器
         InitContextRunner initContextRunner = new InitContextRunner(config);
-        TaskAppContext context = initContextRunner.getContext();
         //初始化网络服务器连接启动器
-        NettyServerRunner serverRunner = new NettyServerRunner(context);
+        TaskRunner<TaskAppContext> serverRunner = new NettyServerRunner();
         //初始化任务队列扫描启动器
-        ScanQueueTaskRunner taskRunner = new ScanQueueTaskRunner(context);
+        TaskRunner<TaskAppContext> taskRunner = new ScanQueueTaskRunner();
         //进行任务启动编排
         initContextRunner.setNext(serverRunner);
         serverRunner.setNext(taskRunner);

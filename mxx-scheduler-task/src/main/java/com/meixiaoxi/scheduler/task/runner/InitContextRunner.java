@@ -29,8 +29,13 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     }
 
     @Override
-    protected void run() {
+    protected void run(TaskAppContext context) {
         log.info("initContextRunner start...");
-        context = new TaskAppContext(config);
+        config.put("hello", "world");
+    }
+
+    public void start() {
+        this.context = new TaskAppContext(config);
+        start(context);
     }
 }
