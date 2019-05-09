@@ -20,7 +20,7 @@ public class SqlTemplateFactory {
 
     public static SqlTemplate create(SchedulerConfig config) {
         DataSourceProvider dataSourceProvider =
-                ServiceLoader.load(DataSourceProvider.class, config.getProperty(ConfigSpiKeys.DATABASE_SPI));
+                ServiceLoader.load(DataSourceProvider.class, config);
         DataSource dataSource = dataSourceProvider.getDataSource(config);
         SqlTemplate sqlTemplate = HOLDER.get(dataSource);
 

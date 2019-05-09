@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.spi;
 
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import junit.framework.TestCase;
 
 /**
@@ -18,7 +19,12 @@ import junit.framework.TestCase;
 public class SpiTestService extends TestCase {
 
     public void testLoad() {
-        TestService testService = ServiceLoader.load(TestService.class, "service1");
+        SchedulerConfig config = new SchedulerConfig();
+        config.put("testService", "service1");
+        TestService testService = ServiceLoader.load(TestService.class, config);
         testService.sayHello();
+        config.put("testService", "service2");
+        TestService testService2 = ServiceLoader.load(TestService.class, config);
+        testService2.sayHello();
     }
 }

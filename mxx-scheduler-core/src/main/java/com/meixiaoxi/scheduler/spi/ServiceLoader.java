@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.spi;
 
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.common.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,18 +28,14 @@ public class ServiceLoader {
     private static final String LTS_INTERNAL = "internal";
     private static final String LTS_INTERNAL_DIRECTORY = LTS_DIRECTORY + LTS_INTERNAL + "/";
 
-    private static final ConcurrentMap<Class<?>, ServiceProvider> serviceMap = new ConcurrentHashMap<Class<?>, ServiceProvider>();
+    private static final ConcurrentMap<Class<?>, ServiceProvider> serviceMap = new ConcurrentHashMap<>();
     private static final ConcurrentMap<ServiceDefinition, Object> cachedObjectMap = new ConcurrentHashMap<>();
 
-
-    public static <T> T loadDefault(Class<T> clazz) {
-        return load(clazz, null);
-    }
-
     @SuppressWarnings("unchecked")
-    public static <T> T load(Class<T> clazz, String dynamicName) {
+    public static <T> T load(Class<T> clazz, SchedulerConfig config) {
+        ServiceProvider serviceProvider = getServiceProvider(clazz, config);
+        String dynamicName = config.getProperty(serviceProvider.dynamicKey);
         try {
-            ServiceProvider serviceProvider = getServiceProvider(clazz);
             if (StringUtils.isEmpty(dynamicName)) {
                 // 加载默认的
                 dynamicName = serviceProvider.defaultName;
@@ -67,16 +64,16 @@ public class ServiceLoader {
         }
     }
 
-    private static ServiceProvider getServiceProvider(Class<?> clazz) {
+    private static ServiceProvider getServiceProvider(Class<?> clazz, SchedulerConfig config) {
         ServiceProvider serviceProvider = serviceMap.get(clazz);
         if (serviceProvider == null) {
-            getServiceProviders(clazz);
+            getServiceProviders(clazz, config);
             serviceProvider = serviceMap.get(clazz);
         }
         return serviceProvider;
     }
 
-    private static void getServiceProviders(final Class<?> clazz) {
+    private static void getServiceProviders(final Class<?> clazz, SchedulerConfig config) {
 
         if (clazz == null)
             throw new IllegalArgumentException("type == null");
@@ -90,7 +87,7 @@ public class ServiceLoader {
 
         SPI spi = clazz.getAnnotation(SPI.class);
         String defaultName = spi.defaultName();
-        String dynamicName = spi.dynamicName();
+        String dynamicKey = spi.dynamicKey();
 
         final Set<URLDefinition> urlDefinitions = new HashSet<>();
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -104,7 +101,7 @@ public class ServiceLoader {
         if (serviceDefinitions.isEmpty()) {
             throw new IllegalStateException("Service loader could not load " + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
-        ServiceProvider serviceProvider = new ServiceProvider(clazz, defaultName, dynamicName, serviceDefinitions);
+        ServiceProvider serviceProvider = new ServiceProvider(defaultName, dynamicKey, serviceDefinitions);
         serviceMap.remove(clazz);   // 先移除
         serviceMap.put(clazz, serviceProvider);
     }
@@ -270,15 +267,13 @@ public class ServiceLoader {
     }
 
     private static final class ServiceProvider {
-        private final Class<?> clazz;
+        private final String dynamicKey;
         private final String defaultName;
-        private final String dynamicName;
         private final ConcurrentMap<String, ServiceDefinition> nameMaps;
 
-        public ServiceProvider(Class<?> clazz, String defaultName, String dynamicName, ConcurrentMap<String, ServiceDefinition> nameMaps) {
-            this.clazz = clazz;
+        ServiceProvider(String defaultName, String dynamicKey, ConcurrentMap<String, ServiceDefinition> nameMaps) {
+            this.dynamicKey = dynamicKey;
             this.defaultName = defaultName;
-            this.dynamicName = dynamicName;
             this.nameMaps = nameMaps;
         }
     }

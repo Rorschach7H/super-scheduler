@@ -17,6 +17,6 @@ public @interface SPI {
      */
     String defaultName();
 
-    String dynamicName() default "";
+    String dynamicKey();
 
 }
