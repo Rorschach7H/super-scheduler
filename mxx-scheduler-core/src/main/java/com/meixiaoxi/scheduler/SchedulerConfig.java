@@ -33,6 +33,11 @@ public class SchedulerConfig extends ConcurrentHashMap<String, Object> {
         return null;
     }
 
+    public String getProperty(String key) {
+        Object value = get(key);
+        return value == null ? null : value + "";
+    }
+
     public int getPort() {
         return port;
     }

@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.classloader.spi;
+package com.meixiaoxi.scheduler.spi;
 
 public class TestServiceImpl implements TestService {
 

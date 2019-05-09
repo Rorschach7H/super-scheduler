@@ -1,7 +1,7 @@
-package com.meixiaoxi.scheduler.classloader.config;
+package com.meixiaoxi.scheduler.config;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import org.junit.Test;
+import junit.framework.TestCase;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -16,9 +16,8 @@ import org.junit.Test;
  * -----------------------------------------------------------
  * 2019-05-08    meixiaoxi       v1.0.0           创建
  */
-public class SchedulerConfigTest {
+public class SchedulerConfigTest extends TestCase {
 
-    @Test
     public void testGetProperty(){
         SchedulerConfig config = new SchedulerConfig();
         config.put("hello1", "world");

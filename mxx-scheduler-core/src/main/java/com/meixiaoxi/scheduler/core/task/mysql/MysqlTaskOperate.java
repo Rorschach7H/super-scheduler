@@ -1,8 +1,7 @@
 package com.meixiaoxi.scheduler.core.task.mysql;
 
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.core.task.TaskOperate;
-
-import javax.sql.DataSource;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -19,7 +18,7 @@ import javax.sql.DataSource;
  */
 public class MysqlTaskOperate extends AbstractMysqlTaskOperate implements TaskOperate {
 
-    public MysqlTaskOperate(DataSource dataSource) {
-        super(dataSource);
+    public MysqlTaskOperate(SchedulerConfig config) {
+        super(config);
     }
 }

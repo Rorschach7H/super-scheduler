@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.store.jdbc;
 
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.common.FileUtil;
 import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 
@@ -13,11 +14,11 @@ import java.io.InputStream;
 public abstract class JdbcAbstractAccess {
 
     private SqlTemplate sqlTemplate;
-    private DataSource dataSource;
+    private SchedulerConfig schedulerConfig;
 
-    public JdbcAbstractAccess(DataSource dataSource) {
-        this.dataSource = dataSource;
-        this.sqlTemplate = SqlTemplateFactory.create(dataSource);
+    public JdbcAbstractAccess(SchedulerConfig schedulerConfig) {
+        this.schedulerConfig = schedulerConfig;
+        this.sqlTemplate = SqlTemplateFactory.create(schedulerConfig);
     }
 
     public SqlTemplate getSqlTemplate() {

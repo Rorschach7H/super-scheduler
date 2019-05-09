@@ -2,7 +2,6 @@ package com.meixiaoxi.scheduler.core.task;
 
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
-import com.meixiaoxi.scheduler.spi.SPI;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @Date 2018/8/28 10:05
  * @Version V1.0
  */
-@SPI(defaultValue = "mysql")
 public interface TaskOperate {
     boolean insert(RunExecutingTask task);
 

@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.core.task.mysql;
 
+import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.core.task.TaskOperate;
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
@@ -23,8 +24,8 @@ import java.util.List;
  */
 public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements TaskOperate {
 
-    public AbstractMysqlTaskOperate(DataSource dataSource) {
-        super(dataSource);
+    public AbstractMysqlTaskOperate(SchedulerConfig config) {
+        super(config);
     }
 
     @Override

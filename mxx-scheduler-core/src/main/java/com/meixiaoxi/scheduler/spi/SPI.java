@@ -15,6 +15,8 @@ public @interface SPI {
     /**
      * 默认扩展实现
      */
-    String defaultValue() default "";
+    String defaultName();
+
+    String dynamicName() default "";
 
 }

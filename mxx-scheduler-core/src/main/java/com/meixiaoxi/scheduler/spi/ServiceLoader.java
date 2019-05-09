@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * 参考lts中的spi实现机制
+ *
  * @author Robert HG (254963746@qq.com)on 12/23/15.
  */
 public class ServiceLoader {
@@ -25,53 +26,44 @@ public class ServiceLoader {
     private static final String LTS_DIRECTORY = "META-INF/mxxt/";
     private static final String LTS_INTERNAL = "internal";
     private static final String LTS_INTERNAL_DIRECTORY = LTS_DIRECTORY + LTS_INTERNAL + "/";
-    private static final String DEFAULT_IDENTITY = StringUtils.replace(java.util.UUID.randomUUID().toString(), "-", "").toUpperCase();
 
     private static final ConcurrentMap<Class<?>, ServiceProvider> serviceMap = new ConcurrentHashMap<Class<?>, ServiceProvider>();
-    private static final ConcurrentMap<IdentityUniqueKey, Object> cachedObjectMap = new ConcurrentHashMap<IdentityUniqueKey, Object>();
+    private static final ConcurrentMap<ServiceDefinition, Object> cachedObjectMap = new ConcurrentHashMap<>();
 
 
     public static <T> T loadDefault(Class<T> clazz) {
-        return load(clazz, "");
-    }
-
-    public static <T> T load(Class<T> clazz, String name) {
-        return load(clazz, name, DEFAULT_IDENTITY);
+        return load(clazz, null);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T load(Class<T> clazz, String name, String identity) {
+    public static <T> T load(Class<T> clazz, String dynamicName) {
         try {
             ServiceProvider serviceProvider = getServiceProvider(clazz);
-            if (StringUtils.isEmpty(name)) {
+            if (StringUtils.isEmpty(dynamicName)) {
                 // 加载默认的
-                name = serviceProvider.defaultName;
+                dynamicName = serviceProvider.defaultName;
             }
-            ServiceDefinition definition = serviceProvider.nameMaps.get(name);
+            ServiceDefinition definition = serviceProvider.nameMaps.get(dynamicName);
             if (definition == null) {
-                throw new IllegalStateException("Service loader could not load name:" + name + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
+                throw new IllegalStateException("Serviceloader could not load name:" + dynamicName + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
             }
-            // 用来保证每个节点都是一个各自的对象
-            IdentityUniqueKey uniqueKey = new IdentityUniqueKey(identity, definition);
 
-            Object obj = cachedObjectMap.get(uniqueKey);
+            Object obj = cachedObjectMap.get(definition);
             if (obj != null) {
                 return (T) obj;
             }
-            synchronized (definition) {
-                obj = cachedObjectMap.get(uniqueKey);
-                if (obj != null) {
-                    return (T) obj;
-                }
-                String className = definition.clazz;
-                ClassLoader classLoader = definition.classLoader;
-                //T srv = clazz.cast(ClassLoaderUtil.newInstance(classLoader, className));
-                T srv = ClassLoaderUtil.newInstance(classLoader, className);
-                cachedObjectMap.putIfAbsent(uniqueKey, srv);
-                return srv;
+            obj = cachedObjectMap.get(definition);
+            if (obj != null) {
+                return (T) obj;
             }
+            String className = definition.clazz;
+            ClassLoader classLoader = definition.classLoader;
+            T srv = ClassLoaderUtil.newInstance(classLoader, className);
+            cachedObjectMap.putIfAbsent(definition, srv);
+            return srv;
         } catch (Exception e) {
-            throw new IllegalStateException("Service loader could not load name:" + name + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
+            e.printStackTrace();
+            throw new IllegalStateException("Service loader could not load name:" + dynamicName + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
     }
 
@@ -84,7 +76,7 @@ public class ServiceLoader {
         return serviceProvider;
     }
 
-    public static Set<String> getServiceProviders(final Class<?> clazz) {
+    private static void getServiceProviders(final Class<?> clazz) {
 
         if (clazz == null)
             throw new IllegalArgumentException("type == null");
@@ -97,24 +89,24 @@ public class ServiceLoader {
         }
 
         SPI spi = clazz.getAnnotation(SPI.class);
-        String defaultName = spi.defaultValue();
+        String defaultName = spi.defaultName();
+        String dynamicName = spi.dynamicName();
 
-        final Set<URLDefinition> urlDefinitions = new HashSet<URLDefinition>();
+        final Set<URLDefinition> urlDefinitions = new HashSet<>();
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         urlDefinitions.addAll(collectExtensionUrls(LTS_DIRECTORY + clazz.getName(), classLoader));
         urlDefinitions.addAll(collectExtensionUrls(LTS_INTERNAL_DIRECTORY + clazz.getName(), classLoader));
 
-        final ConcurrentMap<String, ServiceDefinition> serviceDefinitions = new ConcurrentHashMap<String, ServiceDefinition>();
+        final ConcurrentMap<String, ServiceDefinition> serviceDefinitions = new ConcurrentHashMap<>();
         for (URLDefinition urlDefinition : urlDefinitions) {
             serviceDefinitions.putAll(parse(urlDefinition));
         }
         if (serviceDefinitions.isEmpty()) {
             throw new IllegalStateException("Service loader could not load " + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
-        ServiceProvider serviceProvider = new ServiceProvider(clazz, defaultName, serviceDefinitions);
+        ServiceProvider serviceProvider = new ServiceProvider(clazz, defaultName, dynamicName, serviceDefinitions);
         serviceMap.remove(clazz);   // 先移除
         serviceMap.put(clazz, serviceProvider);
-        return serviceDefinitions.keySet();
     }
 
     private static Map<String, ServiceDefinition> parse(URLDefinition urlDefinition) {
@@ -165,7 +157,7 @@ public class ServiceLoader {
                 configs = ClassLoader.getSystemResources(resourceName);
             }
 
-            Set<URLDefinition> urlDefinitions = new HashSet<URLDefinition>();
+            Set<URLDefinition> urlDefinitions = new HashSet<>();
             while (configs.hasMoreElements()) {
                 URL url = configs.nextElement();
                 final URI uri = url.toURI();
@@ -262,10 +254,9 @@ public class ServiceLoader {
 
             ServiceDefinition that = (ServiceDefinition) o;
 
-            if (name != null ? !name.equals(that.name) : that.name != null) return false;
-            if (clazz != null ? !clazz.equals(that.clazz) : that.clazz != null) return false;
-            return classLoader != null ? classLoader.equals(that.classLoader) : that.classLoader == null;
-
+            if (!Objects.equals(name, that.name)) return false;
+            if (!Objects.equals(clazz, that.clazz)) return false;
+            return Objects.equals(classLoader, that.classLoader);
         }
 
         @Override
@@ -278,42 +269,16 @@ public class ServiceLoader {
 
     }
 
-    private static class IdentityUniqueKey {
-        private String identity;
-        private ServiceDefinition definition;
-
-        public IdentityUniqueKey(String identity, ServiceDefinition definition) {
-            this.identity = identity;
-            this.definition = definition;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            IdentityUniqueKey that = (IdentityUniqueKey) o;
-
-            if (identity != null ? !identity.equals(that.identity) : that.identity != null) return false;
-            return definition != null ? definition.equals(that.definition) : that.definition == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = identity != null ? identity.hashCode() : 0;
-            result = 31 * result + (definition != null ? definition.hashCode() : 0);
-            return result;
-        }
-    }
-
     private static final class ServiceProvider {
         private final Class<?> clazz;
         private final String defaultName;
+        private final String dynamicName;
         private final ConcurrentMap<String, ServiceDefinition> nameMaps;
 
-        public ServiceProvider(Class<?> clazz, String defaultName, ConcurrentMap<String, ServiceDefinition> nameMaps) {
+        public ServiceProvider(Class<?> clazz, String defaultName, String dynamicName, ConcurrentMap<String, ServiceDefinition> nameMaps) {
             this.clazz = clazz;
             this.defaultName = defaultName;
+            this.dynamicName = dynamicName;
             this.nameMaps = nameMaps;
         }
     }

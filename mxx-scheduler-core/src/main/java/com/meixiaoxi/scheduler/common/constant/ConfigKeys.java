@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.common;
+package com.meixiaoxi.scheduler.common.constant;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
