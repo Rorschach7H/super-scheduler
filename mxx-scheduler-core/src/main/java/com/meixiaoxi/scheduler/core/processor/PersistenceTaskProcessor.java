@@ -7,7 +7,6 @@ import com.meixiaoxi.scheduler.core.task.TaskOperate;
 import com.meixiaoxi.scheduler.core.task.domain.ExecuteState;
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import org.apache.commons.collections4.CollectionUtils;
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

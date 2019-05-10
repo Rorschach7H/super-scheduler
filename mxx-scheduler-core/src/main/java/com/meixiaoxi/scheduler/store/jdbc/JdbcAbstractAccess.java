@@ -4,7 +4,6 @@ import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.common.FileUtil;
 import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 

@@ -112,7 +112,7 @@ public class FileUtil {
         }
     }
 
-    public static boolean exist(String path){
+    public static boolean exist(String path) {
         return new File(path).exists();
     }
 

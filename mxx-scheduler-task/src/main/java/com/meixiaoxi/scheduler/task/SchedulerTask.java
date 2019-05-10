@@ -1,6 +1,5 @@
 package com.meixiaoxi.scheduler.task;
 
-import com.meixiaoxi.scheduler.AppContext;
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.task.runner.InitContextRunner;
 import com.meixiaoxi.scheduler.task.runner.NettyServerRunner;

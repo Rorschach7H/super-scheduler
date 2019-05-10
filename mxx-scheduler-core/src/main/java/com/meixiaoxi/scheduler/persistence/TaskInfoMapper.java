@@ -17,7 +17,7 @@ public interface TaskInfoMapper {
 
     int updateByPrimaryKey(TaskInfo record);
 
-    Integer getMaxQueue(String taskGroup,  String executeDate);
+    Integer getMaxQueue(String taskGroup, String executeDate);
 
     List<TaskInfo> selectByObjectId(String taskGroup, String executeTime, Long objectId);
 

@@ -2,9 +2,7 @@ package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.core.processor.PersistenceTaskProcessor;
-import com.meixiaoxi.scheduler.store.cache.RedissonFactory;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

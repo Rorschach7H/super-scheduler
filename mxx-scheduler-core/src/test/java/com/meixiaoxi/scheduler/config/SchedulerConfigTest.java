@@ -18,7 +18,7 @@ import junit.framework.TestCase;
  */
 public class SchedulerConfigTest extends TestCase {
 
-    public void testGetProperty(){
+    public void testGetProperty() {
         SchedulerConfig config = new SchedulerConfig();
         config.put("hello1", "world");
         config.put("hello2", 2);

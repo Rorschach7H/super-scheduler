@@ -1,9 +1,6 @@
 package com.meixiaoxi.scheduler;
 
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
-import org.redisson.api.RedissonClient;
-
-import java.util.Properties;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi

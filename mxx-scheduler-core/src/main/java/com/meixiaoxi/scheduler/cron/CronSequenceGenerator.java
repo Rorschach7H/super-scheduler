@@ -262,10 +262,11 @@ public class CronSequenceGenerator {
 
     /**
      * 设置位set的值
-     * @param bits 要设置的位set
+     *
+     * @param bits  要设置的位set
      * @param value 当前cron表达式截取的值
-     * @param min 最小值
-     * @param max 最大值
+     * @param min   最小值
+     * @param max   最大值
      */
     private void setNumberHits(BitSet bits, String value, int min, int max) {
         String[] fields = delimitedListToStringArray(value, ",");

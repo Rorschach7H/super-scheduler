@@ -72,7 +72,7 @@ public class SelectSql {
         return this;
     }
 
-    public SelectSql where(){
+    public SelectSql where() {
         sql.append(" WHERE ");
         return this;
     }

@@ -6,7 +6,6 @@ import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
 import com.meixiaoxi.scheduler.store.jdbc.JdbcAbstractAccess;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**

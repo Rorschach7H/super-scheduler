@@ -9,10 +9,6 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.*;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
