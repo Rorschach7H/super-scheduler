@@ -12,13 +12,13 @@ public class SQLFormatter {
 
     private static final String WHITESPACE = " \n\r\f\t";
 
-    private static final Set<String> BEGIN_CLAUSES = new HashSet<String>();
-    private static final Set<String> END_CLAUSES = new HashSet<String>();
-    private static final Set<String> LOGICAL = new HashSet<String>();
-    private static final Set<String> QUANTIFIERS = new HashSet<String>();
-    private static final Set<String> DML = new HashSet<String>();
-    private static final Set<String> MISC = new HashSet<String>();
-    private static final Set<String> UPPER_CASE = new HashSet<String>();
+    private static final Set<String> BEGIN_CLAUSES = new HashSet<>();
+    private static final Set<String> END_CLAUSES = new HashSet<>();
+    private static final Set<String> LOGICAL = new HashSet<>();
+    private static final Set<String> QUANTIFIERS = new HashSet<>();
+    private static final Set<String> DML = new HashSet<>();
+    private static final Set<String> MISC = new HashSet<>();
+    private static final Set<String> UPPER_CASE = new HashSet<>();
 
     static {
 

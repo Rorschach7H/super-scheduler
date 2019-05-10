@@ -1,7 +1,6 @@
 package com.meixiaoxi.scheduler.store.jdbc;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.common.constant.ConfigSpiKeys;
 import com.meixiaoxi.scheduler.spi.ServiceLoader;
 import com.meixiaoxi.scheduler.store.jdbc.datasource.DataSourceProvider;
 

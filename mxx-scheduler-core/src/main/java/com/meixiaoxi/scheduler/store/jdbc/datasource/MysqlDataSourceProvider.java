@@ -1,57 +1,46 @@
 package com.meixiaoxi.scheduler.store.jdbc.datasource;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.meixiaoxi.scheduler.constant.ConfigKeys;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * druid相关的配置使用 druid. 开头即可
  *
  * @author Robert HG (254963746@qq.com) on 10/24/14.
  */
-public class MysqlDataSourceProvider implements DataSourceProvider {
+public class MysqlDataSourceProvider extends AbsreactDataSourceProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MysqlDataSourceProvider.class);
-    // 同一配置, 始终保持同一个连接
-    private static final ConcurrentHashMap<String, DataSource> DATA_SOURCE_MAP = new ConcurrentHashMap<>();
-
-    private static final Object lock = new Object();
-
-    public DataSource getDataSource(SchedulerConfig config) {
-
-        String url = "";
-        String username = "";
-        String password = "";
-
-        if (StringUtils.isEmpty(url)) {
-            throw new IllegalArgumentException("jdbc url should not be empty");
+    DataSource createDataSource(SchedulerConfig config) {
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(config.getProperty(ConfigKeys.jdbc_driver_class_name));
+        hikariConfig.setJdbcUrl(config.getProperty(ConfigKeys.jdbc_url));
+        hikariConfig.setUsername(config.getProperty(ConfigKeys.jdbc_username));
+        hikariConfig.setPassword(config.getProperty(ConfigKeys.jdbc_password));
+        Long connectionTimeout = config.getProperty(ConfigKeys.jdbc_connection_timeout, Long.class);
+        if (connectionTimeout != null) {
+            hikariConfig.setConnectionTimeout(connectionTimeout);
         }
-        if (StringUtils.isEmpty(username)) {
-            throw new IllegalArgumentException("jdbc url should not be empty");
+        Boolean readOnly = config.getProperty(ConfigKeys.jdbc_read_only, Boolean.class);
+        if (readOnly != null) {
+            hikariConfig.setReadOnly(readOnly);
+        }
+        Long idleTimeout = config.getProperty(ConfigKeys.jdbc_idle_timeout, Long.class);
+        if (idleTimeout != null) {
+            hikariConfig.setIdleTimeout(idleTimeout);
+        }
+        Long maxLifetime = config.getProperty(ConfigKeys.jdbc_max_life_time, Long.class);
+        if (maxLifetime != null) {
+            hikariConfig.setMaxLifetime(maxLifetime);
+        }
+        Integer maximumPoolSize = config.getProperty(ConfigKeys.jdbc_maximum_pool_size, Integer.class);
+        if (maximumPoolSize != null) {
+            hikariConfig.setMaximumPoolSize(maximumPoolSize);
         }
 
-        String cachedKey = url + username + password;
-
-        DataSource dataSource = DATA_SOURCE_MAP.get(cachedKey);
-        if (dataSource == null) {
-            try {
-                synchronized (lock) {
-                    dataSource = DATA_SOURCE_MAP.get(cachedKey);
-                    if (dataSource != null) {
-                        return dataSource;
-                    }
-
-                    DATA_SOURCE_MAP.put(cachedKey, dataSource);
-                }
-            } catch (Exception e) {
-                throw new IllegalStateException(
-                        String.format("connect datasource failed! url: %s", url), e);
-            }
-        }
-        return dataSource;
+        return new HikariDataSource(hikariConfig);
     }
 }

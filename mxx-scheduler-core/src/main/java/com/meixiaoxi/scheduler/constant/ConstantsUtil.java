@@ -18,5 +18,6 @@ import java.util.regex.Pattern;
 public interface ConstantsUtil {
     public Pattern COMMA_SPLIT_PATTERN = Pattern.compile("\\s*[,]+\\s*");
     public String LINE_SEPARATOR = System.getProperty("line.separator");
+    public String CONFIG_SEPATOR = ",";
     public String CHARSET = "UTF-8";
 }

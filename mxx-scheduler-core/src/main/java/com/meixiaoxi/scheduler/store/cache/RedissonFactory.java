@@ -1,10 +1,17 @@
 package com.meixiaoxi.scheduler.store.cache;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
+import com.meixiaoxi.scheduler.constant.ConfigKeys;
+import com.meixiaoxi.scheduler.constant.ConstantsUtil;
 import com.meixiaoxi.scheduler.store.cache.exception.RedissonException;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
+import org.redisson.config.*;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -31,15 +38,90 @@ public final class RedissonFactory {
     private static void init(SchedulerConfig config) {
         try {
             Config redissonConfig = new Config();
-//            redissonConfig.useSentinelServers()
-//                    .setMasterName(config.getParameter(ExtConfig))
-//                    .addSentinelAddress(redisConfig.getRedisUrls())
-//                    //同任何节点建立连接时的等待超时。时间单位是毫秒。默认：10000
-//                    .setConnectTimeout(redisConfig.getConnectTimeout())
-//                    //如果尝试达到 retryAttempts（命令失败重试次数） 仍然不能将命令发送至某个指定的节点时，将抛出错误。如果尝试在此限制之内发送成功，则开始启用 timeout（命令等待超时） 计时。默认值：3
-//                    .setRetryAttempts(5)
-//                    //在一条命令发送失败以后，等待重试发送的时间间隔。时间单位是毫秒。     默认值：1500
-//                    .setRetryInterval(redisConfig.getRetryInterval());
+
+            String address = config.getProperty(ConfigKeys.rdss_address);
+            String sentinelAddresses = config.getProperty(ConfigKeys.rdss_sentinel_addresses);
+            String masterName = config.getProperty(ConfigKeys.rdss_master_name);
+            String masterAddress = config.getProperty(ConfigKeys.rdss_master_address);
+            String slaveAddresses = config.getProperty(ConfigKeys.rdss_slave_addresses);
+            String nodeAddresses = config.getProperty(ConfigKeys.rdss_node_addresses);
+
+            Integer database = config.getProperty(ConfigKeys.rdss_database, Integer.class);
+            String password = config.getProperty(ConfigKeys.rdss_password);
+            String clientName = config.getProperty(ConfigKeys.rdss_client_name);
+            Integer idleConnectionTimeout = config.getProperty(ConfigKeys.jdbc_connection_timeout, Integer.class);
+            Integer timeout = config.getProperty(ConfigKeys.rdss_timeout, Integer.class);
+            Integer connectTimeout = config.getProperty(ConfigKeys.rdss_connect_timeout, Integer.class);
+
+            Integer connectionMinimumIdleSize =
+                    config.getProperty(ConfigKeys.rdss_connection_minimum_idle_size, Integer.class);
+            Integer connectionPoolSize = config.getProperty(ConfigKeys.rdss_connection_pool_size, Integer.class);
+            Integer slaveConnectionMinimumIdleSize =
+                    config.getProperty(ConfigKeys.rdss_slave_connection_minimum_idle_size, Integer.class);
+            Integer slaveConnectionPoolSize =
+                    config.getProperty(ConfigKeys.rdss_slave_connection_pool_size, Integer.class);
+            Integer masterConnectionMinimumIdleSize =
+                    config.getProperty(ConfigKeys.rdss_master_connection_minimum_idle_size, Integer.class);
+            Integer masterConnectionPoolSize =
+                    config.getProperty(ConfigKeys.rdss_master_connection_pool_size, Integer.class);
+
+            if (StringUtils.isNotBlank(address)) {
+                SingleServerConfig serverConfig = redissonConfig.useSingleServer().setAddress(address);
+                serverConfig.setPassword(password);
+                serverConfig.setDatabase(database == null ? serverConfig.getDatabase() : database);
+                serverConfig.setClientName(clientName == null ? serverConfig.getClientName() : clientName);
+                serverConfig.setIdleConnectionTimeout(idleConnectionTimeout == null ?
+                        serverConfig.getIdleConnectionTimeout() : idleConnectionTimeout);
+                serverConfig.setTimeout(timeout == null ?
+                        serverConfig.getTimeout() : timeout);
+                serverConfig.setConnectTimeout(connectTimeout == null ?
+                        serverConfig.getConnectTimeout() : connectTimeout);
+                serverConfig.setConnectionMinimumIdleSize(connectionMinimumIdleSize == null ?
+                        serverConfig.getConnectionMinimumIdleSize() : connectionMinimumIdleSize);
+                serverConfig.setConnectionPoolSize(connectionPoolSize == null ?
+                        serverConfig.getConnectionPoolSize() : connectionPoolSize);
+            } else if (StringUtils.isNotBlank(masterName) && StringUtils.isNotBlank(sentinelAddresses)) {
+                SentinelServersConfig serversConfig = redissonConfig.useSentinelServers()
+                        .addSentinelAddress(sentinelAddresses.split(ConstantsUtil.LINE_SEPARATOR));
+                serversConfig.setDatabase(database == null ? serversConfig.getDatabase() : database);
+                serversConfig.setPassword(password);
+                serversConfig.setClientName(clientName);
+                serversConfig.setIdleConnectionTimeout(idleConnectionTimeout);
+                serversConfig.setTimeout(timeout);
+                serversConfig.setConnectTimeout(connectTimeout);
+                serversConfig.setSlaveConnectionMinimumIdleSize(slaveConnectionMinimumIdleSize);
+                serversConfig.setSlaveConnectionPoolSize(slaveConnectionPoolSize);
+                serversConfig.setMasterConnectionMinimumIdleSize(masterConnectionMinimumIdleSize);
+                serversConfig.setMasterConnectionPoolSize(masterConnectionPoolSize);
+            } else if (StringUtils.isNotBlank(masterAddress) && StringUtils.isNotBlank(slaveAddresses)) {
+                MasterSlaveServersConfig masterSlaveServersConfig = redissonConfig.useMasterSlaveServers()
+                        .setMasterAddress(masterAddress);
+                masterSlaveServersConfig.addSlaveAddress(slaveAddresses.split(ConstantsUtil.CONFIG_SEPATOR));
+                masterSlaveServersConfig.setDatabase(database);
+                masterSlaveServersConfig.setPassword(password);
+                masterSlaveServersConfig.setClientName(clientName);
+                masterSlaveServersConfig.setIdleConnectionTimeout(idleConnectionTimeout);
+                masterSlaveServersConfig.setTimeout(timeout);
+                masterSlaveServersConfig.setConnectTimeout(connectTimeout);
+                masterSlaveServersConfig.setSlaveConnectionMinimumIdleSize(slaveConnectionMinimumIdleSize);
+                masterSlaveServersConfig.setSlaveConnectionPoolSize(slaveConnectionPoolSize);
+                masterSlaveServersConfig.setMasterConnectionMinimumIdleSize(masterConnectionMinimumIdleSize);
+                masterSlaveServersConfig.setMasterConnectionPoolSize(masterConnectionPoolSize);
+            } else if (StringUtils.isNotBlank(nodeAddresses)) {
+                Integer scanInterval = config.getProperty(ConfigKeys.rdss_scan_interval, Integer.class);
+                ClusterServersConfig clusterServersConfig = redissonConfig.useClusterServers();
+                clusterServersConfig.addNodeAddress(nodeAddresses.split(ConstantsUtil.CONFIG_SEPATOR));
+                clusterServersConfig.setScanInterval(scanInterval);
+                clusterServersConfig.setPassword(password);
+                clusterServersConfig.setClientName(clientName);
+                clusterServersConfig.setIdleConnectionTimeout(idleConnectionTimeout);
+                clusterServersConfig.setTimeout(timeout);
+                clusterServersConfig.setConnectTimeout(connectTimeout);
+                clusterServersConfig.setSlaveConnectionMinimumIdleSize(slaveConnectionMinimumIdleSize);
+                clusterServersConfig.setSlaveConnectionPoolSize(slaveConnectionPoolSize);
+                clusterServersConfig.setMasterConnectionMinimumIdleSize(masterConnectionMinimumIdleSize);
+                clusterServersConfig.setMasterConnectionPoolSize(masterConnectionPoolSize);
+            }
             redissonClient = Redisson.create(redissonConfig);
         } catch (Exception e) {
             throw new RuntimeException("连接redis出现异常", e);
