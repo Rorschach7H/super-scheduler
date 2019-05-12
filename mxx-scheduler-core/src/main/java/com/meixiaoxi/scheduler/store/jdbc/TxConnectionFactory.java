@@ -15,7 +15,7 @@ public class TxConnectionFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TxConnectionFactory.class);
 
-    private static final ThreadLocal<Connection> TRANSACT_CONN = new ThreadLocal<Connection>();
+    private static final ThreadLocal<Connection> TRANSACT_CONN = new ThreadLocal<>();
 
     static Connection getCurrentConn() {
         return TRANSACT_CONN.get();
