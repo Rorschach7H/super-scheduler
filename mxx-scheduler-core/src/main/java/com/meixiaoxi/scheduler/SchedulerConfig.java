@@ -2,6 +2,7 @@ package com.meixiaoxi.scheduler;
 
 import com.meixiaoxi.scheduler.common.exception.ConfigException;
 
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,11 +18,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * -----------------------------------------------------------
  * 2019-04-29    meixiaoxi       v1.0.0           创建
  */
-public class SchedulerConfig extends ConcurrentHashMap<String, Object> {
+public class SchedulerConfig extends Properties {
     private int port = 9088;
 
-    @SuppressWarnings("unchecked")
     public <T> T getProperty(String key, Class<T> clazz) {
+        return getProperty(key, null, clazz);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getProperty(String key, T defaultValue, Class<T> clazz) {
         Object value = get(key);
         if (value != null) {
             if (clazz == value.getClass()) {
@@ -30,7 +35,7 @@ public class SchedulerConfig extends ConcurrentHashMap<String, Object> {
                 throw new ConfigException("The value type with key-" + key + " is not [" + clazz.getName() + "]!");
             }
         }
-        return null;
+        return defaultValue;
     }
 
     public String getProperty(String key) {

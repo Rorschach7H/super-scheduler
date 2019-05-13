@@ -1,0 +1,2 @@
+mysql=com.meixiaoxi.scheduler.store.datasource.MysqlDataSourceProvider
+h2=com.meixiaoxi.scheduler.store.datasource.H2DataSourceProvider

@@ -32,26 +32,26 @@ public interface ConfigKeys {
     String jdbc_maximum_pool_size = "jdbc.maximumPoolSize";
 
     //redisson连接redis统一配置
-    String rdss_database = "database";
-    String rdss_password = "password";
-    String rdss_client_name = "clientName";
-    String rdss_timeout = "timeout";
-    String rdss_connect_timeout = "connectTimeout";
-    String rdss_connection_minimum_idle_size = "connectionMinimumIdleSize";
-    String rdss_connection_pool_size = "connectionPoolSize";
-    String rdss_slave_connection_minimum_idle_size = "slaveConnectionMinimumIdleSize";
-    String rdss_slave_connection_pool_size = "slaveConnectionPoolSize";
-    String rdss_master_connection_minimum_idle_size = "masterConnectionMinimumIdleSize";
-    String rdss_master_connection_pool_size = "masterConnectionPoolSize";
+    String rdss_database = "redis.database";
+    String rdss_password = "redis.password";
+    String rdss_client_name = "redis.clientName";
+    String rdss_timeout = "redis.timeout";
+    String rdss_connect_timeout = "redis.connectTimeout";
+    String rdss_connection_minimum_idle_size = "redis.connectionMinimumIdleSize";
+    String rdss_connection_pool_size = "redis.connectionPoolSize";
+    String rdss_slave_connection_minimum_idle_size = "redis.slaveConnectionMinimumIdleSize";
+    String rdss_slave_connection_pool_size = "redis.slaveConnectionPoolSize";
+    String rdss_master_connection_minimum_idle_size = "redis.masterConnectionMinimumIdleSize";
+    String rdss_master_connection_pool_size = "redis.masterConnectionPoolSize";
     //redisson连接单节点rediss配置key
-    String rdss_address = "address";
+    String rdss_address = "redis.address";
     //redisson连接哨兵模式redis配置key
-    String rdss_sentinel_addresses = "sentinelAddresses";
-    String rdss_master_name = "masterName";
+    String rdss_sentinel_addresses = "redis.sentinelAddresses";
+    String rdss_master_name = "redis.masterName";
     //redisson连接主从模式redis配置key
-    String rdss_slave_addresses = "slaveAddresses";
-    String rdss_master_address = "masterAddress";
+    String rdss_slave_addresses = "redis.slaveAddresses";
+    String rdss_master_address = "redis.masterAddress";
     //redisson连接集群模式redis配置key
-    String rdss_node_addresses = "nodeAddresses";
-    String rdss_scan_interval = "scanInterval";
+    String rdss_node_addresses = "redis.nodeAddresses";
+    String rdss_scan_interval = "redis.scanInterval";
 }

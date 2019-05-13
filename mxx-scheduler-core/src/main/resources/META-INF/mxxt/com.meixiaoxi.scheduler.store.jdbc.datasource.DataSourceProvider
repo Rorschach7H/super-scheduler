@@ -1,2 +1,0 @@
-mysql=com.meixiaoxi.scheduler.store.jdbc.datasource.MysqlDataSourceProvider
-h2=com.meixiaoxi.scheduler.store.jdbc.datasource.H2DataSourceProvider

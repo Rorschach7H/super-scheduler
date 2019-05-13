@@ -31,10 +31,18 @@ public class ServiceLoader {
     private static final ConcurrentMap<Class<?>, ServiceProvider> serviceMap = new ConcurrentHashMap<>();
     private static final ConcurrentMap<ServiceDefinition, Object> cachedObjectMap = new ConcurrentHashMap<>();
 
-    @SuppressWarnings("unchecked")
+    public static <T> T load(Class<T> clazz, String dynamicName) {
+        ServiceProvider serviceProvider = getServiceProvider(clazz);
+        return load(serviceProvider, dynamicName);
+    }
+
     public static <T> T load(Class<T> clazz, SchedulerConfig config) {
-        ServiceProvider serviceProvider = getServiceProvider(clazz, config);
+        ServiceProvider serviceProvider = getServiceProvider(clazz);
         String dynamicName = config.getProperty(serviceProvider.dynamicKey);
+        return load(serviceProvider, dynamicName);
+    }
+
+    private static <T> T load(ServiceProvider serviceProvider, String dynamicName) {
         try {
             if (StringUtils.isEmpty(dynamicName)) {
                 // 加载默认的
@@ -42,14 +50,12 @@ public class ServiceLoader {
             }
             ServiceDefinition definition = serviceProvider.nameMaps.get(dynamicName);
             if (definition == null) {
-                throw new IllegalStateException("Serviceloader could not load name:" + dynamicName + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
+                throw new IllegalStateException("Serviceloader could not load name:"
+                        + dynamicName + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '"
+                        + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
             }
 
             Object obj = cachedObjectMap.get(definition);
-            if (obj != null) {
-                return (T) obj;
-            }
-            obj = cachedObjectMap.get(definition);
             if (obj != null) {
                 return (T) obj;
             }
@@ -60,20 +66,22 @@ public class ServiceLoader {
             return srv;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException("Service loader could not load name:" + dynamicName + "  class:" + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
+            throw new IllegalStateException("Service loader could not load name:"
+                    + dynamicName + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '"
+                    + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
     }
 
-    private static ServiceProvider getServiceProvider(Class<?> clazz, SchedulerConfig config) {
+    private static ServiceProvider getServiceProvider(Class<?> clazz) {
         ServiceProvider serviceProvider = serviceMap.get(clazz);
         if (serviceProvider == null) {
-            getServiceProviders(clazz, config);
+            getServiceProviders(clazz);
             serviceProvider = serviceMap.get(clazz);
         }
         return serviceProvider;
     }
 
-    private static void getServiceProviders(final Class<?> clazz, SchedulerConfig config) {
+    private static void getServiceProviders(final Class<?> clazz) {
 
         if (clazz == null)
             throw new IllegalArgumentException("type == null");

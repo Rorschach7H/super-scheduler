@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class TaskConstUtil {
 
-    public static final String TIME_YYYYMMDDHHMMSS = "yyyy-MM-dd hh:mm:ss";
+    public static final String DEFAULT_TIME = "yyyy-MM-dd hh:mm:ss";
     public static final String TIME_YYYYMM = "yyyy-MM-dd";
     Pattern COMMA_SPLIT_PATTERN = Pattern.compile("\\s*[,]+\\s*");
     public static final String SYNC_TASK_GROUP_LIST_KEY = "sync_task_group_list_key";

@@ -3,7 +3,9 @@ package com.meixiaoxi.scheduler.store.jdbc;
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.constant.ConfigKeys;
 import com.meixiaoxi.scheduler.constant.ConfigSpiKeys;
-import com.meixiaoxi.scheduler.store.jdbc.builder.SelectSql;
+import com.meixiaoxi.scheduler.store.SqlTemplate;
+import com.meixiaoxi.scheduler.store.SqlTemplateFactory;
+import com.meixiaoxi.scheduler.store.builder.SelectSql;
 import junit.framework.TestCase;
 
 import java.sql.SQLException;

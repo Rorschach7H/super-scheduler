@@ -2,7 +2,7 @@ package com.meixiaoxi.scheduler.spi;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.constant.ConfigSpiKeys;
-import com.meixiaoxi.scheduler.store.jdbc.datasource.DataSourceProvider;
+import com.meixiaoxi.scheduler.store.datasource.DataSourceProvider;
 import junit.framework.TestCase;
 
 /**

@@ -15,4 +15,5 @@ package com.meixiaoxi.scheduler.constant;
  */
 public interface ConfigSpiKeys {
     String DATABASE_SPI = "task.spi.database";
+    String CACHE_SPI = "task.spi.cache";
 }

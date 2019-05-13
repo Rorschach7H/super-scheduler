@@ -2,7 +2,7 @@ package com.meixiaoxi.scheduler.store.redisson;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.constant.ConfigKeys;
-import com.meixiaoxi.scheduler.store.cache.RedissonFactory;
+import com.meixiaoxi.scheduler.redis.RedissonFactory;
 import junit.framework.TestCase;
 import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;

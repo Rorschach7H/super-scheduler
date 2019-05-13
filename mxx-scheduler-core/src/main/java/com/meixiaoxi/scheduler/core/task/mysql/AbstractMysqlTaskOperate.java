@@ -1,10 +1,9 @@
 package com.meixiaoxi.scheduler.core.task.mysql;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.core.task.TaskOperate;
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
 import com.meixiaoxi.scheduler.core.task.domain.TaskQuery;
-import com.meixiaoxi.scheduler.store.jdbc.JdbcAbstractAccess;
+import com.meixiaoxi.scheduler.store.JdbcAbstractAccess;
 
 import java.util.List;
 

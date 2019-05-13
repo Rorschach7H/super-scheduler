@@ -1,7 +1,6 @@
 package com.meixiaoxi.scheduler.core.task.mysql;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.core.task.TaskOperate;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi

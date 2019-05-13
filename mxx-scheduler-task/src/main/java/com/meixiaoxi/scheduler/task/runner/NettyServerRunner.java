@@ -34,7 +34,6 @@ public class NettyServerRunner extends TaskRunner<TaskAppContext> {
     @Override
     protected void run(TaskAppContext context) {
         log.info("nettyServerRunner start...");
-        SchedulerConfig config = context.getConfig();
         log.info("context: {}", JSON.toJSONString(context));
         int port = 9088;
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -45,7 +44,6 @@ public class NettyServerRunner extends TaskRunner<TaskAppContext> {
         ChannelFuture future = bootstrap.bind(new InetSocketAddress(port));
         future.addListener((ChannelFutureListener) channelFuture -> {
             if (channelFuture.isSuccess()) {
-                System.out.println("Server bound");
             } else {
                 System.err.println("Bind attempt failed");
                 channelFuture.cause().printStackTrace();
