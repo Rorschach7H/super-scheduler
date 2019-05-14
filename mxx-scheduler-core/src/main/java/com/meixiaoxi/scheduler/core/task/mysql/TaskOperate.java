@@ -14,6 +14,9 @@ import java.util.List;
  * @Version V1.0
  */
 public interface TaskOperate {
+
+    boolean insertSelective(RunExecutingTask task);
+
     boolean insert(RunExecutingTask task);
 
     boolean insertBatch(List<RunExecutingTask> task);
@@ -22,7 +25,7 @@ public interface TaskOperate {
 
     boolean updateBatch(List<RunExecutingTask> tasks);
 
-    int delete(Long taskId);
+    boolean delete(Long taskId);
 
     RunExecutingTask select(Long id);
 

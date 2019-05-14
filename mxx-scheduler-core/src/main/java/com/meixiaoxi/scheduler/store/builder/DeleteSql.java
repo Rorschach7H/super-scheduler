@@ -20,7 +20,7 @@ public class DeleteSql {
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
-    private List<Object> params = new LinkedList<Object>();
+    private List<Object> params = new LinkedList<>();
 
     public DeleteSql(SqlTemplate sqlTemplate) {
         this.sqlTemplate = sqlTemplate;

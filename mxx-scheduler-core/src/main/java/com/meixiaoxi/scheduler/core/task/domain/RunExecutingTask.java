@@ -1,7 +1,8 @@
 package com.meixiaoxi.scheduler.core.task.domain;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.meixiaoxi.scheduler.core.task.domain.annotation.PrimaryKey;
+import com.meixiaoxi.scheduler.core.task.domain.annotation.Table;
 
 import java.math.BigDecimal;
 
@@ -13,11 +14,13 @@ import java.math.BigDecimal;
  * @Date 2018/7/6 10:14
  * @Version V1.0
  */
-public class RunExecutingTask {
+@Table("ru_executing_task")
+public class RunExecutingTask extends AbstractEntity{
 
     /**
      * 任务ID
      */
+    @PrimaryKey
     private Long id = 0L;
 
     /**
@@ -28,7 +31,6 @@ public class RunExecutingTask {
     /**
      * 任务名
      */
-    @JsonIgnore
     private String taskName;
 
     /**
@@ -69,7 +71,7 @@ public class RunExecutingTask {
     /**
      * 同一时间下（精确到秒）任务序列
      */
-    private BigDecimal executeQueue;
+    private Long executeQueue;
 
     /**
      * 执行任务已失败次数
@@ -174,11 +176,11 @@ public class RunExecutingTask {
         this.executeTime = executeTime;
     }
 
-    public BigDecimal getExecuteQueue() {
+    public Long getExecuteQueue() {
         return executeQueue;
     }
 
-    public void setExecuteQueue(BigDecimal executeQueue) {
+    public void setExecuteQueue(Long executeQueue) {
         this.executeQueue = executeQueue;
     }
 
