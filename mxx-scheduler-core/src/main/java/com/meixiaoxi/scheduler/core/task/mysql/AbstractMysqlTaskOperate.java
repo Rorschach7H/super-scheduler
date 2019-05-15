@@ -85,14 +85,14 @@ public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements Task
                 .columns(tasks.get(0).columns());
         tasks.forEach(task -> insertSql.values(task.values()));
 
-        return insertSql.doInsert() == 1;
+        return insertSql.doInsert() == tasks.size();
     }
 
     @Override
     public boolean update(RunExecutingTask task) {
         UpdateSql updateSql = new UpdateSql(getSqlTemplate())
                 .update().table(task.tableName());
-        Map<String, Object> keyValueMap = task.keyValueMap(false);
+        Map<String, Object> keyValueMap = task.keyValueMap(true);
         keyValueMap.forEach(updateSql::set);
         updateSql.where(task.primaryKey() + "=?", task.primaryValue());
         return updateSql.doUpdate() == 1;

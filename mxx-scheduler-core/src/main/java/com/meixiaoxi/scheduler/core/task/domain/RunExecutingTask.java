@@ -34,7 +34,7 @@ public class RunExecutingTask extends AbstractEntity{
     private String taskName;
 
     /**
-     * 任务组名
+     * 任务组key
      */
     private String groupKey;
 

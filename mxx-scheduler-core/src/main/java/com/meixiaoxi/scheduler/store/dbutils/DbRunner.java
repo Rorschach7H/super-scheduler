@@ -1,5 +1,8 @@
 package com.meixiaoxi.scheduler.store.dbutils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.Arrays;
 
@@ -7,6 +10,8 @@ import java.util.Arrays;
  * from dbutils
  */
 public class DbRunner {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbRunner.class);
 
     private volatile boolean pmdKnownBroken = false;
 
@@ -57,19 +62,17 @@ public class DbRunner {
     }
 
     public int update(Connection conn, String sql, Object... params) throws SQLException {
-        return update(conn, false, sql, params);
-    }
-
-    private int update(Connection conn, boolean closeConn, String sql, Object... params) throws SQLException {
         if (conn == null) {
             throw new SQLException("Null connection");
         }
 
         if (sql == null) {
-            if (closeConn) {
-                close(conn);
-            }
             throw new SQLException("Null SQL statement");
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("SQL: {}", sql);
+            LOGGER.debug("Params: {}", Arrays.toString(params));
         }
 
         PreparedStatement stmt = null;
@@ -79,41 +82,31 @@ public class DbRunner {
             stmt = conn.prepareStatement(sql);
             this.fillStatement(stmt, params);
             rows = stmt.executeUpdate();
-
         } catch (SQLException e) {
             this.rethrow(e, sql, params);
 
         } finally {
             close(stmt);
-            if (closeConn) {
-                close(conn);
-            }
         }
 
         return rows;
     }
 
     public <T> T query(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params) throws SQLException {
-        return this.<T>query(conn, false, sql, rsh, params);
-    }
-
-    private <T> T query(Connection conn, boolean closeConn, String sql, ResultSetHandler<T> rsh, Object... params)
-            throws SQLException {
         if (conn == null) {
             throw new SQLException("Null connection");
         }
 
         if (sql == null) {
-            if (closeConn) {
-                close(conn);
-            }
             throw new SQLException("Null SQL statement");
         }
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("SQL: {}", sql);
+            LOGGER.debug("Params: {}", Arrays.toString(params));
+        }
+
         if (rsh == null) {
-            if (closeConn) {
-                close(conn);
-            }
             throw new SQLException("Null ResultSetHandler");
         }
 
@@ -135,9 +128,6 @@ public class DbRunner {
                 close(rs);
             } finally {
                 close(stmt);
-                if (closeConn) {
-                    close(conn);
-                }
             }
         }
 

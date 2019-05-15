@@ -1,17 +1,12 @@
 package com.meixiaoxi.scheduler.store.builder;
 
-import com.meixiaoxi.scheduler.store.SQLFormatter;
 import com.meixiaoxi.scheduler.store.SqlTemplate;
 import com.meixiaoxi.scheduler.store.exception.JdbcException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Robert HG (254963746@qq.com) on 3/9/16.
  */
 public class DropTableSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DropTableSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -30,13 +25,9 @@ public class DropTableSql {
         String finalSQL = sql.toString();
 
         try {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
-
             sqlTemplate.update(sql.toString());
         } catch (Exception e) {
-            throw new JdbcException("Drop Table Error:" + SQLFormatter.format(finalSQL), e);
+            throw new JdbcException("Drop Table Error:" + finalSQL, e);
         }
         return true;
     }

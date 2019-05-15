@@ -70,12 +70,7 @@ class SqlTemplateImpl implements SqlTemplate {
     }
 
     public int update(final String sql, final Object... params) throws SQLException {
-        return execute(false, new SqlExecutor<Integer>() {
-            @Override
-            public Integer run(Connection conn) throws SQLException {
-                return update(conn, sql, params);
-            }
-        });
+        return execute(false, conn -> update(conn, sql, params));
     }
 
     @Override
@@ -109,43 +104,9 @@ class SqlTemplateImpl implements SqlTemplate {
     }
 
     private SqlExecutor<Void> getWrapperExecutor(final SqlExecutorVoid voidExecutor) {
-        return new SqlExecutor<Void>() {
-            @Override
-            public Void run(Connection conn) throws SQLException {
-                voidExecutor.run(conn);
-                return null;
-            }
+        return conn -> {
+            voidExecutor.run(conn);
+            return null;
         };
-    }
-
-    public void executeInTransaction(SqlExecutorVoid executor) {
-        executeInTransaction(getWrapperExecutor(executor));
-    }
-
-    public <T> T executeInTransaction(SqlExecutor<T> executor) {
-        Connection conn = null;
-        try {
-            conn = TxConnectionFactory.getTxConnection(dataSource);
-            T res = executor.run(conn);
-            conn.commit();
-            return res;
-        } catch (Error e) {
-            throw rollback(conn, e);
-        } catch (Exception e) {
-            throw rollback(conn, e);
-        } finally {
-            TxConnectionFactory.closeTx(conn);
-        }
-    }
-
-    private StateException rollback(Connection conn, Throwable e) {
-        try {
-            if (conn != null) {
-                conn.rollback();
-            }
-            return new StateException(e);
-        } catch (SQLException se) {
-            return new StateException("Unable to rollback transaction", e);
-        }
     }
 }

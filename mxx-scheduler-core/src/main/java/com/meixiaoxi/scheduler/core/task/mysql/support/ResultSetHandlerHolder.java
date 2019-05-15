@@ -30,19 +30,19 @@ public class ResultSetHandlerHolder {
         RunExecutingTask task = new RunExecutingTask();
         task.setId(rs.getLong(1));
         task.setObjectId(rs.getLong(2));
-        task.setGroupKey(rs.getString(3));
-        task.setCron(rs.getString(4));
-        task.setPeriod(rs.getInt(5));
-        task.setTimeUnit(rs.getByte(6));
-        task.setInitialDelay(rs.getInt(7));
-        task.setAccessKey(rs.getString(8));
-        task.setExecuteTime(rs.getString(9));
-        task.setExecuteQueue(rs.getLong(10));
-        task.setFailures(rs.getInt(11));
-        task.setMaxFailures(rs.getInt(12));
-        task.setExecuteState(rs.getByte(13));
-        task.setCreateTime(rs.getString(14));
-
+        task.setTaskName(rs.getString(3));
+        task.setGroupKey(rs.getString(4));
+        task.setCron(rs.getString(5));
+        task.setPeriod(rs.getInt(6));
+        task.setTimeUnit(rs.getByte(7));
+        task.setInitialDelay(rs.getInt(8));
+        task.setAccessKey(rs.getString(9));
+        task.setExecuteTime(rs.getString(10));
+        task.setExecuteQueue(rs.getLong(11));
+        task.setFailures(rs.getInt(12));
+        task.setMaxFailures(rs.getInt(13));
+        task.setExecuteState(rs.getByte(14));
+        task.setCreateTime(rs.getString(15));
         return task;
     }
 }

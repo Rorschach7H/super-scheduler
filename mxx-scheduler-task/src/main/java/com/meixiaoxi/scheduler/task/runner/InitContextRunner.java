@@ -1,11 +1,20 @@
 package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
+import com.meixiaoxi.scheduler.aspect.AspectInterceptor;
+import com.meixiaoxi.scheduler.aspect.ServiceAspectManager;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
+import com.meixiaoxi.scheduler.core.processor.TaskProcessorImpl;
+import com.meixiaoxi.scheduler.store.SqlTemplateFactory;
+import com.meixiaoxi.scheduler.store.datasource.DataSourceFactory;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
 import com.meixiaoxi.scheduler.task.TaskCfgLoader;
+import com.meixiaoxi.scheduler.transcation.TransactionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -36,8 +45,14 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     @Override
     protected void run(TaskAppContext context) {
         this.config = TaskCfgLoader.load(cfgPath, log4jPath);
-        TaskProcessor taskProcessor = new TaskProcessor(config);
-        context.setTaskProcessor(taskProcessor);
+
+        TransactionManager transactionManager = new TransactionManager(DataSourceFactory.get(config));
+        List<AspectInterceptor> interceptorList = new ArrayList<>();
+        interceptorList.add(transactionManager);
+        ServiceAspectManager serviceAspectManager = new ServiceAspectManager(interceptorList);
+        TaskProcessor taskProcessor = new TaskProcessorImpl(config);
+        TaskProcessor taskProcessorProxy = serviceAspectManager.proxyFor(taskProcessor);
+        context.setTaskProcessor(taskProcessorProxy);
     }
 
     public void start() {

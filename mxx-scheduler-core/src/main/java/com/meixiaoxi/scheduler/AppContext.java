@@ -2,6 +2,8 @@ package com.meixiaoxi.scheduler;
 
 import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 
+import javax.sql.DataSource;
+
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
@@ -27,6 +29,11 @@ public abstract class AppContext {
      */
     private TaskProcessor taskProcessor;
 
+    /**
+     * 连接数据库的数据源
+     */
+    private DataSource dataSource;
+
     public AppContext(SchedulerConfig config) {
         this.config = config;
     }
@@ -50,5 +57,13 @@ public abstract class AppContext {
 
     public void setTaskProcessor(TaskProcessor taskProcessor) {
         this.taskProcessor = taskProcessor;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

@@ -1,11 +1,8 @@
 package com.meixiaoxi.scheduler.store.builder;
 
-import com.meixiaoxi.scheduler.store.SQLFormatter;
 import com.meixiaoxi.scheduler.store.SqlTemplate;
 import com.meixiaoxi.scheduler.store.exception.JdbcException;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -15,8 +12,6 @@ import java.util.List;
  * @author Robert HG (254963746@qq.com) on 3/9/16.
  */
 public class UpdateSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UpdateSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -172,14 +167,9 @@ public class UpdateSql {
     public int doUpdate() {
         String finalSQL = getSQL();
         try {
-
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
-
             return sqlTemplate.update(finalSQL, params.toArray());
         } catch (SQLException e) {
-            throw new JdbcException("Update SQL Error:" + SQLFormatter.format(finalSQL), e);
+            throw new JdbcException("Update SQL Error:" + finalSQL, e);
         }
     }
 

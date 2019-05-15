@@ -2,6 +2,7 @@ package com.meixiaoxi.scheduler.store;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.spi.ServiceLoader;
+import com.meixiaoxi.scheduler.store.datasource.DataSourceFactory;
 import com.meixiaoxi.scheduler.store.datasource.DataSourceProvider;
 
 import javax.sql.DataSource;
@@ -18,9 +19,7 @@ public class SqlTemplateFactory {
     private static final ConcurrentMap<DataSource, SqlTemplate> HOLDER = new ConcurrentHashMap<>();
 
     public static SqlTemplate create(SchedulerConfig config) {
-        DataSourceProvider dataSourceProvider =
-                ServiceLoader.load(DataSourceProvider.class, config);
-        DataSource dataSource = dataSourceProvider.getDataSource(config);
+        DataSource dataSource = DataSourceFactory.get(config);
         SqlTemplate sqlTemplate = HOLDER.get(dataSource);
 
         if (sqlTemplate != null) {

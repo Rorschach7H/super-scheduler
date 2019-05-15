@@ -2,7 +2,8 @@ create table ru_executing_task
 (
     id            bigint(20)   not null primary key auto_increment comment '自增ID',
     object_id     varchar(200) not null comment '执行对象ID(考虑到对象ID类型未知，这里使用字符串兼容)',
-    group_key     varchar(20)  not null comment '任务组名',
+    task_name     varchar(20)  not null comment '任务名',
+    group_key     varchar(20)  not null comment '任务组key',
     cron          varchar(20)  not null default '' comment 'cron表达式',
     period        int(11)      not null default 0 comment '任务执行间隔',
     time_unit     tinyint(3)   not null default 0 comment '时间单位 0|秒,1|分,2|时',

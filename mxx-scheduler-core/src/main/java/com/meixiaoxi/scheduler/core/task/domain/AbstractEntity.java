@@ -102,7 +102,7 @@ public abstract class AbstractEntity {
     }
 
     private static Field primary(Class<?> clazz) {
-        return Arrays.stream(clazz.getFields())
+        return Arrays.stream(clazz.getDeclaredFields())
                 .filter(e -> e.getAnnotation(PrimaryKey.class) != null)
                 .findAny().orElse(null);
     }

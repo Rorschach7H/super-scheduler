@@ -1,12 +1,9 @@
 package com.meixiaoxi.scheduler.store.builder;
 
-import com.meixiaoxi.scheduler.store.SQLFormatter;
 import com.meixiaoxi.scheduler.store.SqlTemplate;
 import com.meixiaoxi.scheduler.store.dbutils.ResultSetHandler;
 import com.meixiaoxi.scheduler.store.exception.JdbcException;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +12,6 @@ import java.util.List;
  * @author Robert HG (254963746@qq.com) on 3/8/16.
  */
 public class SelectSql {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SelectSql.class);
 
     private SqlTemplate sqlTemplate;
     private StringBuilder sql = new StringBuilder();
@@ -263,14 +258,9 @@ public class SelectSql {
     public <T> T single() {
         String finalSQL = getSQL();
         try {
-
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(SQLFormatter.format(finalSQL));
-            }
-
             return sqlTemplate.queryForValue(finalSQL, params.toArray());
         } catch (Exception e) {
-            throw new JdbcException("Select SQL Error:" + SQLFormatter.format(finalSQL), e);
+            throw new JdbcException("Select SQL Error:" + finalSQL, e);
         }
     }
 

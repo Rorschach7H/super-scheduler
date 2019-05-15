@@ -43,7 +43,7 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
         try {
             if (check(taskInfo)) {
                 long timestamp =
-                        DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), TaskConstUtil.DEFAULT_TIME);
+                        DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), DateUtil.DEFAULT_TIME);
                 RScoredSortedSet<String> scoredSortedSet =
                         redissonClient.getScoredSortedSet(taskInfo.getGroupKey());
                 log.info("添加任务到[{}]任务组, score={}", taskInfo.getGroupKey(), timestamp);

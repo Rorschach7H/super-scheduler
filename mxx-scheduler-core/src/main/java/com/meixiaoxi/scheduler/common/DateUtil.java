@@ -11,6 +11,19 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
+    public static final String DEFAULT_TIME = "yyyy-MM-dd hh:mm:ss";
+    public static final String TIME_YYYYMM = "yyyy-MM-dd";
+
+    /**
+     * 将日期转换成字符串，不带时分秒
+     *
+     * @param date
+     * @return
+     */
+    public static String dateToString(Date date) {
+        return dateToString(date, DEFAULT_TIME);
+    }
+
     /**
      * 将日期转换成字符串，不带时分秒
      *
@@ -24,6 +37,27 @@ public class DateUtil {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 将long日期转换成字符串
+     *
+     * @param date
+     * @return
+     */
+    public static String longDateToString(long date) {
+        return longDateToString(date, DEFAULT_TIME);
+    }
+
+    /**
+     * 将long日期转换成字符串
+     *
+     * @param date
+     * @return
+     */
+    public static String longDateToString(long date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
     }
 
     /**
@@ -162,5 +196,6 @@ public class DateUtil {
 //        System.out.println(dateToString(newDate) + "," + dateToString(date));
 
         System.out.println(longSecondToDate("1458788699"));
+        System.out.println(longDateToString(date.getTime(), DateUtil.DEFAULT_TIME));
     }
 }
