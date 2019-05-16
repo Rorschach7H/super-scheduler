@@ -1,4 +1,4 @@
-package com.meixiaoxi.scheduler.aspect;
+package com.meixiaoxi.scheduler.factory;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -17,4 +17,5 @@ public interface AspectInterceptor {
 
     public void beforeDo();
     public void afterDo();
+    public void exceptDo();
 }

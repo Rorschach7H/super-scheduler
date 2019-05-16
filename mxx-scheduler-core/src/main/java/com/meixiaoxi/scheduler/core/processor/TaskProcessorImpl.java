@@ -3,14 +3,13 @@ package com.meixiaoxi.scheduler.core.processor;
 import com.alibaba.fastjson.JSON;
 import com.meixiaoxi.scheduler.SchedulerConfig;
 import com.meixiaoxi.scheduler.common.DateUtil;
-import com.meixiaoxi.scheduler.common.TaskConstUtil;
 import com.meixiaoxi.scheduler.constant.ConfigSpiKeys;
 import com.meixiaoxi.scheduler.core.handler.TaskExecuteHandler;
 import com.meixiaoxi.scheduler.core.task.cache.TaskCacheOperate;
-import com.meixiaoxi.scheduler.core.task.mysql.MysqlTaskOperate;
-import com.meixiaoxi.scheduler.core.task.mysql.TaskOperate;
 import com.meixiaoxi.scheduler.core.task.domain.ExecuteState;
 import com.meixiaoxi.scheduler.core.task.domain.RunExecutingTask;
+import com.meixiaoxi.scheduler.core.task.mysql.MysqlTaskOperate;
+import com.meixiaoxi.scheduler.core.task.mysql.TaskOperate;
 import com.meixiaoxi.scheduler.spi.ServiceLoader;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -27,7 +26,7 @@ import java.util.List;
  * @Date 2018/7/9 11:24
  * @Version V1.0
  */
-public class TaskProcessorImpl implements TaskProcessor{
+public class TaskProcessorImpl implements TaskProcessor {
 
     private static Logger log = LoggerFactory.getLogger(TaskProcessorImpl.class);
 
@@ -45,13 +44,12 @@ public class TaskProcessorImpl implements TaskProcessor{
     public boolean addTask(RunExecutingTask taskInfo) {
         try {
             if (taskCacheOperate.addTask(taskInfo)) {
-                return taskOperate.insert(taskInfo);
+                taskOperate.insertSelective(taskInfo);
             }
         } catch (Exception e) {
             log.error("添加任务出现异常！taskInfo=" + JSON.toJSONString(taskInfo), e);
-            return false;
+            throw new RuntimeException(e);
         }
-
         return false;
     }
 

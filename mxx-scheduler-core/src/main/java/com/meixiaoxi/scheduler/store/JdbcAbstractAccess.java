@@ -13,10 +13,8 @@ import java.io.InputStream;
 public abstract class JdbcAbstractAccess {
 
     private SqlTemplate sqlTemplate;
-    private SchedulerConfig schedulerConfig;
 
     public JdbcAbstractAccess(SchedulerConfig schedulerConfig) {
-        this.schedulerConfig = schedulerConfig;
         this.sqlTemplate = SqlTemplateFactory.create(schedulerConfig);
     }
 

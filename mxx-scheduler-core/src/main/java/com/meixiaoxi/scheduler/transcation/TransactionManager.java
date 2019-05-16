@@ -1,6 +1,9 @@
 package com.meixiaoxi.scheduler.transcation;
 
-import com.meixiaoxi.scheduler.aspect.AspectInterceptor;
+import com.meixiaoxi.scheduler.factory.AspectInterceptor;
+import com.meixiaoxi.scheduler.store.ConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -8,7 +11,8 @@ import java.sql.SQLException;
 
 public class TransactionManager implements AspectInterceptor {
 
-    private static final ThreadLocal<Connection> connectionTreadLocal = new ThreadLocal<>();
+    private static final Logger log = LoggerFactory.getLogger(TransactionManager.class);
+
     private DataSource dataSource;
 
     public TransactionManager(DataSource dataSource) {
@@ -17,16 +21,24 @@ public class TransactionManager implements AspectInterceptor {
 
     @Override
     public void beforeDo() {
-        System.out.println("start do");
+        log.info("start transaction ...");
+        startTransaction();
     }
 
     @Override
     public void afterDo() {
-        System.out.println("after do");
+        log.info("end transaction ...");
+        commit();
+    }
+
+    @Override
+    public void exceptDo() {
+        log.info("service logic have Exception! rollback transaction ...");
+        rollback();
     }
 
     private void startTransaction() {
-        Connection connection = getConnection();
+        Connection connection = ConnectionFactory.getConnection(dataSource);
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -37,7 +49,7 @@ public class TransactionManager implements AspectInterceptor {
     private void commit() {
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = ConnectionFactory.getConnection(dataSource);
             connection.commit();
         } catch (SQLException e) {
             close(connection);
@@ -48,7 +60,7 @@ public class TransactionManager implements AspectInterceptor {
     private void rollback() {
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = ConnectionFactory.getConnection(dataSource);
             connection.rollback();
         } catch (SQLException e) {
             close(connection);
@@ -58,27 +70,14 @@ public class TransactionManager implements AspectInterceptor {
 
     private void close(Connection connection) {
         try {
-            connection.close();
+            if (connection != null) {
+                if (connection.isReadOnly()) {
+                    connection.setReadOnly(false);  // restore NOT readOnly before return to pool
+                }
+                connection.close();
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }
-    }
-
-    /**
-     * 获得连接对象方法
-     *
-     * @return 连接对象
-     */
-    private Connection getConnection() {
-        try {
-            if (connectionTreadLocal.get() == null) {
-                Connection connection = dataSource.getConnection();
-                connectionTreadLocal.set(connection);
-                return connection;
-            }
-            return connectionTreadLocal.get();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }

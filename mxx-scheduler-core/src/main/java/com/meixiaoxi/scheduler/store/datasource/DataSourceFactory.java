@@ -14,7 +14,7 @@ public class DataSourceFactory {
 
     private static DataSource dataSource;
 
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
 
     public static DataSource get(SchedulerConfig config) {
         if (dataSource != null) {

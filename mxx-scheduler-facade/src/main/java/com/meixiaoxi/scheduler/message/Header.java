@@ -5,17 +5,21 @@ import java.io.Serializable;
 // 消息的头部
 public class Header implements Serializable {
 
-    // 协议版本
+    //协议版本
     private int version;
-    // 消息内容长度
+    //消息内容长度
     private int contentLength;
-    // 服务名称
-    private String sessionId;
+    //连接KEY
+    private String key;
+    //客户端名
+    private String name;
+    //客户端别名
+    private String alias;
 
-    public Header(int version, int contentLength, String sessionId) {
+    public Header(int version, int contentLength, String key) {
         this.version = version;
         this.contentLength = contentLength;
-        this.sessionId = sessionId;
+        this.key = key;
     }
 
     public int getVersion() {
@@ -34,11 +38,27 @@ public class Header implements Serializable {
         this.contentLength = contentLength;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getKey() {
+        return key;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 }

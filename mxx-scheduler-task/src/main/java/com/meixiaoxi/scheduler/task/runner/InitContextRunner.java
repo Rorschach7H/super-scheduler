@@ -1,11 +1,8 @@
 package com.meixiaoxi.scheduler.task.runner;
 
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.aspect.AspectInterceptor;
-import com.meixiaoxi.scheduler.aspect.ServiceAspectManager;
-import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
+import com.meixiaoxi.scheduler.constant.ConfigKeys;
 import com.meixiaoxi.scheduler.core.processor.TaskProcessorImpl;
-import com.meixiaoxi.scheduler.store.SqlTemplateFactory;
 import com.meixiaoxi.scheduler.store.datasource.DataSourceFactory;
 import com.meixiaoxi.scheduler.task.TaskAppContext;
 import com.meixiaoxi.scheduler.task.TaskCfgLoader;
@@ -13,8 +10,7 @@ import com.meixiaoxi.scheduler.transcation.TransactionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.sql.DataSource;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -34,29 +30,36 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private SchedulerConfig config;
-    private String cfgPath;
-    private String log4jPath;
 
     public InitContextRunner(String cfgPath, String log4jPath) {
-        this.cfgPath = cfgPath;
-        this.log4jPath = log4jPath;
+        this.config = TaskCfgLoader.load(cfgPath, log4jPath);
     }
 
     @Override
     protected void run(TaskAppContext context) {
-        this.config = TaskCfgLoader.load(cfgPath, log4jPath);
+        //初始化bean
+        context.proxyInstance(new TaskProcessorImpl(config));
+    }
 
-        TransactionManager transactionManager = new TransactionManager(DataSourceFactory.get(config));
-        List<AspectInterceptor> interceptorList = new ArrayList<>();
-        interceptorList.add(transactionManager);
-        ServiceAspectManager serviceAspectManager = new ServiceAspectManager(interceptorList);
-        TaskProcessor taskProcessor = new TaskProcessorImpl(config);
-        TaskProcessor taskProcessorProxy = serviceAspectManager.proxyFor(taskProcessor);
-        context.setTaskProcessor(taskProcessorProxy);
+    /**
+     * 初始化服务管理器
+     *
+     * @return
+     */
+    private TaskAppContext initContext() {
+        log.info("init datasource with config: url={}", config.getProperty(ConfigKeys.jdbc_url));
+        DataSource dataSource = DataSourceFactory.get(config);
+        log.info("init transactionManager");
+        TransactionManager transactionManager = new TransactionManager(dataSource);
+        log.info("instantiate context with managing all Beans ");
+        TaskAppContext context = new TaskAppContext(config);
+        log.info("take transactionManager into appContext`s aspectInterceptors");
+        context.putAspectInterceptors(transactionManager);
+        return context;
     }
 
     public void start() {
-        this.context = new TaskAppContext(config);
+        this.context = initContext();
         start(context);
     }
 }

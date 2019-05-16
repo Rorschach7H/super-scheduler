@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.meixiaoxi.scheduler.core.task.domain.annotation.PrimaryKey;
 import com.meixiaoxi.scheduler.core.task.domain.annotation.Table;
 
-import java.math.BigDecimal;
-
 /**
  * @Title
  * @Description
@@ -15,7 +13,7 @@ import java.math.BigDecimal;
  * @Version V1.0
  */
 @Table("ru_executing_task")
-public class RunExecutingTask extends AbstractEntity{
+public class RunExecutingTask extends AbstractEntity {
 
     /**
      * 任务ID

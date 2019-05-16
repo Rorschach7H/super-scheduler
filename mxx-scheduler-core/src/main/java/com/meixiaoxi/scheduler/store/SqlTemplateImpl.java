@@ -3,6 +3,7 @@ package com.meixiaoxi.scheduler.store;
 import com.meixiaoxi.scheduler.store.dbutils.DbRunner;
 import com.meixiaoxi.scheduler.store.dbutils.ResultSetHandler;
 import com.meixiaoxi.scheduler.store.dbutils.ScalarHandler;
+import com.meixiaoxi.scheduler.transcation.TransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,8 +14,8 @@ import java.sql.SQLException;
  */
 class SqlTemplateImpl implements SqlTemplate {
 
-    private final DataSource dataSource;
     private final static DbRunner dbRunner = new DbRunner();
+    private DataSource dataSource;
 
     public SqlTemplateImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -22,24 +23,11 @@ class SqlTemplateImpl implements SqlTemplate {
 
     public <T> T execute(boolean isReadOnly, SqlExecutor<T> executor) throws SQLException {
         Connection conn = null;
-        try {
-            conn = dataSource.getConnection();
-            if (isReadOnly) {
-                conn.setReadOnly(true);
-            }
-            return executor.run(conn);
-        } finally {
-            close(conn);
+        conn = ConnectionFactory.getConnection(dataSource);
+        if (isReadOnly) {
+            conn.setReadOnly(true);
         }
-    }
-
-    private void close(Connection conn) throws SQLException {
-        if (conn != null) {
-            if (conn.isReadOnly()) {
-                conn.setReadOnly(false);  // restore NOT readOnly before return to pool
-            }
-            conn.close();
-        }
+        return executor.run(conn);
     }
 
     public void createTable(final String sql) throws SQLException {

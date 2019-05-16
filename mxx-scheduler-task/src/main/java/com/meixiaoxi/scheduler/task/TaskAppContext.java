@@ -2,7 +2,6 @@ package com.meixiaoxi.scheduler.task;
 
 import com.meixiaoxi.scheduler.AppContext;
 import com.meixiaoxi.scheduler.SchedulerConfig;
-import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +28,5 @@ public class TaskAppContext extends AppContext {
 
     public TaskAppContext(SchedulerConfig config) {
         super(config);
-    }
-
-    public TaskAppContext(SchedulerConfig config, TaskProcessor taskProcessor) {
-        super(config, taskProcessor);
     }
 }

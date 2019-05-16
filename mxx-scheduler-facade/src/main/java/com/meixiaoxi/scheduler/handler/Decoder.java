@@ -17,13 +17,13 @@ public class Decoder extends ByteToMessageDecoder {
         int version = in.readInt();
         // 获取消息长度
         int contentLength = in.readInt();
-        // 获取SessionId
-        byte[] sessionByte = new byte[36];
-        in.readBytes(sessionByte);
-        String sessionId = new String(sessionByte);
+        // 获取key
+        byte[] keyByte = new byte[36];
+        in.readBytes(keyByte);
+        String key = new String(keyByte);
 
         // 组装协议头
-        Header header = new Header(version, contentLength, sessionId);
+        Header header = new Header(version, contentLength, key);
         // 消息内容长度
         int length = in.readInt();
         byte[] content = new byte[length];

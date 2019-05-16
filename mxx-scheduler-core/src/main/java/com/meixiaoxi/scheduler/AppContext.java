@@ -1,6 +1,6 @@
 package com.meixiaoxi.scheduler;
 
-import com.meixiaoxi.scheduler.core.processor.TaskProcessor;
+import com.meixiaoxi.scheduler.factory.DefaultServiceFactory;
 
 import javax.sql.DataSource;
 
@@ -17,17 +17,12 @@ import javax.sql.DataSource;
  * -----------------------------------------------------------
  * 2019-04-25    meixiaoxi       v1.0.0           创建
  */
-public abstract class AppContext {
+public abstract class AppContext extends DefaultServiceFactory {
 
     /**
      * 系统配置
      */
     private SchedulerConfig config;
-
-    /**
-     * 任务处理
-     */
-    private TaskProcessor taskProcessor;
 
     /**
      * 连接数据库的数据源
@@ -38,25 +33,12 @@ public abstract class AppContext {
         this.config = config;
     }
 
-    public AppContext(SchedulerConfig config, TaskProcessor taskProcessor) {
-        this.config = config;
-        this.taskProcessor = taskProcessor;
-    }
-
     public SchedulerConfig getConfig() {
         return config;
     }
 
     public void setConfig(SchedulerConfig config) {
         this.config = config;
-    }
-
-    public TaskProcessor getTaskProcessor() {
-        return taskProcessor;
-    }
-
-    public void setTaskProcessor(TaskProcessor taskProcessor) {
-        this.taskProcessor = taskProcessor;
     }
 
     public DataSource getDataSource() {

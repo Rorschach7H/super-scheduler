@@ -6,11 +6,12 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     private Header header;
-    private String content;
 
-    public Message(Header header, String content) {
+    private String handler;
+
+    public Message(Header header, String handler) {
         this.header = header;
-        this.content = content;
+        this.handler = handler;
     }
 
     public Header getHeader() {
@@ -21,20 +22,22 @@ public class Message implements Serializable {
         this.header = header;
     }
 
-    public String getContent() {
-        return content;
+    public String getHandler() {
+        return handler;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setHandler(String handler) {
+        this.handler = handler;
     }
 
     @Override
     public String toString() {
-        return String.format("[version=%d,contentLength=%d,sessionId=%s,content=%s]",
+        return String.format("[version=%d,contentLength=%d,key=%s,name=%s,alias=%s,content=%s]",
                 header.getVersion(),
                 header.getContentLength(),
-                header.getSessionId(),
-                content);
+                header.getKey(),
+                header.getName(),
+                header.getAlias(),
+                handler);
     }
 }
