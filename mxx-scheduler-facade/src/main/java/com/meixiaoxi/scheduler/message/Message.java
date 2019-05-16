@@ -5,6 +5,8 @@ import java.io.Serializable;
 // 消息的主体
 public class Message implements Serializable {
 
+    public static String default_null = "--mxx--";
+
     private Header header;
 
     private String handler;
@@ -32,9 +34,8 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[version=%d,contentLength=%d,key=%s,name=%s,alias=%s,content=%s]",
+        return String.format("[version=%d,key=%s,name=%s,alias=%s,content=%s]",
                 header.getVersion(),
-                header.getContentLength(),
                 header.getKey(),
                 header.getName(),
                 header.getAlias(),

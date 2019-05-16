@@ -15,21 +15,28 @@ public class Decoder extends ByteToMessageDecoder {
 
         // 获取协议的版本
         int version = in.readInt();
-        // 获取消息长度
-        int contentLength = in.readInt();
-        // 获取key
-        byte[] keyByte = new byte[36];
-        in.readBytes(keyByte);
-        String key = new String(keyByte);
+        String key = getString(in);
 
-        // 组装协议头
-        Header header = new Header(version, contentLength, key);
-        // 消息内容长度
-        int length = in.readInt();
-        byte[] content = new byte[length];
-        // 读取消息内容
-        in.readBytes(content);
-        Message message = new Message(header, new String(content));
+        String name = getString(in);
+        String alias = getString(in);
+        String handler = getString(in);
+        Header header = new Header(version, key);
+        header.setName(name);
+        header.setAlias(alias);
+        Message message = new Message(header, handler);
         out.add(message);
+    }
+
+    private String getString(ByteBuf in) {
+        // 获取下一段消息内容长度
+        int keyLength = in.readInt();
+        // 获取下一段消息内容
+        byte[] keyByte = new byte[keyLength];
+        in.readBytes(keyByte);
+        String str = new String(keyByte);
+        if (Message.default_null.equals(str)) {
+            return null;
+        }
+        return str;
     }
 }

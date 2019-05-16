@@ -22,12 +22,22 @@ public class Encoder extends MessageToByteEncoder<Message> {
 
         // 写入Header信息
         out.writeInt(header.getVersion());
-        out.writeInt(message.getContent().length());
-        out.writeBytes(header.getSessionId().getBytes());
+        String key = header.getKey();
+        if (key == null) {
+            throw new RuntimeException("message header key must be String!!!");
+        }
+        out.writeInt(header.getKey().getBytes().length);
+        out.writeBytes(header.getKey().getBytes());
+        writeString(out, header.getName());
+        writeString(out, header.getAlias());
+        writeString(out, message.getHandler());
+    }
 
-        byte[] bytes = message.getContent().getBytes(StandardCharsets.UTF_8);
-        out.writeInt(bytes.length);
-        // 写入消息主体信息
-        out.writeBytes(bytes);
+    private void writeString(ByteBuf out, String str) {
+        if (str == null) {
+            str = Message.default_null;
+        }
+        out.writeInt(str.getBytes(StandardCharsets.UTF_8).length);
+        out.writeBytes(str.getBytes(StandardCharsets.UTF_8));
     }
 }

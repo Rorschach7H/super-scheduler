@@ -1,5 +1,6 @@
 package com.meixiaoxi.scheduler.task.server;
 
+import com.alibaba.fastjson.JSON;
 import com.meixiaoxi.scheduler.message.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,7 +16,7 @@ public class ServerMessageHandler extends SimpleChannelInboundHandler<Message> {
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
         Channel channel = ctx.channel();
         // 简单地打印出server接收到的消息
-        System.out.println(msg.toString());
+        System.out.println(JSON.toJSONString(msg));
     }
 
     @Override

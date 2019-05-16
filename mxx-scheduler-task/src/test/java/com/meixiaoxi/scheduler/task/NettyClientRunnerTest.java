@@ -46,8 +46,10 @@ public class NettyClientRunnerTest {
                     });
 
             Channel channel = bootstrap.connect("localhost", 9088).sync().channel();
-            String sessionId = UUID.randomUUID().toString();
-            Header header = new Header(1, 4, sessionId);
+            String key = UUID.randomUUID().toString();
+            Header header = new Header(1, key);
+            header.setName("hello111");
+            header.setAlias("world222222");
 
             Message message = new Message(header, "你好");
             channel.writeAndFlush(message);
