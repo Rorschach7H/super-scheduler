@@ -4,17 +4,17 @@
         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.roxia.task</groupId>
-    <artifactId>roxia-scheduler-root</artifactId>
+    <groupId>net.roxia.scheduler</groupId>
+    <artifactId>super-root</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>roxia-scheduler-core</module>
-        <module>roxia-scheduler-facade</module>
-        <module>roxia-scheduler-task</module>
-        <module>roxia-scheduler-client</module>
-        <module>roxia-scheduler-common</module>
+        <module>super-core</module>
+        <module>super-facade</module>
+        <module>super-task</module>
+        <module>super-client</module>
+        <module>super-common</module>
     </modules>
 
     <properties>
