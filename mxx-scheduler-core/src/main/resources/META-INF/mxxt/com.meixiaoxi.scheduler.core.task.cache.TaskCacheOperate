@@ -1,1 +1,0 @@
-redis=com.meixiaoxi.scheduler.core.task.cache.RedisTaskCacheOperate

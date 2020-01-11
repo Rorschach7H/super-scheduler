@@ -1,2 +1,0 @@
-service1=com.meixiaoxi.scheduler.spi.TestServiceImpl
-service2=com.meixiaoxi.scheduler.spi.TestServiceImpl2
