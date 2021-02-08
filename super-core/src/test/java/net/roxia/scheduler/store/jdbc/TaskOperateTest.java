@@ -2,7 +2,7 @@ package net.roxia.scheduler.store.jdbc;
 
 import junit.framework.TestCase;
 import net.roxia.scheduler.SchedulerConfig;
-import net.roxia.scheduler.common.DateUtil;
+import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.constant.ConfigKeys;
 import net.roxia.scheduler.constant.ConfigSpiKeys;

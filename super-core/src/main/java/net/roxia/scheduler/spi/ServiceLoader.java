@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentMap;
 public class ServiceLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLoader.class);
-    private static final String LTS_DIRECTORY = "META-INF/mxxt/";
+    private static final String LTS_DIRECTORY = "META-INF/roxia/";
     private static final String LTS_INTERNAL = "internal";
     private static final String LTS_INTERNAL_DIRECTORY = LTS_DIRECTORY + LTS_INTERNAL + "/";
 
