@@ -91,7 +91,7 @@ public class RunExecutingTask extends AbstractEntity {
 
     @Override
     public String toString() {
-        return JsonUtil.toJsonString(this);
+        return JsonUtil.obj2String(this);
     }
 
     public Long getId() {

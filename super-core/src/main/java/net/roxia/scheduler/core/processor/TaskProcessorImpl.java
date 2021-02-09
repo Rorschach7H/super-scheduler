@@ -37,7 +37,7 @@ public class TaskProcessorImpl implements TaskProcessor {
         taskOperate = new MysqlTaskOperate(config);
         taskCacheOperate = ServiceLoader.
                 load(TaskCacheOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI))
-                .loadConfig(config);
+                .loadConfig();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TaskProcessorImpl implements TaskProcessor {
                 taskOperate.insertSelective(taskInfo);
             }
         } catch (Exception e) {
-            log.error("添加任务出现异常！taskInfo=" + JsonUtil.toJsonString(taskInfo), e);
+            log.error("添加任务出现异常！taskInfo=" + JsonUtil.obj2String(taskInfo), e);
             throw new RuntimeException(e);
         }
         return false;
@@ -65,11 +65,11 @@ public class TaskProcessorImpl implements TaskProcessor {
             List<RunExecutingTask> taskInfoList = taskCacheOperate.popExecuteTask(taskGroup);
             for (RunExecutingTask taskInfo : taskInfoList) {
                 //执行失败
-                log.warn("任务执行失败！taskInfo={}", JsonUtil.toJsonString(taskInfo));
+                log.warn("任务执行失败！taskInfo={}", JsonUtil.obj2String(taskInfo));
                 //失败次数加1
                 taskInfo.setFailures(taskInfo.getFailures() + 1);
                 if (taskInfo.getFailures().intValue() == taskInfo.getMaxFailures().intValue()) {
-                    log.warn("该任务失败次数已经达到了最大失败次数(3次)！无法继续尝试运行，请检查任务对应的业务逻辑是否正确，taskInfo={}", JsonUtil.toJsonString(taskInfo));
+                    log.warn("该任务失败次数已经达到了最大失败次数(3次)！无法继续尝试运行，请检查任务对应的业务逻辑是否正确，taskInfo={}", JsonUtil.obj2String(taskInfo));
                     taskInfo.setExecuteState((byte) ExecuteState.FAIL.getCode());
                     continue;
                 }
@@ -92,7 +92,7 @@ public class TaskProcessorImpl implements TaskProcessor {
 
     @Override
     public void addUnReadyTaskToQueue(List<RunExecutingTask> tasks) {
-        log.info("将未就绪任务添加到执行队列tasks={}", JsonUtil.toJsonString(tasks));
+        log.info("将未就绪任务添加到执行队列tasks={}", JsonUtil.obj2String(tasks));
         try {
             for (RunExecutingTask task : tasks) {
                 task.setExecuteState(ExecuteState.WAIT_EXECUTE.getCode());

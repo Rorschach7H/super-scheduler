@@ -6,7 +6,7 @@ import org.redisson.api.RedissonClient;
 
 import java.util.concurrent.TimeUnit;
 
-public class RedisDistributedLock implements DistributedLock {
+public class RedissonDistributedLock implements DistributedLock {
 
     private RLock lock;
 
@@ -20,11 +20,11 @@ public class RedisDistributedLock implements DistributedLock {
      */
     private static final int WAIT_EXPIRE_TIME = 10 * 1000;
 
-    public RedisDistributedLock() {
+    public RedissonDistributedLock() {
         this(DEFAULT_LOCK_NAME);
     }
 
-    public RedisDistributedLock(String key) {
+    public RedissonDistributedLock(String key) {
         RedissonClient redissonClient = RedissonFactory.getRedissonClient();
         this.lock = redissonClient.getLock(key);
     }

@@ -1,6 +1,5 @@
 package net.roxia.scheduler.core.task.cache;
 
-import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
@@ -32,8 +31,8 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
 
     private RedissonClient redissonClient;
 
-    public TaskCacheOperate loadConfig(SchedulerConfig config) {
-        redissonClient = RedissonFactory.getRedissonClient(config);
+    public TaskCacheOperate loadConfig() {
+        redissonClient = RedissonFactory.getRedissonClient();
         return this;
     }
 
@@ -52,7 +51,7 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
             }
             return true;
         } catch (Exception e) {
-            log.error("添加任务出现异常！taskInfo=" + JsonUtil.toJsonString(taskInfo), e);
+            log.error("添加任务出现异常！taskInfo=" + JsonUtil.obj2String(taskInfo), e);
             return false;
         }
     }
@@ -80,7 +79,7 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
                 log.info("从任务组[{}],得到score<=[{}]的任务: {}",
                         taskGroup,
                         timestamp,
-                        JsonUtil.toJsonString(taskInfoSet));
+                        JsonUtil.obj2String(taskInfoSet));
                 taskInfoList.addAll(taskInfoSet);
             } catch (Exception e) {
                 log.warn("获取任务出现异常:", e);
@@ -105,7 +104,7 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
         if (CollectionUtils.isNotEmpty(taskInfoList)) {
             //如果获取到最要执行的任务，那么进行从任务组出移除
             sortedSet.removeRangeByScore(0, false, timestamp, true);
-            return taskInfoList.stream().map(entry -> JsonUtil.parseJsonObj(entry.getValue(), RunExecutingTask.class)).collect(Collectors.toSet());
+            return taskInfoList.stream().map(entry -> JsonUtil.string2Obj(entry.getValue(), RunExecutingTask.class)).collect(Collectors.toSet());
         }
         return null;
     }

@@ -1,8 +1,6 @@
 package net.roxia.scheduler.store.redisson;
 
 import junit.framework.TestCase;
-import net.roxia.scheduler.SchedulerConfig;
-import net.roxia.scheduler.constant.ConfigKeys;
 import net.roxia.scheduler.redis.RedissonFactory;
 import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;
@@ -22,10 +20,7 @@ import org.redisson.api.RedissonClient;
  */
 public class RedissonTest extends TestCase {
     public void testCreateRedissonClient() {
-        SchedulerConfig config = new SchedulerConfig();
-        config.put(ConfigKeys.rdss_address, "redis://meixiaoxi.com:6379");
-        config.put(ConfigKeys.rdss_password, "hjw556677");
-        RedissonClient client = RedissonFactory.getRedissonClient(config);
+        RedissonClient client = RedissonFactory.getRedissonClient();
         RList<String> list = client.getList("hello world");
 //        list.add("world1");
 //        list.add("world2");

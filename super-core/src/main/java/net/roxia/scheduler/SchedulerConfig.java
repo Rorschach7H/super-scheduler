@@ -1,5 +1,7 @@
 package net.roxia.scheduler;
 
+import net.roxia.scheduler.common.utils.StringTools;
+
 import java.util.Properties;
 
 /**
@@ -25,6 +27,9 @@ public class SchedulerConfig extends Properties {
     @SuppressWarnings("unchecked")
     public <T> T getProperty(String key, T defaultValue, Class<T> clazz) {
         Object value = get(key);
+        if(value == null){
+            value = get(StringTools.camel2Line(key));
+        }
         if (value != null) {
             if (clazz == value.getClass()) {
                 return (T) value;

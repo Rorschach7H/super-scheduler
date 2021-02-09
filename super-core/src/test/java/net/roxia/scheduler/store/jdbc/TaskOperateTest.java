@@ -57,7 +57,7 @@ public class TaskOperateTest extends TestCase {
 
     public void test2SelectTask() {
         RunExecutingTask task = taskOperate.select(1L);
-        System.out.println(JsonUtil.toJsonString(task));
+        System.out.println(JsonUtil.obj2String(task));
         Assert.assertEquals(1, task.getId().longValue());
     }
 

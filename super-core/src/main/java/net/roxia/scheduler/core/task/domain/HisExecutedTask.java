@@ -102,6 +102,6 @@ public class HisExecutedTask {
 
     @Override
     public String toString() {
-        return JsonUtil.toJsonString(this);
+        return JsonUtil.obj2String(this);
     }
 }
