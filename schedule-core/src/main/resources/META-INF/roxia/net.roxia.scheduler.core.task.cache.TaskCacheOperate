@@ -1,0 +1,1 @@
+redis=net.roxia.scheduler.core.task.cache.RedisTaskCacheOperate

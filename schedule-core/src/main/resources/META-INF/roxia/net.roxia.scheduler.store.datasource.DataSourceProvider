@@ -1,0 +1,2 @@
+mysql=net.roxia.scheduler.store.datasource.MysqlDataSourceProvider
+h2=net.roxia.scheduler.store.datasource.H2DataSourceProvider
