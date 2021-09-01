@@ -2,32 +2,20 @@ package net.roxia.scheduler.task.server;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServerMessageHandler extends SimpleChannelInboundHandler<Message> {
+public class ServerMessageHandler extends ChannelInboundHandlerAdapter {
 
-    private static Logger log = LoggerFactory.getLogger(ServerMessageHandler.class);
-
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
-        Channel channel = ctx.channel();
-        // 简单地打印出server接收到的消息
-        System.out.println(JsonUtil.obj2String(msg));
-    }
-
-    @Override
-    public boolean acceptInboundMessage(Object msg) throws Exception {
-        log.info("---------------{}----------------", "acceptInboundMessage");
-        return super.acceptInboundMessage(msg);
-    }
+    private final static Logger log = LoggerFactory.getLogger(ServerMessageHandler.class);
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("---------------{}----------------", "channelRead");
+        log.info("received client msg: {}", JsonUtil.obj2String(msg));
+        ctx.writeAndFlush(msg);
         super.channelRead(ctx, msg);
     }
 

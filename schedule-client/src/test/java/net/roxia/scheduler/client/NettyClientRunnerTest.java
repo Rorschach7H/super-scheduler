@@ -1,17 +1,13 @@
-package net.roxia.scheduler.task;
+package net.roxia.scheduler.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import net.roxia.scheduler.handler.Decoder;
-import net.roxia.scheduler.handler.Encoder;
 import net.roxia.scheduler.message.Header;
 import net.roxia.scheduler.message.Message;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.util.UUID;
 
@@ -33,18 +29,7 @@ public class NettyClientRunnerTest {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
-            bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class)
-                    .handler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            ChannelPipeline pipeline = socketChannel.pipeline();
-                            // 添加编解码器, 由于ByteToMessageDecoder的子类无法使用@Sharable注解,
-                            // 这里必须给每个Handler都添加一个独立的Decoder.
-                            pipeline.addLast(new Encoder());
-                            pipeline.addLast(new Decoder());
-                        }
-                    });
-
+            bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ClientInitializer());
             Channel channel = bootstrap.connect("localhost", 9088).sync().channel();
             String key = UUID.randomUUID().toString();
             Header header = new Header(1, key);
@@ -55,7 +40,7 @@ public class NettyClientRunnerTest {
             channel.writeAndFlush(message);
 
         } finally {
-            eventLoopGroup.shutdownGracefully();
+            //eventLoopGroup.shutdownGracefully();
         }
     }
 }

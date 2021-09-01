@@ -21,6 +21,7 @@ public class JsonUtil {
     private static Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
     private static ObjectMapper objectMapper = new ObjectMapper();
+
     // 日起格式化
     private static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 

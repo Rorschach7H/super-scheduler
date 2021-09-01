@@ -20,6 +20,7 @@ import net.roxia.scheduler.handler.Encoder;
  * 2019-04-26    meixiaoxi       v1.0.0           创建
  */
 public class ClientInitializer extends ChannelInitializer<SocketChannel> {
+
     private static final Encoder ENCODER = new Encoder();
 
     @Override

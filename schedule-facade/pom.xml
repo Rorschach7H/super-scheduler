@@ -12,6 +12,12 @@
     <artifactId>schedule-facade</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>net.roxia.scheduler</groupId>
+            <artifactId>schedule-common</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
