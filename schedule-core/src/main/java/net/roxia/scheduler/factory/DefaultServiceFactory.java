@@ -45,9 +45,9 @@ public class DefaultServiceFactory implements ServiceFactory {
     }
 
     private void putBeanMap(Object obj, Object objProxy) {
-        Class objClass = obj.getClass();
+        Class<?> objClass = obj.getClass();
         Class<?>[] interfaces = objClass.getInterfaces();
-        for (Class clazz : interfaces) {
+        for (Class<?> clazz : interfaces) {
             classBeanMap.put(clazz, objProxy);
         }
         nameBeanMap.put(objClass.getName(), objProxy);

@@ -5,13 +5,11 @@ import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.constant.ConfigSpiKeys;
 import net.roxia.scheduler.core.handler.TaskExecuteHandler;
-import net.roxia.scheduler.core.task.cache.TaskCacheOperate;
+import net.roxia.scheduler.core.task.TaskOperate;
 import net.roxia.scheduler.core.task.domain.ExecuteState;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
-import net.roxia.scheduler.core.task.mysql.MysqlTaskOperate;
-import net.roxia.scheduler.core.task.mysql.TaskOperate;
+import net.roxia.scheduler.holder.AppContextHolder;
 import net.roxia.scheduler.spi.ServiceLoader;
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,23 +26,24 @@ import java.util.List;
  */
 public class TaskProcessorImpl implements TaskProcessor {
 
-    private static Logger log = LoggerFactory.getLogger(TaskProcessorImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TaskProcessorImpl.class);
 
-    private TaskOperate taskOperate;
-    private TaskCacheOperate taskCacheOperate;
+    private TaskOperate cacheOperate;
+    private TaskOperate dbOperate;
 
-    public TaskProcessorImpl(SchedulerConfig config) {
-        taskOperate = new MysqlTaskOperate(config);
-        taskCacheOperate = ServiceLoader
-                .load(TaskCacheOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI))
+    public TaskProcessorImpl() {
+        SchedulerConfig config = AppContextHolder.getGlobalConfig();
+        TaskOperate cacheOperate = ServiceLoader
+                .load(TaskOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI))
                 .loadConfig();
+        dbOperate = ServiceLoader.load(TaskOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI));
     }
 
     @Override
     public boolean addTask(RunExecutingTask taskInfo) {
         try {
-            if (taskCacheOperate.addTask(taskInfo)) {
-                taskOperate.insertSelective(taskInfo);
+            if (cacheOperate.addTask(taskInfo)) {
+                dbOperate.addTask(taskInfo);
             }
         } catch (Exception e) {
             log.error("添加任务出现异常！taskInfo=" + JsonUtil.obj2String(taskInfo), e);
@@ -62,7 +61,7 @@ public class TaskProcessorImpl implements TaskProcessor {
     @Override
     public List<RunExecutingTask> executeTask(String taskGroup, TaskExecuteHandler handler) {
         try {
-            List<RunExecutingTask> taskInfoList = taskCacheOperate.popExecuteTask(taskGroup);
+            List<RunExecutingTask> taskInfoList = cacheOperate.popExecuteTask(taskGroup);
             for (RunExecutingTask taskInfo : taskInfoList) {
                 //执行失败
                 log.warn("任务执行失败！taskInfo={}", JsonUtil.obj2String(taskInfo));
@@ -80,9 +79,9 @@ public class TaskProcessorImpl implements TaskProcessor {
                 addTask(taskInfo);
                 log.info("重新添加该任务到[{}]任务组, taskInfo={}", taskInfo.getGroupKey(), taskInfo);
             }
-            if (CollectionUtils.isNotEmpty(taskInfoList)) {
-                taskOperate.updateBatch(taskInfoList);
-            }
+//            if (CollectionUtils.isNotEmpty(taskInfoList)) {
+//                cacheOperate.updateBatch(taskInfoList);
+//            }
             return taskInfoList;
         } catch (Exception e) {
             log.error("执行任务出现异常！", e);
@@ -96,8 +95,8 @@ public class TaskProcessorImpl implements TaskProcessor {
         try {
             for (RunExecutingTask task : tasks) {
                 task.setExecuteState(ExecuteState.WAIT_EXECUTE.getCode());
-                if (taskOperate.update(task)) {
-                    taskCacheOperate.addTask(task);
+                if (cacheOperate.addTask(task)) {
+                    dbOperate.addTask(task);
                 }
             }
         } catch (Exception e) {

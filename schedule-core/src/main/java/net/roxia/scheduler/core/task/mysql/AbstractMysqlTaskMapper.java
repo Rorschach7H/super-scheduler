@@ -28,9 +28,9 @@ import java.util.Map;
  * -----------------------------------------------------------
  * 2019-03-05    meixiaoxi       v1.0.0           创建
  */
-public class AbstractMysqlTaskOperate extends JdbcAbstractAccess implements TaskOperate {
+public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskMapper {
 
-    public AbstractMysqlTaskOperate(SchedulerConfig config) {
+    public AbstractMysqlTaskMapper(SchedulerConfig config) {
         super(config);
     }
 

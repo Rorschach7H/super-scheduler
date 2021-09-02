@@ -38,7 +38,7 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     @Override
     protected void run(TaskAppContext context) {
         //初始化bean
-        context.proxyInstance(new TaskProcessorImpl(config));
+        context.proxyInstance(new TaskProcessorImpl());
     }
 
     /**

@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ScanQueueTaskRunner extends TaskRunner<TaskAppContext> {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     protected void run(TaskAppContext context) {

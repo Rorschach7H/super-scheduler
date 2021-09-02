@@ -1,4 +1,4 @@
-package net.roxia.scheduler.cron;
+package net.roxia.scheduler.common.cron;
 
 import java.util.Date;
 

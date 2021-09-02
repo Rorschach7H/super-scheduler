@@ -1,4 +1,4 @@
-package net.roxia.scheduler.cron;
+package net.roxia.scheduler.common.cron;
 
 import net.roxia.scheduler.common.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 class SqlTemplateImpl implements SqlTemplate {
 
     private final static DbRunner dbRunner = new DbRunner();
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public SqlTemplateImpl(DataSource dataSource) {
         this.dataSource = dataSource;

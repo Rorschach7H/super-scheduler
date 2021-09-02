@@ -1,7 +1,5 @@
 package net.roxia.scheduler;
 
-import net.roxia.scheduler.factory.DefaultServiceFactory;
-
 import javax.sql.DataSource;
 
 /**
@@ -17,35 +15,18 @@ import javax.sql.DataSource;
  * -----------------------------------------------------------
  * 2019-04-25    meixiaoxi       v1.0.0           创建
  */
-public abstract class AppContext extends DefaultServiceFactory {
+public interface AppContext {
 
-    /**
-     * 系统配置
-     */
-    private SchedulerConfig config;
+    public SchedulerConfig getConfig();
 
-    /**
-     * 连接数据库的数据源
-     */
-    private DataSource dataSource;
+    public DataSource getDataSource();
 
-    public AppContext(SchedulerConfig config) {
-        this.config = config;
-    }
+    @SuppressWarnings("unchecked")
+    public <T> T getBean(Class<T> clazz);
 
-    public SchedulerConfig getConfig() {
-        return config;
-    }
+    public Object getBean(String name);
 
-    public void setConfig(SchedulerConfig config) {
-        this.config = config;
-    }
+    public Class<?> getType(String name);
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    public boolean containsBean(String name);
 }

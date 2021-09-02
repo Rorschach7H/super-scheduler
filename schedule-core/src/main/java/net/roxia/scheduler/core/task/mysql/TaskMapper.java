@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 2018/8/28 10:05
  * @Version V1.0
  */
-public interface TaskOperate {
+public interface TaskMapper {
 
     boolean insertSelective(RunExecutingTask task);
 

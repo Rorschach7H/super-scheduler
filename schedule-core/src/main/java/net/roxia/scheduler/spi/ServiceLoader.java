@@ -1,6 +1,5 @@
 package net.roxia.scheduler.spi;
 
-import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.common.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,13 +31,7 @@ public class ServiceLoader {
     private static final ConcurrentMap<ServiceDefinition, Object> cachedObjectMap = new ConcurrentHashMap<>();
 
     public static <T> T load(Class<T> clazz, String dynamicName) {
-        ServiceProvider serviceProvider = getServiceProvider(clazz);
-        return load(serviceProvider, dynamicName);
-    }
-
-    public static <T> T load(Class<T> clazz, SchedulerConfig config) {
-        ServiceProvider serviceProvider = getServiceProvider(clazz);
-        String dynamicName = config.getProperty(serviceProvider.dynamicKey);
+        ServiceProvider serviceProvider = getServiceProvider(clazz, dynamicName);
         return load(serviceProvider, dynamicName);
     }
 
@@ -72,16 +65,16 @@ public class ServiceLoader {
         }
     }
 
-    private static ServiceProvider getServiceProvider(Class<?> clazz) {
+    private static ServiceProvider getServiceProvider(Class<?> clazz, String serviceName) {
         ServiceProvider serviceProvider = serviceMap.get(clazz);
         if (serviceProvider == null) {
-            getServiceProviders(clazz);
+            getServiceProviders(clazz, serviceName);
             serviceProvider = serviceMap.get(clazz);
         }
         return serviceProvider;
     }
 
-    private static void getServiceProviders(final Class<?> clazz) {
+    private static void getServiceProviders(final Class<?> clazz, String serviceName) {
 
         if (clazz == null)
             throw new IllegalArgumentException("type == null");
@@ -94,7 +87,6 @@ public class ServiceLoader {
         }
 
         SPI spi = clazz.getAnnotation(SPI.class);
-        String defaultName = spi.defaultName();
         String dynamicKey = spi.dynamicKey();
 
         final Set<URLDefinition> urlDefinitions = new HashSet<>();
@@ -109,7 +101,10 @@ public class ServiceLoader {
         if (serviceDefinitions.isEmpty()) {
             throw new IllegalStateException("Service loader could not load " + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
-        ServiceProvider serviceProvider = new ServiceProvider(defaultName, dynamicKey, serviceDefinitions);
+        if (StringUtils.isBlank(serviceName)) {
+            serviceName = spi.defaultName();
+        }
+        ServiceProvider serviceProvider = new ServiceProvider(serviceName, dynamicKey, serviceDefinitions);
         serviceMap.remove(clazz);   // 先移除
         serviceMap.put(clazz, serviceProvider);
     }

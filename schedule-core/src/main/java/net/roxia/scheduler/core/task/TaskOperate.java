@@ -1,4 +1,4 @@
-package net.roxia.scheduler.core.task.cache;
+package net.roxia.scheduler.core.task;
 
 import net.roxia.scheduler.constant.ConfigSpiKeys;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
@@ -15,9 +15,9 @@ import java.util.List;
  * @Version V1.0
  */
 @SPI(defaultName = "redis", dynamicKey = ConfigSpiKeys.CACHE_SPI)
-public interface TaskCacheOperate {
+public interface TaskOperate {
 
-    TaskCacheOperate loadConfig();
+    TaskOperate loadConfig();
 
     /**
      * 添加任务

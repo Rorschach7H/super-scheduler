@@ -15,9 +15,9 @@ import net.roxia.scheduler.SchedulerConfig;
  * -----------------------------------------------------------
  * 2019-04-30    meixiaoxi       v1.0.0           创建
  */
-public class MysqlTaskOperate extends AbstractMysqlTaskOperate implements TaskOperate {
+public class MysqlTaskMapper extends AbstractMysqlTaskMapper {
 
-    public MysqlTaskOperate(SchedulerConfig config) {
+    public MysqlTaskMapper(SchedulerConfig config) {
         super(config);
     }
 }

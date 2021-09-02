@@ -1,7 +1,8 @@
-package net.roxia.scheduler.core.task.cache;
+package net.roxia.scheduler.core.task;
 
 import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
+import net.roxia.scheduler.core.task.TaskOperate;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.redis.RedissonFactory;
 import org.apache.commons.collections4.CollectionUtils;
@@ -23,27 +24,39 @@ import java.util.stream.Collectors;
  * @Date 2018/7/9 11:24
  * @Version V1.0
  */
-public class RedisTaskCacheOperate implements TaskCacheOperate {
+public class CacheTaskOperate implements TaskOperate {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private static String postfix = "_nmslwsnd";
+    private final static String postfix = "roxia-scheduler:";
 
     private RedissonClient redissonClient;
 
-    public TaskCacheOperate loadConfig() {
-        redissonClient = RedissonFactory.getRedissonClient();
+    /**
+     * load redis config (use redisson)
+     * @return
+     */
+    public TaskOperate loadConfig() {
+        try {
+            redissonClient = RedissonFactory.getRedissonClient();
+        } catch (Exception e) {
+            log.warn("init redis connect failed! {}", e.getMessage());
+            return null;
+        }
         return this;
     }
 
+    /**
+     * 添加任务
+     * @param taskInfo
+     * @return
+     */
     @Override
     public boolean addTask(RunExecutingTask taskInfo) {
         try {
             if (check(taskInfo)) {
-                long timestamp =
-                        DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), DateUtil.DEFAULT_TIME);
-                RScoredSortedSet<String> scoredSortedSet =
-                        redissonClient.getScoredSortedSet(taskInfo.getGroupKey());
+                long timestamp = DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), DateUtil.DEFAULT_TIME);
+                RScoredSortedSet<String> scoredSortedSet = redissonClient.getScoredSortedSet(taskInfo.getGroupKey());
                 log.info("添加任务到[{}]任务组, score={}", taskInfo.getGroupKey(), timestamp);
                 scoredSortedSet.addAsync(timestamp, taskInfo.toString());
             } else {
@@ -56,6 +69,12 @@ public class RedisTaskCacheOperate implements TaskCacheOperate {
         }
     }
 
+    /**
+     * 删除任务
+     * @param objectId
+     * @param groupKey
+     * @return
+     */
     @Override
     public boolean removeTask(Long objectId, String groupKey) {
         return false;
