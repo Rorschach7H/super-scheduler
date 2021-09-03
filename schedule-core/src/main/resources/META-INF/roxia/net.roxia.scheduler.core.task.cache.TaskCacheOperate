@@ -1,2 +1,0 @@
-cache=net.roxia.scheduler.core.task.CacheTaskOperate
-db=net.roxia.scheduler.core.task.DbTaskOperate

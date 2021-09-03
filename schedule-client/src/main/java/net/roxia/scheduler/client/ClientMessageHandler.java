@@ -14,7 +14,6 @@ public class ClientMessageHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("---------------{}----------------", "channelRead");
         log.info("received server msg: {}", JsonUtil.obj2String(msg));
-        ctx.writeAndFlush(msg);
         super.channelRead(ctx, msg);
     }
 

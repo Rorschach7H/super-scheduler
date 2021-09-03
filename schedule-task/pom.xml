@@ -17,10 +17,5 @@
             <artifactId>schedule-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>net.roxia.scheduler</groupId>
-            <artifactId>schedule-facade</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>

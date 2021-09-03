@@ -1,0 +1,2 @@
+service1=net.roxia.scheduler.spi.TestServiceImpl
+service2=net.roxia.scheduler.spi.TestServiceImpl2

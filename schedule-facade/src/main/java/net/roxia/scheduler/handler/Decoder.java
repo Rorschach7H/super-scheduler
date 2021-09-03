@@ -19,10 +19,12 @@ public class Decoder extends ByteToMessageDecoder {
 
         String name = getString(in);
         String alias = getString(in);
+        String type = getString(in);
         String handler = getString(in);
         Header header = new Header(version, key);
         header.setName(name);
         header.setAlias(alias);
+        header.setType(type);
         Message message = new Message(header, handler);
         out.add(message);
     }

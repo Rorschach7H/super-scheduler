@@ -5,15 +5,15 @@ import java.io.Serializable;
 // 消息的主体
 public class Message implements Serializable {
 
-    public static String default_null = "--mxx--";
+    public static String default_null = "--roxia--";
 
     private Header header;
 
-    private String handler;
+    private String body;
 
-    public Message(Header header, String handler) {
+    public Message(Header header, String body) {
         this.header = header;
-        this.handler = handler;
+        this.body = body;
     }
 
     public Header getHeader() {
@@ -24,21 +24,21 @@ public class Message implements Serializable {
         this.header = header;
     }
 
-    public String getHandler() {
-        return handler;
+    public String getBody() {
+        return body;
     }
 
-    public void setHandler(String handler) {
-        this.handler = handler;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     @Override
     public String toString() {
-        return String.format("[version=%d,key=%s,name=%s,alias=%s,content=%s]",
+        return String.format("[version=%d,key=%s,name=%s,alias=%s,body=%s]",
                 header.getVersion(),
                 header.getKey(),
                 header.getName(),
                 header.getAlias(),
-                handler);
+                body);
     }
 }

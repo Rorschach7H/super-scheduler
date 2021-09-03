@@ -30,6 +30,11 @@ public class ServiceLoader {
     private static final ConcurrentMap<Class<?>, ServiceProvider> serviceMap = new ConcurrentHashMap<>();
     private static final ConcurrentMap<ServiceDefinition, Object> cachedObjectMap = new ConcurrentHashMap<>();
 
+    public static <T> T load(Class<T> clazz) {
+        ServiceProvider serviceProvider = getServiceProvider(clazz, null);
+        return load(serviceProvider, null);
+    }
+
     public static <T> T load(Class<T> clazz, String dynamicName) {
         ServiceProvider serviceProvider = getServiceProvider(clazz, dynamicName);
         return load(serviceProvider, dynamicName);
@@ -65,16 +70,16 @@ public class ServiceLoader {
         }
     }
 
-    private static ServiceProvider getServiceProvider(Class<?> clazz, String serviceName) {
+    private static ServiceProvider getServiceProvider(Class<?> clazz, String dynamicName) {
         ServiceProvider serviceProvider = serviceMap.get(clazz);
         if (serviceProvider == null) {
-            getServiceProviders(clazz, serviceName);
+            getServiceProviders(clazz, dynamicName);
             serviceProvider = serviceMap.get(clazz);
         }
         return serviceProvider;
     }
 
-    private static void getServiceProviders(final Class<?> clazz, String serviceName) {
+    private static void getServiceProviders(final Class<?> clazz, String dynamicName) {
 
         if (clazz == null)
             throw new IllegalArgumentException("type == null");
@@ -101,10 +106,10 @@ public class ServiceLoader {
         if (serviceDefinitions.isEmpty()) {
             throw new IllegalStateException("Service loader could not load " + clazz.getName() + "'s ServiceProvider from '" + LTS_DIRECTORY + "' or '" + LTS_INTERNAL_DIRECTORY + "' It may be empty or does not exist.");
         }
-        if (StringUtils.isBlank(serviceName)) {
-            serviceName = spi.defaultName();
+        if (StringUtils.isBlank(dynamicName)) {
+            dynamicName = spi.defaultName();
         }
-        ServiceProvider serviceProvider = new ServiceProvider(serviceName, dynamicKey, serviceDefinitions);
+        ServiceProvider serviceProvider = new ServiceProvider(dynamicName, dynamicKey, serviceDefinitions);
         serviceMap.remove(clazz);   // 先移除
         serviceMap.put(clazz, serviceProvider);
     }

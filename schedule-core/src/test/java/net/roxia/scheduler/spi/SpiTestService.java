@@ -19,12 +19,9 @@ import net.roxia.scheduler.SchedulerConfig;
 public class SpiTestService extends TestCase {
 
     public void testLoad() {
-        SchedulerConfig config = new SchedulerConfig();
-        config.put("testService", "service1");
-        TestService testService = ServiceLoader.load(TestService.class, config);
+        TestService testService = ServiceLoader.load(TestService.class, "service1");
         testService.sayHello();
-        config.put("testService", "service2");
-        TestService testService2 = ServiceLoader.load(TestService.class, config);
+        TestService testService2 = ServiceLoader.load(TestService.class, "service2");
         testService2.sayHello();
     }
 }

@@ -13,6 +13,10 @@ public class AppContextHolder {
 
     private static AppContext appContext;
 
+    public static void setAppContext(AppContext appContext) {
+        AppContextHolder.appContext = appContext;
+    }
+
     public static SchedulerConfig getGlobalConfig() {
         return appContext.getConfig();
     }

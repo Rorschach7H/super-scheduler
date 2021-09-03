@@ -23,7 +23,7 @@ public class DataSourceProviderTest extends TestCase {
     public void testProvider() {
         SchedulerConfig config = new SchedulerConfig();
         config.put(ConfigSpiKeys.DATABASE_SPI, "mysql");
-        DataSourceProvider provider = ServiceLoader.load(DataSourceProvider.class, config);
+        DataSourceProvider provider = ServiceLoader.load(DataSourceProvider.class);
         provider.getDataSource(config);
     }
 }

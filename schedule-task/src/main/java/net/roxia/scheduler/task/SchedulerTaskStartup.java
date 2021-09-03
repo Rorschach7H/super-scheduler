@@ -34,8 +34,11 @@ public class SchedulerTaskStartup {
     }
 
     private static void start(String cfgPath, String log4jPath) {
+
+        TaskAppContext context = new TaskAppContext(TaskCfgLoader.load(cfgPath, log4jPath));
+
         //初始化系统上下文生成器
-        InitContextRunner initContextRunner = new InitContextRunner(cfgPath, log4jPath);
+        TaskRunner<TaskAppContext> initContextRunner = new InitContextRunner();
         //初始化网络服务器连接启动器
         TaskRunner<TaskAppContext> serverRunner = new NettyServerRunner();
         //初始化任务队列扫描启动器
@@ -45,6 +48,6 @@ public class SchedulerTaskStartup {
         serverRunner.setNext(taskRunner);
 
         //启动任务链
-        initContextRunner.start();
+        initContextRunner.start(context);
     }
 }

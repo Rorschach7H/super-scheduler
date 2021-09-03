@@ -1,11 +1,12 @@
 package net.roxia.scheduler.task.runner;
 
 import net.roxia.scheduler.SchedulerConfig;
+import net.roxia.scheduler.adapter.OperateAdapter;
 import net.roxia.scheduler.constant.ConfigKeys;
-import net.roxia.scheduler.core.processor.TaskProcessorImpl;
+import net.roxia.scheduler.core.processor.TaskAddAdapter;
+import net.roxia.scheduler.holder.AppContextHolder;
 import net.roxia.scheduler.store.datasource.DataSourceFactory;
 import net.roxia.scheduler.task.TaskAppContext;
-import net.roxia.scheduler.task.TaskCfgLoader;
 import net.roxia.scheduler.transcation.TransactionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,37 +30,17 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private SchedulerConfig config;
-
-    public InitContextRunner(String cfgPath, String log4jPath) {
-        this.config = TaskCfgLoader.load(cfgPath, log4jPath);
-    }
-
     @Override
     protected void run(TaskAppContext context) {
-        //初始化bean
-        context.proxyInstance(new TaskProcessorImpl());
-    }
-
-    /**
-     * 初始化服务管理器
-     *
-     * @return
-     */
-    private TaskAppContext initContext() {
+        AppContextHolder.setAppContext(context);
+        SchedulerConfig config = context.getConfig();
         log.info("init datasource with config: url={}", config.getProperty(ConfigKeys.JDBC_URL));
         DataSource dataSource = DataSourceFactory.get(config);
         log.info("init transactionManager");
         TransactionManager transactionManager = new TransactionManager(dataSource);
-        log.info("instantiate context with managing all Beans ");
-        TaskAppContext context = new TaskAppContext(config);
         log.info("take transactionManager into appContext`s aspectInterceptors");
         context.putAspectInterceptors(transactionManager);
-        return context;
-    }
 
-    public void start() {
-        this.context = initContext();
-        start(context);
+        OperateAdapter.initAdapterMap(new TaskAddAdapter());
     }
 }

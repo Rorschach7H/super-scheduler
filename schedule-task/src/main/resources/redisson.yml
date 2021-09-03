@@ -4,10 +4,10 @@ singleServerConfig:
   timeout: 3000
   retryAttempts: 3
   retryInterval: 1500
-  password: null
+  password: '&Hjw556677'
   subscriptionsPerConnection: 5
   clientName: null
-  address: "redis://172.16.38.149:6378"
+  address: "redis://rorschach7.net:6379"
   subscriptionConnectionMinimumIdleSize: 1
   subscriptionConnectionPoolSize: 50
   connectionMinimumIdleSize: 32

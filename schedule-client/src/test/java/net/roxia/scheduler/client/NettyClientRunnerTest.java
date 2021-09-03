@@ -5,9 +5,9 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import net.roxia.scheduler.adapter.enums.OperateEnum;
 import net.roxia.scheduler.message.Header;
 import net.roxia.scheduler.message.Message;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.util.UUID;
 
@@ -35,12 +35,13 @@ public class NettyClientRunnerTest {
             Header header = new Header(1, key);
             header.setName("hello111");
             header.setAlias("world222222");
+            header.setType(OperateEnum.ADD_TASK.name());
 
-            Message message = new Message(header, "你好");
+            Message message = new Message(header, "{}");
             channel.writeAndFlush(message);
 
         } finally {
-            //eventLoopGroup.shutdownGracefully();
+            eventLoopGroup.shutdownGracefully();
         }
     }
 }

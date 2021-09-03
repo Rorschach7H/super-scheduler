@@ -17,9 +17,7 @@ public class Encoder extends MessageToByteEncoder<Message> {
 
         // 将Message转换成二进制数据
         Header header = message.getHeader();
-
         // 这里写入的顺序就是协议的顺序.
-
         // 写入Header信息
         out.writeInt(header.getVersion());
         String key = header.getKey();
@@ -30,7 +28,8 @@ public class Encoder extends MessageToByteEncoder<Message> {
         out.writeBytes(header.getKey().getBytes());
         writeString(out, header.getName());
         writeString(out, header.getAlias());
-        writeString(out, message.getHandler());
+        writeString(out, header.getType());
+        writeString(out, message.getBody());
     }
 
     private void writeString(ByteBuf out, String str) {

@@ -1,15 +1,14 @@
 package net.roxia.scheduler.core.processor;
 
-import net.roxia.scheduler.SchedulerConfig;
+import net.roxia.scheduler.TaskException;
 import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.constant.ConfigSpiKeys;
 import net.roxia.scheduler.core.handler.TaskExecuteHandler;
+import net.roxia.scheduler.core.task.CacheTaskOperate;
+import net.roxia.scheduler.core.task.DbTaskOperate;
 import net.roxia.scheduler.core.task.TaskOperate;
 import net.roxia.scheduler.core.task.domain.ExecuteState;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
-import net.roxia.scheduler.holder.AppContextHolder;
-import net.roxia.scheduler.spi.ServiceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,27 +27,20 @@ public class TaskProcessorImpl implements TaskProcessor {
 
     private static final Logger log = LoggerFactory.getLogger(TaskProcessorImpl.class);
 
-    private TaskOperate cacheOperate;
-    private TaskOperate dbOperate;
+    private final TaskOperate cacheOperate;
+    private final TaskOperate dbOperate;
 
     public TaskProcessorImpl() {
-        SchedulerConfig config = AppContextHolder.getGlobalConfig();
-        TaskOperate cacheOperate = ServiceLoader
-                .load(TaskOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI))
-                .loadConfig();
-        dbOperate = ServiceLoader.load(TaskOperate.class, config.getProperty(ConfigSpiKeys.CACHE_SPI));
+        cacheOperate = CacheTaskOperate.getTaskOperate();
+        dbOperate = DbTaskOperate.getTaskOperate();
+        if (cacheOperate == null && dbOperate == null) {
+            throw new TaskException("cache operate and db operate init failed please check config!");
+        }
     }
 
     @Override
     public boolean addTask(RunExecutingTask taskInfo) {
-        try {
-            if (cacheOperate.addTask(taskInfo)) {
-                dbOperate.addTask(taskInfo);
-            }
-        } catch (Exception e) {
-            log.error("添加任务出现异常！taskInfo=" + JsonUtil.obj2String(taskInfo), e);
-            throw new RuntimeException(e);
-        }
+
         return false;
     }
 

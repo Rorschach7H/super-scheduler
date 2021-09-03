@@ -25,7 +25,7 @@ public class DataSourceFactory {
                 return DataSourceFactory.dataSource;
             }
             DataSourceProvider dataSourceProvider =
-                    ServiceLoader.load(DataSourceProvider.class, config);
+                    ServiceLoader.load(DataSourceProvider.class);
             DataSource dataSource = dataSourceProvider.getDataSource(config);
             DataSourceFactory.dataSource = dataSource;
             return dataSource;

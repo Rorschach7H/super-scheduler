@@ -5,10 +5,6 @@ import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.factory.DefaultServiceFactory;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -33,10 +29,6 @@ public class TaskAppContext extends DefaultServiceFactory implements AppContext 
      * 连接数据库的数据源
      */
     private DataSource dataSource;
-
-
-    public Map<String, Runnable> runnerLinkedMap = new HashMap<>();
-    public List<String> executeHandlerAlisList = new ArrayList<>();
 
     public TaskAppContext(SchedulerConfig config) {
         this.config = config;

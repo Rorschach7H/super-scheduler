@@ -2,7 +2,6 @@ package net.roxia.scheduler.core.task;
 
 import net.roxia.scheduler.common.utils.DateUtil;
 import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.core.task.TaskOperate;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.redis.RedissonFactory;
 import org.apache.commons.collections4.CollectionUtils;
@@ -32,15 +31,34 @@ public class CacheTaskOperate implements TaskOperate {
 
     private RedissonClient redissonClient;
 
+    private static TaskOperate taskOperate;
+
+    private CacheTaskOperate() {
+    }
+
+    public synchronized static TaskOperate getTaskOperate() {
+        if (taskOperate != null) {
+            return taskOperate;
+        }
+        synchronized (CacheTaskOperate.class) {
+            if (taskOperate != null) {
+                return taskOperate;
+            }
+            taskOperate = new CacheTaskOperate().loadConfig();
+            return taskOperate;
+        }
+    }
+
     /**
      * load redis config (use redisson)
+     *
      * @return
      */
     public TaskOperate loadConfig() {
         try {
             redissonClient = RedissonFactory.getRedissonClient();
         } catch (Exception e) {
-            log.warn("init redis connect failed! {}", e.getMessage());
+            log.warn("init redis connect failed! ", e);
             return null;
         }
         return this;
@@ -48,6 +66,7 @@ public class CacheTaskOperate implements TaskOperate {
 
     /**
      * 添加任务
+     *
      * @param taskInfo
      * @return
      */
@@ -71,6 +90,7 @@ public class CacheTaskOperate implements TaskOperate {
 
     /**
      * 删除任务
+     *
      * @param objectId
      * @param groupKey
      * @return

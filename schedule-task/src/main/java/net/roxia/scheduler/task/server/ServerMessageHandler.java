@@ -1,9 +1,11 @@
 package net.roxia.scheduler.task.server;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.roxia.scheduler.common.utils.JsonUtil;
+import net.roxia.scheduler.handler.MessageHandlerProcessor;
+import net.roxia.scheduler.message.Header;
+import net.roxia.scheduler.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,16 +16,14 @@ public class ServerMessageHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("---------------{}----------------", "channelRead");
-        log.info("received client msg: {}", JsonUtil.obj2String(msg));
-        ctx.writeAndFlush(msg);
+        Message message = (Message) msg;
+        MessageHandlerProcessor.assignmentMsg(message);
         super.channelRead(ctx, msg);
     }
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         log.info("---------------{}----------------", "channelRegistered");
-        Channel channel = ctx.channel();
-
         super.channelRegistered(ctx);
     }
 
