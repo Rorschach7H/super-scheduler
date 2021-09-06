@@ -38,12 +38,10 @@ public class TaskOperateTest extends TestCase {
         RunExecutingTask task = new RunExecutingTask();
         task.setId(1L);
         task.setObjectId(1L);
-        task.setGroupKey("test");
         task.setCron("");
         task.setPeriod(0);
         task.setTimeUnit((byte) 0);
         task.setInitialDelay(0);
-        task.setAccessKey("");
         task.setExecuteTime(DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
     }
 }

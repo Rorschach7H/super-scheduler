@@ -69,7 +69,7 @@ public class TaskProcessorImpl implements TaskProcessor {
                         DateUtil.TimeUnit.second, 10), DateUtil.DEFAULT_TIME));
                 //重新放回到任务等待队列中
                 addTask(taskInfo);
-                log.info("重新添加该任务到[{}]任务组, taskInfo={}", taskInfo.getGroupKey(), taskInfo);
+                log.info("重新添加该任务到[{}]任务组, taskInfo={}", taskInfo.getTaskName(), taskInfo);
             }
 //            if (CollectionUtils.isNotEmpty(taskInfoList)) {
 //                cacheOperate.updateBatch(taskInfoList);

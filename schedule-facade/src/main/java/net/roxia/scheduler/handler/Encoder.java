@@ -20,14 +20,13 @@ public class Encoder extends MessageToByteEncoder<Message> {
         // 这里写入的顺序就是协议的顺序.
         // 写入Header信息
         out.writeInt(header.getVersion());
-        String key = header.getKey();
-        if (key == null) {
+        String accessKey = header.getAccessKey();
+        if (accessKey == null) {
             throw new RuntimeException("message header key must be String!!!");
         }
-        out.writeInt(header.getKey().getBytes().length);
-        out.writeBytes(header.getKey().getBytes());
-        writeString(out, header.getName());
-        writeString(out, header.getAlias());
+        out.writeInt(header.getAccessKey().getBytes().length);
+        out.writeBytes(header.getAccessKey().getBytes());
+        writeString(out, header.getClientName());
         writeString(out, header.getType());
         writeString(out, message.getBody());
     }

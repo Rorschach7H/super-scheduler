@@ -1,14 +1,18 @@
 package net.roxia.scheduler.client;
 
+import com.google.common.collect.Maps;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import net.roxia.scheduler.adapter.enums.OperateEnum;
+import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.message.Header;
 import net.roxia.scheduler.message.Message;
+import net.roxia.scheduler.message.body.ClientInfo;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -26,22 +30,7 @@ import java.util.UUID;
  */
 public class NettyClientRunnerTest {
     public static void main(String[] args) throws Exception {
-        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
-        try {
-            Bootstrap bootstrap = new Bootstrap();
-            bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ClientInitializer());
-            Channel channel = bootstrap.connect("localhost", 9088).sync().channel();
-            String key = UUID.randomUUID().toString();
-            Header header = new Header(1, key);
-            header.setName("hello111");
-            header.setAlias("world222222");
-            header.setType(OperateEnum.ADD_TASK.name());
-
-            Message message = new Message(header, "{}");
-            channel.writeAndFlush(message);
-
-        } finally {
-            eventLoopGroup.shutdownGracefully();
-        }
+        Client client = new Client();
+        client.start();
     }
 }

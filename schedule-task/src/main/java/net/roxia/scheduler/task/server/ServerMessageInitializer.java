@@ -21,6 +21,8 @@ public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> 
         pipeline.addLast(new Decoder());
 
         // 添加逻辑控制层
+        pipeline.addLast(new ServerOutHandler());
+        // 添加逻辑控制层
         pipeline.addLast(new ServerMessageHandler());
 
     }

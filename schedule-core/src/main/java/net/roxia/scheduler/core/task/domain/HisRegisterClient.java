@@ -15,6 +15,7 @@ package net.roxia.scheduler.core.task.domain;
  */
 public class HisRegisterClient {
     private Long id;
+    private String clientName;
     private String accessKey;
     private String ip;
     private String createTime;

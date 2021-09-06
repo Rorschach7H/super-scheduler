@@ -12,12 +12,18 @@ import net.roxia.scheduler.message.Message;
  * @Author huangjunwei01
  * @Date 2021/9/3 16:32
  **/
-@Operate(operate = OperateEnum.ADD_TASK)
+@Operate(operate = OperateEnum.REG_TASK)
 public class TaskAddAdapter extends AbstractTaskAdapter {
     @Override
     public String handle(Message message) {
         String body = message.getBody();
-        RunExecutingTask taskInfo = JsonUtil.string2Obj(body, RunExecutingTask.class);
+        RunExecutingTask taskInfo;
+        try {
+            taskInfo = JsonUtil.string2Obj(body, RunExecutingTask.class);
+        } catch (Exception ex) {
+            log.error("pare task body error！taskInfo={}", body, ex);
+            throw new RuntimeException(ex);
+        }
         try {
             if (cacheOperate.addTask(taskInfo)) {
                 dbOperate.addTask(taskInfo);

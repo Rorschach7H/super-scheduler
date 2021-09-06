@@ -34,11 +34,10 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[version=%d,key=%s,name=%s,alias=%s,body=%s]",
+        return String.format("[version=%d,access_key=%s,client_name=%s,body=%s]",
                 header.getVersion(),
-                header.getKey(),
-                header.getName(),
-                header.getAlias(),
+                header.getAccessKey(),
+                header.getClientName(),
                 body);
     }
 }

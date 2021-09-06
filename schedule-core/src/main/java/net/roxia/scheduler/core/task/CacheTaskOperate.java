@@ -75,8 +75,8 @@ public class CacheTaskOperate implements TaskOperate {
         try {
             if (check(taskInfo)) {
                 long timestamp = DateUtil.dateToTimestramp(taskInfo.getExecuteTime(), DateUtil.DEFAULT_TIME);
-                RScoredSortedSet<String> scoredSortedSet = redissonClient.getScoredSortedSet(taskInfo.getGroupKey());
-                log.info("添加任务到[{}]任务组, score={}", taskInfo.getGroupKey(), timestamp);
+                RScoredSortedSet<String> scoredSortedSet = redissonClient.getScoredSortedSet(taskInfo.getTaskName());
+                log.info("添加任务到[{}]任务组, score={}", taskInfo.getTaskName(), timestamp);
                 scoredSortedSet.addAsync(timestamp, taskInfo.toString());
             } else {
                 return false;
@@ -153,7 +153,7 @@ public class CacheTaskOperate implements TaskOperate {
             log.warn("taskInfo无执行时间！");
             return false;
         }
-        if (StringUtils.isBlank(taskInfo.getGroupKey())) {
+        if (StringUtils.isBlank(taskInfo.getTaskName())) {
             log.warn("taskInfo无任务组名！");
             return false;
         }

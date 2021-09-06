@@ -32,11 +32,6 @@ public class RunExecutingTask extends AbstractEntity {
     private String taskName;
 
     /**
-     * 任务组key
-     */
-    private String groupKey;
-
-    /**
      * 定时任务cron表达式
      */
     private String cron;
@@ -55,11 +50,6 @@ public class RunExecutingTask extends AbstractEntity {
      * 定时任务开始执行的延时
      */
     private Integer initialDelay;
-
-    /**
-     * 接入客户端key
-     */
-    private String accessKey;
 
     /**
      * 执行时间
@@ -118,14 +108,6 @@ public class RunExecutingTask extends AbstractEntity {
         this.taskName = taskName;
     }
 
-    public String getGroupKey() {
-        return groupKey;
-    }
-
-    public void setGroupKey(String groupKey) {
-        this.groupKey = groupKey;
-    }
-
     public String getCron() {
         return cron;
     }
@@ -156,14 +138,6 @@ public class RunExecutingTask extends AbstractEntity {
 
     public void setInitialDelay(Integer initialDelay) {
         this.initialDelay = initialDelay;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
     }
 
     public String getExecuteTime() {

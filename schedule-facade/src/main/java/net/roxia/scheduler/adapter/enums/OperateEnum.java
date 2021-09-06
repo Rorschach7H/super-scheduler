@@ -14,12 +14,12 @@ public enum OperateEnum {
     /**
      * 添加任务消息
      */
-    ADD_TASK("添加任务"),
+    REG_TASK("注册任务"),
 
     /**
      * 移除任务消息
      */
-    REMOVE_TASK("移除任务"),
+    LOGOFF_TASK("注销任务"),
 
     /**
      * 执行任务消息
@@ -29,11 +29,11 @@ public enum OperateEnum {
     /**
      * 连接握手消息
      */
-    SAY_HELLO("连接握手"),
+    REG_CLIENT("客户端注册"),
     /**
      * 断开挥手消息
      */
-    SAY_BYE("断开挥手");
+    LOGOFF_CLIENT("客户端注销");
 
     private String desc;
 

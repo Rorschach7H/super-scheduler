@@ -23,6 +23,12 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 
     private static final Encoder ENCODER = new Encoder();
 
+    private ClientMessageHandler clientMessageHandler;
+
+    public ClientInitializer(ClientMessageHandler handler) {
+        this.clientMessageHandler = handler;
+    }
+
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
 
@@ -34,7 +40,7 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new Decoder());
 
         // and then business logic.
-        pipeline.addLast(new ClientMessageHandler());
+        pipeline.addLast(this.clientMessageHandler);
 
     }
 }

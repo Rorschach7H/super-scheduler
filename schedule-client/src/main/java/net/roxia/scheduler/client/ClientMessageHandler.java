@@ -10,6 +10,12 @@ public class ClientMessageHandler extends ChannelInboundHandlerAdapter {
 
     private final static Logger log = LoggerFactory.getLogger(ClientMessageHandler.class);
 
+    private Client client;
+
+    public ClientMessageHandler(Client client) {
+        this.client = client;
+    }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("---------------{}----------------", "channelRead");
@@ -20,6 +26,7 @@ public class ClientMessageHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("---------------{}----------------", "channelActive");
+        client.regClient(ctx);
         super.channelActive(ctx);
     }
 }

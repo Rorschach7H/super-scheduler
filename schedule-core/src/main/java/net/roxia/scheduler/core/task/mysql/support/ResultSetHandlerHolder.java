@@ -31,12 +31,10 @@ public class ResultSetHandlerHolder {
         task.setId(rs.getLong(1));
         task.setObjectId(rs.getLong(2));
         task.setTaskName(rs.getString(3));
-        task.setGroupKey(rs.getString(4));
         task.setCron(rs.getString(5));
         task.setPeriod(rs.getInt(6));
         task.setTimeUnit(rs.getByte(7));
         task.setInitialDelay(rs.getInt(8));
-        task.setAccessKey(rs.getString(9));
         task.setExecuteTime(rs.getString(10));
         task.setExecuteQueue(rs.getLong(11));
         task.setFailures(rs.getInt(12));
