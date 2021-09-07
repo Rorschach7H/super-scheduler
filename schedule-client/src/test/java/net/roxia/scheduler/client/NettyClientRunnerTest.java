@@ -1,20 +1,5 @@
 package net.roxia.scheduler.client;
 
-import com.google.common.collect.Maps;
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import net.roxia.scheduler.adapter.enums.OperateEnum;
-import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.message.Header;
-import net.roxia.scheduler.message.Message;
-import net.roxia.scheduler.message.body.ClientInfo;
-
-import java.util.Map;
-import java.util.UUID;
-
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
@@ -30,7 +15,12 @@ import java.util.UUID;
  */
 public class NettyClientRunnerTest {
     public static void main(String[] args) throws Exception {
-        Client client = new Client();
+        ClientConfig config = new ClientConfig();
+        config.setHost("localhost");
+        config.setPort(9088);
+        config.setGroup("schedule-client");
+        config.setAccessKey("238747239843284");
+        Client client = new Client(config);
         client.start();
     }
 }

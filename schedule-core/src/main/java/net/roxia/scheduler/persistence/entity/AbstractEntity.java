@@ -1,9 +1,9 @@
-package net.roxia.scheduler.core.task.domain;
+package net.roxia.scheduler.persistence.entity;
 
 import net.roxia.scheduler.common.utils.StringTools;
-import net.roxia.scheduler.core.task.domain.annotation.Column;
-import net.roxia.scheduler.core.task.domain.annotation.PrimaryKey;
-import net.roxia.scheduler.core.task.domain.annotation.Table;
+import net.roxia.scheduler.persistence.annotation.Column;
+import net.roxia.scheduler.persistence.annotation.PrimaryKey;
+import net.roxia.scheduler.persistence.annotation.Table;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -132,6 +132,6 @@ public abstract class AbstractEntity {
         if (column != null) {
             return column.value();
         }
-        return StringTools.camel2UnderLine(field.getName()).toString();
+        return StringTools.camel2UnderLine(field.getName());
     }
 }

@@ -42,7 +42,7 @@ public class DbTaskOperate implements TaskOperate {
     @Override
     public TaskOperate loadConfig() {
         try {
-            taskMapper = new MysqlTaskMapper(AppContextHolder.getGlobalConfig());
+            taskMapper = new MysqlTaskMapper();
             return this;
         } catch (Exception ex) {
             log.warn("init db connect failed! {}", ex.getMessage());

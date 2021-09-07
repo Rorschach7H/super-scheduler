@@ -26,7 +26,7 @@ public class Encoder extends MessageToByteEncoder<Message> {
         }
         out.writeInt(header.getAccessKey().getBytes().length);
         out.writeBytes(header.getAccessKey().getBytes());
-        writeString(out, header.getClientName());
+        writeString(out, header.getGroup());
         writeString(out, header.getType());
         writeString(out, message.getBody());
     }

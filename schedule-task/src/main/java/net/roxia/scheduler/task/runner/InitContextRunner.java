@@ -2,16 +2,13 @@ package net.roxia.scheduler.task.runner;
 
 import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.adapter.OperateAdapter;
-import net.roxia.scheduler.constant.ConfigKeys;
+import net.roxia.scheduler.core.processor.ClientRegAdapter;
 import net.roxia.scheduler.core.processor.TaskAddAdapter;
 import net.roxia.scheduler.holder.AppContextHolder;
-import net.roxia.scheduler.store.datasource.DataSourceFactory;
+import net.roxia.scheduler.persistence.PersistenceContext;
 import net.roxia.scheduler.task.TaskAppContext;
-import net.roxia.scheduler.transcation.TransactionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -34,13 +31,7 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
     protected void run(TaskAppContext context) {
         AppContextHolder.setAppContext(context);
         SchedulerConfig config = context.getConfig();
-        log.info("init datasource with config: url={}", config.getProperty(ConfigKeys.JDBC_URL));
-        DataSource dataSource = DataSourceFactory.get(config);
-        log.info("init transactionManager");
-        TransactionManager transactionManager = new TransactionManager(dataSource);
-        log.info("take transactionManager into appContext`s aspectInterceptors");
-        context.putAspectInterceptors(transactionManager);
-
-        OperateAdapter.initAdapterMap(new TaskAddAdapter());
+        AppContextHolder.setPersistenceContext(new PersistenceContext(config));
+        OperateAdapter.initAdapterMap(new TaskAddAdapter(), new ClientRegAdapter());
     }
 }

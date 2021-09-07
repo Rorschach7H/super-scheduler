@@ -1,7 +1,5 @@
 package net.roxia.scheduler;
 
-import javax.sql.DataSource;
-
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
@@ -18,8 +16,6 @@ import javax.sql.DataSource;
 public interface AppContext {
 
     public SchedulerConfig getConfig();
-
-    public DataSource getDataSource();
 
     @SuppressWarnings("unchecked")
     public <T> T getBean(Class<T> clazz);

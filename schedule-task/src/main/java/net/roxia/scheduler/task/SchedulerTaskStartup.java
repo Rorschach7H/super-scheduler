@@ -36,7 +36,6 @@ public class SchedulerTaskStartup {
     private static void start(String cfgPath, String log4jPath) {
 
         TaskAppContext context = new TaskAppContext(TaskCfgLoader.load(cfgPath, log4jPath));
-
         //初始化系统上下文生成器
         TaskRunner<TaskAppContext> initContextRunner = new InitContextRunner();
         //初始化网络服务器连接启动器

@@ -1,7 +1,6 @@
 package net.roxia.scheduler.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -27,6 +26,8 @@ import net.roxia.scheduler.message.body.ClientInfo;
  */
 public class Client {
 
+    private ClientConfig config;
+
     public void start() throws InterruptedException {
 
         ClientMessageHandler handler = new ClientMessageHandler(this);
@@ -34,25 +35,32 @@ public class Client {
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ClientInitializer(handler));
-            Channel channel = bootstrap.connect("localhost", 9088).sync().channel();
-
+            bootstrap.connect(config.getHost(), config.getPort()).sync().channel();
         } finally {
             eventLoopGroup.shutdownGracefully();
         }
     }
 
+    /**
+     * 客户端注册
+     *
+     * @param ctx
+     */
     public void regClient(ChannelHandlerContext ctx) {
         Header header = Header.builder()
                 .type(OperateEnum.REG_CLIENT.name())
-                .accessKey("328947238947238904")
-                .clientName("super-scheduler-client")
+                .accessKey(config.getAccessKey())
+                .group(config.getGroup())
                 .build();
         ClientInfo clientInfo = ClientInfo.builder()
-                .accessKey("328947238947238904")
-                .clientId("23894239847328947")
-                .clientName("super-scheduler-client")
+                .accessKey(config.getAccessKey())
+                .group(config.getGroup())
                 .build();
         Message message = new Message(header, JsonUtil.obj2String(clientInfo));
         ctx.writeAndFlush(message);
+    }
+
+    public Client(ClientConfig config) {
+        this.config = config;
     }
 }

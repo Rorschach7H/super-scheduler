@@ -23,7 +23,7 @@ public class ClientInfo {
     /**
      * 注册客户端名字
      */
-    private String clientName;
+    private String group;
 
     /**
      * 客户端IP
@@ -43,12 +43,12 @@ public class ClientInfo {
         this.clientId = clientId;
     }
 
-    public String getClientName() {
-        return clientName;
+    public String getGroup() {
+        return group;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getIp() {

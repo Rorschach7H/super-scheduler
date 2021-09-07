@@ -1,8 +1,8 @@
 package net.roxia.scheduler.store;
 
-import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.common.utils.FileUtil;
 import net.roxia.scheduler.constant.ConstantsUtil;
+import net.roxia.scheduler.holder.AppContextHolder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,14 +12,8 @@ import java.io.InputStream;
  */
 public abstract class JdbcAbstractAccess {
 
-    private SqlTemplate sqlTemplate;
-
-    public JdbcAbstractAccess(SchedulerConfig schedulerConfig) {
-        this.sqlTemplate = SqlTemplateFactory.create(schedulerConfig);
-    }
-
     public SqlTemplate getSqlTemplate() {
-        return sqlTemplate;
+        return AppContextHolder.getSqlTemplate();
     }
 
     protected String readSqlFile(String path) {

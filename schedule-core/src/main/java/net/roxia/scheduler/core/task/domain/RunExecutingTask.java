@@ -1,8 +1,9 @@
 package net.roxia.scheduler.core.task.domain;
 
 import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.core.task.domain.annotation.PrimaryKey;
-import net.roxia.scheduler.core.task.domain.annotation.Table;
+import net.roxia.scheduler.persistence.annotation.PrimaryKey;
+import net.roxia.scheduler.persistence.annotation.Table;
+import net.roxia.scheduler.persistence.entity.AbstractEntity;
 
 /**
  * @Title

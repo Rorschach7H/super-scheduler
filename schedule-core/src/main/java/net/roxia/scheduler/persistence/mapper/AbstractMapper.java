@@ -1,8 +1,7 @@
-package net.roxia.scheduler.core.task.mysql;
+package net.roxia.scheduler.persistence.mapper;
 
-import net.roxia.scheduler.SchedulerConfig;
-import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.core.task.domain.TaskQuery;
+import net.roxia.scheduler.persistence.entity.AbstractEntity;
 import net.roxia.scheduler.store.JdbcAbstractAccess;
 import net.roxia.scheduler.store.builder.DeleteSql;
 import net.roxia.scheduler.store.builder.InsertSql;
@@ -10,6 +9,7 @@ import net.roxia.scheduler.store.builder.SelectSql;
 import net.roxia.scheduler.store.builder.UpdateSql;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
- * @ClassName: DefaultTaskPersistenceHandler
+ * @ClassName: AbstractMapper
  * @Description:
  * @version: v1.0.0
  * @author: meixiaoxi
@@ -27,10 +27,16 @@ import java.util.Map;
  * -----------------------------------------------------------
  * 2019-03-05    meixiaoxi       v1.0.0           创建
  */
-public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskMapper {
+public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess implements Mapper<T> {
+
+    private final Class<T> entityClass;
+
+    public AbstractMapper() {
+        entityClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
     @Override
-    public boolean insertSelective(RunExecutingTask task) {
+    public boolean insertSelective(T task) {
         Map<String, Object> keyValueMap = task.keyValueMap(true);
         List<String> columns = new ArrayList<>();
         List<Object> values = new ArrayList<>();
@@ -51,7 +57,7 @@ public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskM
     }
 
     @Override
-    public boolean insert(RunExecutingTask task) {
+    public boolean insert(T task) {
 
         InsertSql insertSql = new InsertSql(getSqlTemplate())
                 .insert(task.tableName())
@@ -62,7 +68,7 @@ public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskM
     }
 
     @Override
-    public boolean insertBatch(List<RunExecutingTask> tasks) {
+    public boolean insertBatch(List<T> tasks) {
 
         if (CollectionUtils.isEmpty(tasks)) {
             return false;
@@ -77,7 +83,7 @@ public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskM
     }
 
     @Override
-    public boolean update(RunExecutingTask task) {
+    public boolean update(AbstractEntity task) {
         UpdateSql updateSql = new UpdateSql(getSqlTemplate())
                 .update().table(task.tableName());
         Map<String, Object> keyValueMap = task.keyValueMap(true);
@@ -87,7 +93,7 @@ public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskM
     }
 
     @Override
-    public boolean updateBatch(List<RunExecutingTask> tasks) {
+    public boolean updateBatch(List<T> tasks) {
         if (CollectionUtils.isEmpty(tasks)) {
             return false;
         }
@@ -100,19 +106,25 @@ public class AbstractMysqlTaskMapper extends JdbcAbstractAccess implements TaskM
         return new DeleteSql(getSqlTemplate())
                 .delete()
                 .from()
-                .table(RunExecutingTask.tableName(RunExecutingTask.class))
-                .where(RunExecutingTask.primaryKey(RunExecutingTask.class) + "=?", taskId)
+                .table(T.tableName(entityClass))
+                .where(T.primaryKey(entityClass) + "=?", taskId)
                 .doDelete() == 1;
     }
 
     @Override
-    public RunExecutingTask select(Long id) {
-        return null;
+    public T select(Long id) {
+        return new SelectSql(getSqlTemplate())
+                .select()
+                .columns(AbstractEntity.columns(entityClass))
+                .from()
+                .table(AbstractEntity.tableName(entityClass))
+                .where(AbstractEntity.primaryKey(entityClass) + "=?", id)
+                .single();
 
     }
 
     @Override
-    public List<RunExecutingTask> select(TaskQuery query) {
+    public List<T> select(TaskQuery query) {
         return null;
     }
 }

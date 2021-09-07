@@ -1,7 +1,5 @@
 package net.roxia.scheduler.core.task.mysql;
 
-import net.roxia.scheduler.SchedulerConfig;
-
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
@@ -16,8 +14,4 @@ import net.roxia.scheduler.SchedulerConfig;
  * 2019-04-30    meixiaoxi       v1.0.0           创建
  */
 public class MysqlTaskMapper extends AbstractMysqlTaskMapper {
-
-    public MysqlTaskMapper(SchedulerConfig config) {
-        super(config);
-    }
 }

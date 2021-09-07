@@ -17,10 +17,10 @@ public class Decoder extends ByteToMessageDecoder {
         int version = in.readInt();
         String key = getString(in);
 
-        String name = getString(in);
+        String group = getString(in);
         String type = getString(in);
         String handler = getString(in);
-        Header header = Header.builder().version(version).accessKey(key).clientName(name).type(type).build();
+        Header header = Header.builder().version(version).accessKey(key).group(group).type(type).build();
         Message message = new Message(header, handler);
         out.add(message);
     }

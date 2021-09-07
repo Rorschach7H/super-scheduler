@@ -4,8 +4,6 @@ import net.roxia.scheduler.AppContext;
 import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.factory.DefaultServiceFactory;
 
-import javax.sql.DataSource;
-
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
@@ -25,10 +23,6 @@ public class TaskAppContext extends DefaultServiceFactory implements AppContext 
      * 系统配置
      */
     private SchedulerConfig config;
-    /**
-     * 连接数据库的数据源
-     */
-    private DataSource dataSource;
 
     public TaskAppContext(SchedulerConfig config) {
         this.config = config;
@@ -43,12 +37,5 @@ public class TaskAppContext extends DefaultServiceFactory implements AppContext 
         this.config = config;
     }
 
-    @Override
-    public DataSource getDataSource() {
-        return dataSource;
-    }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 }

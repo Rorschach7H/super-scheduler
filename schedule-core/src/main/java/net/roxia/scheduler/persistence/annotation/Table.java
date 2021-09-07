@@ -1,15 +1,15 @@
-package net.roxia.scheduler.core.task.domain.annotation;
+package net.roxia.scheduler.persistence.annotation;
 
 import java.lang.annotation.*;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
  *
- * @ClassName: PrimaryKey
+ * @ClassName: Table
  * @Description:
  * @version: v1.0.0
  * @author: meixiaoxi
- * @date: 2019-05-14 10:58:23
+ * @date: 2019-05-14 10:49:11
  * Modification History:
  * Date          Author          Version          Description
  * -----------------------------------------------------------
@@ -17,6 +17,7 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
-public @interface PrimaryKey {
+@Target({ElementType.TYPE})
+public @interface Table {
+    String value();
 }

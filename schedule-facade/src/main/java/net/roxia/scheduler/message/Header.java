@@ -25,9 +25,9 @@ public class Header implements Serializable {
      */
     private String accessKey;
     /**
-     * 客户端名
+     * 客户端组
      */
-    private String clientName;
+    private String group;
 
     /**
      * 消息类型
