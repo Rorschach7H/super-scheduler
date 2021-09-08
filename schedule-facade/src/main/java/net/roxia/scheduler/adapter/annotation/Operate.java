@@ -1,7 +1,5 @@
 package net.roxia.scheduler.adapter.annotation;
 
-import net.roxia.scheduler.adapter.enums.OperateEnum;
-
 import java.lang.annotation.*;
 
 /**
@@ -17,5 +15,5 @@ public @interface Operate {
     /**
      * 消息类型
      */
-    OperateEnum operate();
+    int operate();
 }

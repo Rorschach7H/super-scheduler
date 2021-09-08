@@ -6,6 +6,8 @@ import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.handler.MessageHandlerProcessor;
 import net.roxia.scheduler.message.Header;
 import net.roxia.scheduler.message.Message;
+import net.roxia.scheduler.message.protobuf.ProtoBody;
+import net.roxia.scheduler.message.protobuf.ProtoMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,81 +17,81 @@ public class ServerMessageHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("---------------{}----------------", "channelRead");
-        Message message = (Message) msg;
+        ProtoMsg.Message message = (ProtoMsg.Message) msg;
+        log.info("==>channelRead<== | {}", message.toString());
         MessageHandlerProcessor.assignmentMsg(message);
         super.channelRead(ctx, msg);
     }
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelRegistered");
+        log.info("==>channelRegistered<==");
         super.channelRegistered(ctx);
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelUnregistered");
+        log.info("==>channelUnregistered<==");
         super.channelUnregistered(ctx);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelActive");
+        log.info("==>channelActive<==");
         super.channelActive(ctx);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelInactive");
+        log.info("==>channelInactive<==");
         super.channelInactive(ctx);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelReadComplete");
+        log.info("==>channelReadComplete<==");
         super.channelReadComplete(ctx);
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        log.info("---------------{}----------------", "userEventTriggered");
+        log.info("==>userEventTriggered<==");
         super.userEventTriggered(ctx, evt);
     }
 
     @Override
     public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "channelWritabilityChanged");
+        log.info("==>channelWritabilityChanged<==");
         super.channelWritabilityChanged(ctx);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.info("---------------{}----------------", "exceptionCaught");
+        log.info("==>exceptionCaught<==");
         super.exceptionCaught(ctx, cause);
     }
 
     @Override
     protected void ensureNotSharable() {
-        log.info("---------------{}----------------", "ensureNotSharable");
+        log.info("==>ensureNotSharable<==");
         super.ensureNotSharable();
     }
 
     @Override
     public boolean isSharable() {
-        log.info("---------------{}----------------", "isSharable");
+        log.info("==>isSharable<==");
         return super.isSharable();
     }
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "handlerAdded");
+        log.info("==>handlerAdded<==");
         super.handlerAdded(ctx);
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        log.info("---------------{}----------------", "handlerRemoved");
+        log.info("==>handlerRemoved<==");
         super.handlerRemoved(ctx);
     }
 }

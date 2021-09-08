@@ -3,27 +3,26 @@ package net.roxia.scheduler.task.server;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import net.roxia.scheduler.handler.Decoder;
-import net.roxia.scheduler.handler.Encoder;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import net.roxia.scheduler.message.protobuf.ProtoMsg;
 
 public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> {
-
-    private static final Encoder ENCODER = new Encoder();
-
     @Override
-    protected void initChannel(SocketChannel channel) throws Exception {
-
+    protected void initChannel(SocketChannel channel) {
         ChannelPipeline pipeline = channel.pipeline();
-
-        // 添加编解码器, 由于ByteToMessageDecoder的子类无法使用@Sharable注解,
-        // 这里必须给每个Handler都添加一个独立的Decoder.
-        pipeline.addLast(ENCODER);
-        pipeline.addLast(new Decoder());
-
-        // 添加逻辑控制层
-        pipeline.addLast(new ServerOutHandler());
-        // 添加逻辑控制层
-        pipeline.addLast(new ServerMessageHandler());
-
+        pipeline
+                //解码1 根据byte的头长度分割
+                .addLast(new ProtobufVarint32FrameDecoder())
+                //解码2 byte转化为消息实体
+                .addLast(new ProtobufDecoder(ProtoMsg.Message.getDefaultInstance()))
+                //编码3 byte数组头加上实体类长度
+                .addLast(new ProtobufVarint32LengthFieldPrepender())
+                //编码4 处理实体
+                .addLast(new ServerMessageHandler())
+                //编码2 实体转化为byte数组
+                .addLast(new ProtobufEncoder());
     }
 }

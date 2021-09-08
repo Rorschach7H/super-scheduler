@@ -22,7 +22,7 @@
         <commons-lang3.version>3.5</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <h2.version>1.4.189</h2.version>
-        <protobuf-java.version>3.6.1</protobuf-java.version>
+        <protobuf-java.version>3.17.3</protobuf-java.version>
         <jackson-version>2.12.0</jackson-version>
     </properties>
 

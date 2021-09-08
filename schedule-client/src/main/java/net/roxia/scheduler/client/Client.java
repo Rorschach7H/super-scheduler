@@ -1,15 +1,13 @@
 package net.roxia.scheduler.client;
 
+import com.google.protobuf.Any;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import net.roxia.scheduler.adapter.enums.OperateEnum;
-import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.message.Header;
-import net.roxia.scheduler.message.Message;
-import net.roxia.scheduler.message.body.ClientInfo;
+import net.roxia.scheduler.message.protobuf.ProtoBody;
+import net.roxia.scheduler.message.protobuf.ProtoMsg;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -30,11 +28,14 @@ public class Client {
 
     public void start() throws InterruptedException {
 
-        ClientMessageHandler handler = new ClientMessageHandler(this);
+        ClientMessageHandler readHandler = new ClientMessageHandler(this);
+        ClientWriteHandler writeHandler = new ClientWriteHandler(this);
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
-            bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ClientInitializer(handler));
+            bootstrap.group(eventLoopGroup)
+                    .channel(NioSocketChannel.class)
+                    .handler(new ClientInitializer(readHandler, writeHandler));
             bootstrap.connect(config.getHost(), config.getPort()).sync().channel();
         } finally {
             eventLoopGroup.shutdownGracefully();
@@ -47,16 +48,24 @@ public class Client {
      * @param ctx
      */
     public void regClient(ChannelHandlerContext ctx) {
-        Header header = Header.builder()
-                .type(OperateEnum.REG_CLIENT.name())
-                .accessKey(config.getAccessKey())
-                .group(config.getGroup())
+
+        ProtoMsg.Header header = ProtoMsg.Header.newBuilder()
+                .setVersion("1.0")
+                .setAccessKey(config.getAccessKey())
+                .setGroup(config.getGroup())
+                .setType(ProtoMsg.MessageType.REG_CLIENT)
                 .build();
-        ClientInfo clientInfo = ClientInfo.builder()
-                .accessKey(config.getAccessKey())
-                .group(config.getGroup())
+
+        ProtoBody.Client client = ProtoBody.Client.newBuilder()
+                .setAccessKey(config.getAccessKey())
+                .setGroup(config.getGroup())
                 .build();
-        Message message = new Message(header, JsonUtil.obj2String(clientInfo));
+
+        ProtoMsg.Message message = ProtoMsg.Message.newBuilder()
+                .setHeader(header)
+                .setBody(Any.pack(client))
+                .build();
+
         ctx.writeAndFlush(message);
     }
 

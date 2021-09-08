@@ -1,11 +1,13 @@
 package net.roxia.scheduler.core.processor;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import net.roxia.scheduler.adapter.OperateAdapter;
 import net.roxia.scheduler.adapter.annotation.Operate;
-import net.roxia.scheduler.adapter.enums.OperateEnum;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.message.Message;
 import net.roxia.scheduler.message.body.ClientInfo;
+import net.roxia.scheduler.message.protobuf.ProtoBody;
+import net.roxia.scheduler.message.protobuf.ProtoMsg;
 import net.roxia.scheduler.persistence.entity.Client;
 import net.roxia.scheduler.persistence.mapper.ClientMapper;
 
@@ -15,7 +17,7 @@ import net.roxia.scheduler.persistence.mapper.ClientMapper;
  * @Author huangjunwei01
  * @Date 2021/9/7 15:16
  **/
-@Operate(operate = OperateEnum.REG_CLIENT)
+@Operate(operate = ProtoMsg.MessageType.REG_CLIENT_VALUE)
 public class ClientRegAdapter extends OperateAdapter {
 
     private final ClientMapper clientMapper;
@@ -25,9 +27,13 @@ public class ClientRegAdapter extends OperateAdapter {
     }
 
     @Override
-    public String handle(Message message) {
-        String body = message.getBody();
-        ClientInfo clientInfo = JsonUtil.string2Obj(body, ClientInfo.class);
+    public String handle(ProtoMsg.Message message) {
+        ProtoBody.Client clientInfo = null;
+        try {
+            clientInfo = message.getBody().unpack(ProtoBody.Client.class);
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
         if (clientInfo == null) {
             return null;
         }
