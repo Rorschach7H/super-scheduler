@@ -12,10 +12,6 @@ import java.io.InputStream;
  */
 public abstract class JdbcAbstractAccess {
 
-    public SqlTemplate getSqlTemplate() {
-        return PersistenceContextHolder.getSqlTemplate();
-    }
-
     protected String readSqlFile(String path) {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
         try {

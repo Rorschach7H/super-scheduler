@@ -48,6 +48,14 @@ public enum MessageType
    * <code>EXECUTE_TASK = 4;</code>
    */
   EXECUTE_TASK(4),
+  /**
+   * <pre>
+   *消息响应
+   * </pre>
+   *
+   * <code>MESSAGE_RESPONSE = 5;</code>
+   */
+  MESSAGE_RESPONSE(5),
   UNRECOGNIZED(-1),
   ;
 
@@ -91,6 +99,14 @@ public enum MessageType
    * <code>EXECUTE_TASK = 4;</code>
    */
   public static final int EXECUTE_TASK_VALUE = 4;
+  /**
+   * <pre>
+   *消息响应
+   * </pre>
+   *
+   * <code>MESSAGE_RESPONSE = 5;</code>
+   */
+  public static final int MESSAGE_RESPONSE_VALUE = 5;
 
 
   public final int getNumber() {
@@ -122,6 +138,7 @@ public enum MessageType
       case 2: return REG_TASK;
       case 3: return LOGOFF_TASK;
       case 4: return EXECUTE_TASK;
+      case 5: return MESSAGE_RESPONSE;
       default: return null;
     }
   }

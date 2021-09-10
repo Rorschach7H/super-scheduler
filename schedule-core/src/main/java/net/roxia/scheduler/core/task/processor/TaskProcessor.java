@@ -1,4 +1,4 @@
-package net.roxia.scheduler.core.processor;
+package net.roxia.scheduler.core.task.processor;
 
 import net.roxia.scheduler.core.handler.TaskExecuteHandler;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;

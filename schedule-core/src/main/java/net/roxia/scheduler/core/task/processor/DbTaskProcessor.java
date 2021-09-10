@@ -1,5 +1,6 @@
 package net.roxia.scheduler.core.task.processor;
 
+import net.roxia.scheduler.core.handler.TaskExecuteHandler;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.persistence.mapper.RunTaskMapper;
 import org.slf4j.Logger;
@@ -15,37 +16,26 @@ import java.util.List;
  **/
 public class DbTaskProcessor implements TaskProcessor {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(DbTaskProcessor.class);
 
     private RunTaskMapper taskMapper;
 
-    private static TaskProcessor taskOperate;
+    private static TaskProcessor taskProcessor;
 
     private DbTaskProcessor() {
         taskMapper = new RunTaskMapper();
     }
 
-    public synchronized static TaskProcessor getTaskOperate() {
-        if (taskOperate != null) {
-            return taskOperate;
+    public static synchronized TaskProcessor getCacheTaskProcessor() {
+        if (taskProcessor != null) {
+            return taskProcessor;
         }
-        synchronized (TaskProcessor.class) {
-            if (taskOperate != null) {
-                return taskOperate;
+        synchronized (CacheTaskProcessor.class) {
+            if (taskProcessor != null) {
+                return taskProcessor;
             }
-            taskOperate = new TaskProcessor().loadConfig();
-            return taskOperate;
-        }
-    }
-
-    @Override
-    public TaskProcessor loadConfig() {
-        try {
-            taskMapper = new MysqlTaskMapper();
-            return this;
-        } catch (Exception ex) {
-            log.warn("init db connect failed! {}", ex.getMessage());
-            return null;
+            taskProcessor = new DbTaskProcessor();
+            return taskProcessor;
         }
     }
 
@@ -55,12 +45,12 @@ public class DbTaskProcessor implements TaskProcessor {
     }
 
     @Override
-    public boolean removeTask(Long objectId, String groupKey) {
-        return false;
+    public List<RunExecutingTask> executeTask(String taskGroup, TaskExecuteHandler handler) {
+        return null;
     }
 
     @Override
-    public List<RunExecutingTask> popExecuteTask(String groupKey) {
-        return null;
+    public void addUnReadyTaskToQueue(List<RunExecutingTask> tasks) {
+
     }
 }

@@ -68,12 +68,18 @@ public interface HeaderOrBuilder extends
       getRequestIdBytes();
 
   /**
-   * <code>.MessageType type = 6;</code>
+   * <code>int64 timestamp = 6;</code>
+   * @return The timestamp.
+   */
+  long getTimestamp();
+
+  /**
+   * <code>.MessageType type = 7;</code>
    * @return The enum numeric value on the wire for type.
    */
   int getTypeValue();
   /**
-   * <code>.MessageType type = 6;</code>
+   * <code>.MessageType type = 7;</code>
    * @return The type.
    */
   MessageType getType();

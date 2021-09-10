@@ -28,11 +28,11 @@ public class ClientRegAdapter extends OperateAdapter {
     public String handle(Message message) {
         String body = message.getBody();
         if (StringUtils.isBlank(body)) {
-            return null;
+            return "NO";
         }
         ClientMsg clientMsg = JsonUtil.string2Obj(body, ClientMsg.class);
 
 
-        return null;
+        return "YES";
     }
 }

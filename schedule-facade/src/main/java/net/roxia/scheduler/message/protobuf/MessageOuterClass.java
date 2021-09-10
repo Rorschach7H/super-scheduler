@@ -33,15 +33,16 @@ public final class MessageOuterClass {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rmessage.proto\"}\n\006Header\022\017\n\007version\030\001 \001" +
-      "(\t\022\021\n\taccessKey\030\002 \001(\t\022\r\n\005group\030\003 \001(\t\022\021\n\t" +
-      "machineId\030\004 \001(\t\022\021\n\trequestId\030\005 \001(\t\022\032\n\004ty" +
-      "pe\030\006 \001(\0162\014.MessageType\"0\n\007Message\022\027\n\006hea" +
-      "der\030\001 \001(\0132\007.Header\022\014\n\004body\030\002 \001(\t*a\n\013Mess" +
-      "ageType\022\016\n\nREG_CLIENT\020\000\022\021\n\rLOGOFF_CLIENT" +
-      "\020\001\022\014\n\010REG_TASK\020\002\022\017\n\013LOGOFF_TASK\020\003\022\020\n\014EXE" +
-      "CUTE_TASK\020\004B(\n$net.roxia.scheduler.messa" +
-      "ge.protobufP\001b\006proto3"
+      "\n\rmessage.proto\"\220\001\n\006Header\022\017\n\007version\030\001 " +
+      "\001(\t\022\021\n\taccessKey\030\002 \001(\t\022\r\n\005group\030\003 \001(\t\022\021\n" +
+      "\tmachineId\030\004 \001(\t\022\021\n\trequestId\030\005 \001(\t\022\021\n\tt" +
+      "imestamp\030\006 \001(\003\022\032\n\004type\030\007 \001(\0162\014.MessageTy" +
+      "pe\"0\n\007Message\022\027\n\006header\030\001 \001(\0132\007.Header\022\014" +
+      "\n\004body\030\002 \001(\t*w\n\013MessageType\022\016\n\nREG_CLIEN" +
+      "T\020\000\022\021\n\rLOGOFF_CLIENT\020\001\022\014\n\010REG_TASK\020\002\022\017\n\013" +
+      "LOGOFF_TASK\020\003\022\020\n\014EXECUTE_TASK\020\004\022\024\n\020MESSA" +
+      "GE_RESPONSE\020\005B(\n$net.roxia.scheduler.mes" +
+      "sage.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -52,7 +53,7 @@ public final class MessageOuterClass {
     internal_static_Header_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Header_descriptor,
-        new String[] { "Version", "AccessKey", "Group", "MachineId", "RequestId", "Type", });
+        new String[] { "Version", "AccessKey", "Group", "MachineId", "RequestId", "Timestamp", "Type", });
     internal_static_Message_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Message_fieldAccessorTable = new

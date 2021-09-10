@@ -6,10 +6,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import net.roxia.scheduler.common.utils.JsonUtil;
+import net.roxia.scheduler.global.DefaultIdGenerator;
+import net.roxia.scheduler.global.IdGenerator;
 import net.roxia.scheduler.message.body.ClientMsg;
 import net.roxia.scheduler.message.protobuf.Header;
 import net.roxia.scheduler.message.protobuf.Message;
 import net.roxia.scheduler.message.protobuf.MessageType;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -26,10 +29,19 @@ import net.roxia.scheduler.message.protobuf.MessageType;
  */
 public class Client {
 
-    private ClientConfig config;
+    public static String machineId;
+
+    private final ClientConfig config;
+
+    private final IdGenerator idGenerator;
+
+    public Client(ClientConfig config) {
+        this.config = config;
+        this.idGenerator = new DefaultIdGenerator(1);
+        Client.machineId = Long.toHexString(idGenerator.getUID());
+    }
 
     public void start() throws InterruptedException {
-
         ClientMessageHandler readHandler = new ClientMessageHandler(this);
         ClientWriteHandler writeHandler = new ClientWriteHandler(this);
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
@@ -51,11 +63,16 @@ public class Client {
      */
     public void regClient(ChannelHandlerContext ctx) {
 
+        String requestId = MessageType.REG_CLIENT.name() + "_" + Long.toHexString(idGenerator.getUID());
+
         Header header = Header.newBuilder()
                 .setVersion("1.0")
                 .setAccessKey(config.getAccessKey())
                 .setGroup(config.getGroup())
                 .setType(MessageType.REG_CLIENT)
+                .setMachineId(machineId)
+                .setRequestId(StringUtils.lowerCase(requestId))
+                .setTimestamp(System.currentTimeMillis())
                 .build();
 
         ClientMsg client = ClientMsg.builder()
@@ -69,9 +86,5 @@ public class Client {
                 .build();
 
         ctx.writeAndFlush(message);
-    }
-
-    public Client(ClientConfig config) {
-        this.config = config;
     }
 }

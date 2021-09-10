@@ -1,8 +1,9 @@
 package net.roxia.scheduler.persistence.mapper;
 
-import net.roxia.scheduler.core.task.domain.TaskQuery;
+import net.roxia.scheduler.holder.PersistenceContextHolder;
 import net.roxia.scheduler.persistence.entity.AbstractEntity;
 import net.roxia.scheduler.store.JdbcAbstractAccess;
+import net.roxia.scheduler.store.SqlTemplate;
 import net.roxia.scheduler.store.builder.DeleteSql;
 import net.roxia.scheduler.store.builder.InsertSql;
 import net.roxia.scheduler.store.builder.SelectSql;
@@ -29,10 +30,13 @@ import java.util.Map;
  */
 public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess implements Mapper<T> {
 
+    private final SqlTemplate sqlTemplate;
+
     private final Class<T> entityClass;
 
     public AbstractMapper() {
         entityClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        sqlTemplate = PersistenceContextHolder.getSqlTemplate();
     }
 
     @Override
@@ -48,7 +52,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
         });
         String[] columnArray = new String[columns.size()];
         columns.toArray(columnArray);
-        InsertSql insertSql = new InsertSql(getSqlTemplate())
+        InsertSql insertSql = new InsertSql(sqlTemplate)
                 .insert(entity.tableName())
                 .columns(columnArray)
                 .values(values.toArray());
@@ -59,7 +63,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
     @Override
     public boolean insert(T entity) {
 
-        InsertSql insertSql = new InsertSql(getSqlTemplate())
+        InsertSql insertSql = new InsertSql(sqlTemplate)
                 .insert(entity.tableName())
                 .columns(entity.columns())
                 .values(entity.values());
@@ -72,7 +76,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
         if (CollectionUtils.isEmpty(list)) {
             return false;
         }
-        InsertSql insertSql = new InsertSql(getSqlTemplate())
+        InsertSql insertSql = new InsertSql(sqlTemplate)
                 .insert(list.get(0).tableName())
                 .columns(list.get(0).columns());
         list.forEach(task -> insertSql.values(task.values()));
@@ -82,7 +86,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
 
     @Override
     public boolean update(T entity) {
-        UpdateSql updateSql = new UpdateSql(getSqlTemplate())
+        UpdateSql updateSql = new UpdateSql(sqlTemplate)
                 .update().table(entity.tableName());
         Map<String, Object> keyValueMap = entity.keyValueMap(true);
         keyValueMap.forEach(updateSql::set);
@@ -101,7 +105,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
 
     @Override
     public boolean delete(Long taskId) {
-        return new DeleteSql(getSqlTemplate())
+        return new DeleteSql(sqlTemplate)
                 .delete()
                 .from()
                 .table(T.tableName(entityClass))
@@ -111,7 +115,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
 
     @Override
     public T select(Long id) {
-        return new SelectSql(getSqlTemplate())
+        return new SelectSql(sqlTemplate)
                 .select()
                 .columns(AbstractEntity.columns(entityClass))
                 .from()

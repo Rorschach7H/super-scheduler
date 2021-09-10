@@ -14,6 +14,7 @@ import java.util.Map;
  * @Date 2021/9/3 15:27
  **/
 public abstract class OperateAdapter {
+
     private static final Map<MessageType, OperateAdapter> adapterMap = Maps.newConcurrentMap();
 
     public abstract String handle(Message message);

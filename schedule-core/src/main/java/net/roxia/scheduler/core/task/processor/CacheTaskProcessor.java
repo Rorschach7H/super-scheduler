@@ -26,17 +26,32 @@ import java.util.stream.Collectors;
  */
 public class CacheTaskProcessor implements TaskProcessor {
 
-    private final Logger log = LoggerFactory.getLogger(CacheTaskProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheTaskProcessor.class);
 
     private final static String postfix = "roxia-scheduler:";
 
     private RedissonClient redissonClient;
 
+    private static TaskProcessor taskProcessor;
+
     private CacheTaskProcessor() {
-        try {
-            redissonClient = RedissonFactory.getRedissonClient();
-        } catch (Exception e) {
-            log.warn("init redis connect failed! ", e);
+        redissonClient = RedissonFactory.getRedissonClient();
+    }
+
+    public static synchronized TaskProcessor getCacheTaskProcessor() {
+        if (taskProcessor != null) {
+            return taskProcessor;
+        }
+        synchronized (CacheTaskProcessor.class) {
+            if (taskProcessor != null) {
+                return taskProcessor;
+            }
+            try {
+                taskProcessor = new CacheTaskProcessor();
+            } catch (Exception e) {
+                log.warn("init redis connect failed! ", e);
+            }
+            return taskProcessor;
         }
     }
 
