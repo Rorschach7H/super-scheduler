@@ -1,8 +1,7 @@
-package net.roxia.scheduler.core.task;
+package net.roxia.scheduler.core.task.processor;
 
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
-import net.roxia.scheduler.core.task.mysql.MysqlTaskMapper;
-import net.roxia.scheduler.core.task.mysql.TaskMapper;
+import net.roxia.scheduler.persistence.mapper.RunTaskMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,32 +13,33 @@ import java.util.List;
  * @Author huangjunwei01
  * @Date 2021/9/2 14:39
  **/
-public class DbTaskOperate implements TaskOperate {
+public class DbTaskProcessor implements TaskProcessor {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private TaskMapper taskMapper;
+    private RunTaskMapper taskMapper;
 
-    private static TaskOperate taskOperate;
+    private static TaskProcessor taskOperate;
 
-    private DbTaskOperate() {
+    private DbTaskProcessor() {
+        taskMapper = new RunTaskMapper();
     }
 
-    public synchronized static TaskOperate getTaskOperate() {
+    public synchronized static TaskProcessor getTaskOperate() {
         if (taskOperate != null) {
             return taskOperate;
         }
-        synchronized (DbTaskOperate.class) {
+        synchronized (TaskProcessor.class) {
             if (taskOperate != null) {
                 return taskOperate;
             }
-            taskOperate = new DbTaskOperate().loadConfig();
+            taskOperate = new TaskProcessor().loadConfig();
             return taskOperate;
         }
     }
 
     @Override
-    public TaskOperate loadConfig() {
+    public TaskProcessor loadConfig() {
         try {
             taskMapper = new MysqlTaskMapper();
             return this;

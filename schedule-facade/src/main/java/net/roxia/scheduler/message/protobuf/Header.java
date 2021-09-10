@@ -19,18 +19,19 @@ private static final long serialVersionUID = 0L;
     version_ = "";
     accessKey_ = "";
     group_ = "";
-    clientId_ = "";
+    machineId_ = "";
+    requestId_ = "";
     type_ = 0;
   }
 
-  @Override
+  @java.lang.Override
   @SuppressWarnings({"unused"})
-  protected Object newInstance(
+  protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
     return new Header();
   }
 
-  @Override
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -41,7 +42,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new NullPointerException();
+      throw new java.lang.NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -54,30 +55,36 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             version_ = s;
             break;
           }
           case 18: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             accessKey_ = s;
             break;
           }
           case 26: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             group_ = s;
             break;
           }
           case 34: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
-            clientId_ = s;
+            machineId_ = s;
             break;
           }
-          case 40: {
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            requestId_ = s;
+            break;
+          }
+          case 48: {
             int rawValue = input.readEnum();
 
             type_ = rawValue;
@@ -104,32 +111,32 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return MessageOuterClass.internal_static_Header_descriptor;
+    return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Header_descriptor;
   }
 
-  @Override
-  protected FieldAccessorTable
+  @java.lang.Override
+  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return MessageOuterClass.internal_static_Header_fieldAccessorTable
+    return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Header_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            Header.class, Builder.class);
+            net.roxia.scheduler.message.protobuf.Header.class, net.roxia.scheduler.message.protobuf.Header.Builder.class);
   }
 
   public static final int VERSION_FIELD_NUMBER = 1;
-  private volatile Object version_;
+  private volatile java.lang.Object version_;
   /**
    * <code>string version = 1;</code>
    * @return The version.
    */
-  @Override
-  public String getVersion() {
-    Object ref = version_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getVersion() {
+    java.lang.Object ref = version_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       version_ = s;
       return s;
     }
@@ -138,14 +145,14 @@ private static final long serialVersionUID = 0L;
    * <code>string version = 1;</code>
    * @return The bytes for version.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getVersionBytes() {
-    Object ref = version_;
-    if (ref instanceof String) {
+    java.lang.Object ref = version_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       version_ = b;
       return b;
     } else {
@@ -154,20 +161,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ACCESSKEY_FIELD_NUMBER = 2;
-  private volatile Object accessKey_;
+  private volatile java.lang.Object accessKey_;
   /**
    * <code>string accessKey = 2;</code>
    * @return The accessKey.
    */
-  @Override
-  public String getAccessKey() {
-    Object ref = accessKey_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getAccessKey() {
+    java.lang.Object ref = accessKey_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       accessKey_ = s;
       return s;
     }
@@ -176,14 +183,14 @@ private static final long serialVersionUID = 0L;
    * <code>string accessKey = 2;</code>
    * @return The bytes for accessKey.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getAccessKeyBytes() {
-    Object ref = accessKey_;
-    if (ref instanceof String) {
+    java.lang.Object ref = accessKey_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       accessKey_ = b;
       return b;
     } else {
@@ -192,20 +199,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int GROUP_FIELD_NUMBER = 3;
-  private volatile Object group_;
+  private volatile java.lang.Object group_;
   /**
    * <code>string group = 3;</code>
    * @return The group.
    */
-  @Override
-  public String getGroup() {
-    Object ref = group_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getGroup() {
+    java.lang.Object ref = group_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       group_ = s;
       return s;
     }
@@ -214,14 +221,14 @@ private static final long serialVersionUID = 0L;
    * <code>string group = 3;</code>
    * @return The bytes for group.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getGroupBytes() {
-    Object ref = group_;
-    if (ref instanceof String) {
+    java.lang.Object ref = group_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       group_ = b;
       return b;
     } else {
@@ -229,65 +236,103 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CLIENTID_FIELD_NUMBER = 4;
-  private volatile Object clientId_;
+  public static final int MACHINEID_FIELD_NUMBER = 4;
+  private volatile java.lang.Object machineId_;
   /**
-   * <code>string clientId = 4;</code>
-   * @return The clientId.
+   * <code>string machineId = 4;</code>
+   * @return The machineId.
    */
-  @Override
-  public String getClientId() {
-    Object ref = clientId_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getMachineId() {
+    java.lang.Object ref = machineId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
-      clientId_ = s;
+      java.lang.String s = bs.toStringUtf8();
+      machineId_ = s;
       return s;
     }
   }
   /**
-   * <code>string clientId = 4;</code>
-   * @return The bytes for clientId.
+   * <code>string machineId = 4;</code>
+   * @return The bytes for machineId.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
-      getClientIdBytes() {
-    Object ref = clientId_;
-    if (ref instanceof String) {
+      getMachineIdBytes() {
+    java.lang.Object ref = machineId_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
-      clientId_ = b;
+              (java.lang.String) ref);
+      machineId_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int TYPE_FIELD_NUMBER = 5;
+  public static final int REQUESTID_FIELD_NUMBER = 5;
+  private volatile java.lang.Object requestId_;
+  /**
+   * <code>string requestId = 5;</code>
+   * @return The requestId.
+   */
+  @java.lang.Override
+  public java.lang.String getRequestId() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string requestId = 5;</code>
+   * @return The bytes for requestId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getRequestIdBytes() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TYPE_FIELD_NUMBER = 6;
   private int type_;
   /**
-   * <code>.MessageType type = 5;</code>
+   * <code>.MessageType type = 6;</code>
    * @return The enum numeric value on the wire for type.
    */
-  @Override public int getTypeValue() {
+  @java.lang.Override public int getTypeValue() {
     return type_;
   }
   /**
-   * <code>.MessageType type = 5;</code>
+   * <code>.MessageType type = 6;</code>
    * @return The type.
    */
-  @Override public MessageType getType() {
+  @java.lang.Override public net.roxia.scheduler.message.protobuf.MessageType getType() {
     @SuppressWarnings("deprecation")
-    MessageType result = MessageType.valueOf(type_);
-    return result == null ? MessageType.UNRECOGNIZED : result;
+    net.roxia.scheduler.message.protobuf.MessageType result = net.roxia.scheduler.message.protobuf.MessageType.valueOf(type_);
+    return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
-  @Override
+  @java.lang.Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -297,7 +342,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (!getVersionBytes().isEmpty()) {
@@ -309,16 +354,19 @@ private static final long serialVersionUID = 0L;
     if (!getGroupBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, group_);
     }
-    if (!getClientIdBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, clientId_);
+    if (!getMachineIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, machineId_);
     }
-    if (type_ != MessageType.REG_CLIENT.getNumber()) {
-      output.writeEnum(5, type_);
+    if (!getRequestIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, requestId_);
+    }
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.REG_CLIENT.getNumber()) {
+      output.writeEnum(6, type_);
     }
     unknownFields.writeTo(output);
   }
 
-  @Override
+  @java.lang.Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -333,27 +381,30 @@ private static final long serialVersionUID = 0L;
     if (!getGroupBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, group_);
     }
-    if (!getClientIdBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, clientId_);
+    if (!getMachineIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, machineId_);
     }
-    if (type_ != MessageType.REG_CLIENT.getNumber()) {
+    if (!getRequestIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, requestId_);
+    }
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.REG_CLIENT.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(5, type_);
+        .computeEnumSize(6, type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @Override
-  public boolean equals(final Object obj) {
+  @java.lang.Override
+  public boolean equals(final java.lang.Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof Header)) {
+    if (!(obj instanceof net.roxia.scheduler.message.protobuf.Header)) {
       return super.equals(obj);
     }
-    Header other = (Header) obj;
+    net.roxia.scheduler.message.protobuf.Header other = (net.roxia.scheduler.message.protobuf.Header) obj;
 
     if (!getVersion()
         .equals(other.getVersion())) return false;
@@ -361,14 +412,16 @@ private static final long serialVersionUID = 0L;
         .equals(other.getAccessKey())) return false;
     if (!getGroup()
         .equals(other.getGroup())) return false;
-    if (!getClientId()
-        .equals(other.getClientId())) return false;
+    if (!getMachineId()
+        .equals(other.getMachineId())) return false;
+    if (!getRequestId()
+        .equals(other.getRequestId())) return false;
     if (type_ != other.type_) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -381,8 +434,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getAccessKey().hashCode();
     hash = (37 * hash) + GROUP_FIELD_NUMBER;
     hash = (53 * hash) + getGroup().hashCode();
-    hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
-    hash = (53 * hash) + getClientId().hashCode();
+    hash = (37 * hash) + MACHINEID_FIELD_NUMBER;
+    hash = (53 * hash) + getMachineId().hashCode();
+    hash = (37 * hash) + REQUESTID_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestId().hashCode();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
     hash = (29 * hash) + unknownFields.hashCode();
@@ -390,69 +445,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Header parseFrom(byte[] data)
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Header parseFrom(java.io.InputStream input)
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static Header parseDelimitedFrom(java.io.InputStream input)
+  public static net.roxia.scheduler.message.protobuf.Header parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static Header parseDelimitedFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static Header parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Header parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -460,23 +515,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @Override
+  @java.lang.Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(Header prototype) {
+  public static Builder newBuilder(net.roxia.scheduler.message.protobuf.Header prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @Override
+  @java.lang.Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @Override
+  @java.lang.Override
   protected Builder newBuilderForType(
-      BuilderParent parent) {
+      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -486,18 +541,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:Header)
-      HeaderOrBuilder {
+      net.roxia.scheduler.message.protobuf.HeaderOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MessageOuterClass.internal_static_Header_descriptor;
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Header_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MessageOuterClass.internal_static_Header_fieldAccessorTable
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Header_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              Header.class, Builder.class);
+              net.roxia.scheduler.message.protobuf.Header.class, net.roxia.scheduler.message.protobuf.Header.Builder.class);
     }
 
     // Construct using net.roxia.scheduler.message.protobuf.Header.newBuilder()
@@ -506,7 +561,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -515,7 +570,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @Override
+    @java.lang.Override
     public Builder clear() {
       super.clear();
       version_ = "";
@@ -524,89 +579,92 @@ private static final long serialVersionUID = 0L;
 
       group_ = "";
 
-      clientId_ = "";
+      machineId_ = "";
+
+      requestId_ = "";
 
       type_ = 0;
 
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return MessageOuterClass.internal_static_Header_descriptor;
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Header_descriptor;
     }
 
-    @Override
-    public Header getDefaultInstanceForType() {
-      return Header.getDefaultInstance();
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Header getDefaultInstanceForType() {
+      return net.roxia.scheduler.message.protobuf.Header.getDefaultInstance();
     }
 
-    @Override
-    public Header build() {
-      Header result = buildPartial();
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Header build() {
+      net.roxia.scheduler.message.protobuf.Header result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @Override
-    public Header buildPartial() {
-      Header result = new Header(this);
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Header buildPartial() {
+      net.roxia.scheduler.message.protobuf.Header result = new net.roxia.scheduler.message.protobuf.Header(this);
       result.version_ = version_;
       result.accessKey_ = accessKey_;
       result.group_ = group_;
-      result.clientId_ = clientId_;
+      result.machineId_ = machineId_;
+      result.requestId_ = requestId_;
       result.type_ = type_;
       onBuilt();
       return result;
     }
 
-    @Override
+    @java.lang.Override
     public Builder clone() {
       return super.clone();
     }
-    @Override
+    @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.setField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @Override
+    @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @Override
+    @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, Object value) {
+        int index, java.lang.Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @Override
+    @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.addRepeatedField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof Header) {
-        return mergeFrom((Header)other);
+      if (other instanceof net.roxia.scheduler.message.protobuf.Header) {
+        return mergeFrom((net.roxia.scheduler.message.protobuf.Header)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(Header other) {
-      if (other == Header.getDefaultInstance()) return this;
+    public Builder mergeFrom(net.roxia.scheduler.message.protobuf.Header other) {
+      if (other == net.roxia.scheduler.message.protobuf.Header.getDefaultInstance()) return this;
       if (!other.getVersion().isEmpty()) {
         version_ = other.version_;
         onChanged();
@@ -619,8 +677,12 @@ private static final long serialVersionUID = 0L;
         group_ = other.group_;
         onChanged();
       }
-      if (!other.getClientId().isEmpty()) {
-        clientId_ = other.clientId_;
+      if (!other.getMachineId().isEmpty()) {
+        machineId_ = other.machineId_;
+        onChanged();
+      }
+      if (!other.getRequestId().isEmpty()) {
+        requestId_ = other.requestId_;
         onChanged();
       }
       if (other.type_ != 0) {
@@ -631,21 +693,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Header parsedMessage = null;
+      net.roxia.scheduler.message.protobuf.Header parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (Header) e.getUnfinishedMessage();
+        parsedMessage = (net.roxia.scheduler.message.protobuf.Header) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -655,21 +717,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object version_ = "";
+    private java.lang.Object version_ = "";
     /**
      * <code>string version = 1;</code>
      * @return The version.
      */
-    public String getVersion() {
-      Object ref = version_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         version_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
@@ -678,11 +740,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getVersionBytes() {
-      Object ref = version_;
+      java.lang.Object ref = version_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         version_ = b;
         return b;
       } else {
@@ -695,7 +757,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setVersion(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -731,21 +793,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object accessKey_ = "";
+    private java.lang.Object accessKey_ = "";
     /**
      * <code>string accessKey = 2;</code>
      * @return The accessKey.
      */
-    public String getAccessKey() {
-      Object ref = accessKey_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getAccessKey() {
+      java.lang.Object ref = accessKey_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         accessKey_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
@@ -754,11 +816,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getAccessKeyBytes() {
-      Object ref = accessKey_;
+      java.lang.Object ref = accessKey_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         accessKey_ = b;
         return b;
       } else {
@@ -771,7 +833,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setAccessKey(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -807,21 +869,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object group_ = "";
+    private java.lang.Object group_ = "";
     /**
      * <code>string group = 3;</code>
      * @return The group.
      */
-    public String getGroup() {
-      Object ref = group_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getGroup() {
+      java.lang.Object ref = group_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         group_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
@@ -830,11 +892,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getGroupBytes() {
-      Object ref = group_;
+      java.lang.Object ref = group_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         group_ = b;
         return b;
       } else {
@@ -847,7 +909,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setGroup(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -883,92 +945,168 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object clientId_ = "";
+    private java.lang.Object machineId_ = "";
     /**
-     * <code>string clientId = 4;</code>
-     * @return The clientId.
+     * <code>string machineId = 4;</code>
+     * @return The machineId.
      */
-    public String getClientId() {
-      Object ref = clientId_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getMachineId() {
+      java.lang.Object ref = machineId_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        clientId_ = s;
+        java.lang.String s = bs.toStringUtf8();
+        machineId_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string clientId = 4;</code>
-     * @return The bytes for clientId.
+     * <code>string machineId = 4;</code>
+     * @return The bytes for machineId.
      */
     public com.google.protobuf.ByteString
-        getClientIdBytes() {
-      Object ref = clientId_;
+        getMachineIdBytes() {
+      java.lang.Object ref = machineId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        clientId_ = b;
+                (java.lang.String) ref);
+        machineId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string clientId = 4;</code>
-     * @param value The clientId to set.
+     * <code>string machineId = 4;</code>
+     * @param value The machineId to set.
      * @return This builder for chaining.
      */
-    public Builder setClientId(
-        String value) {
+    public Builder setMachineId(
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      clientId_ = value;
+      machineId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string clientId = 4;</code>
+     * <code>string machineId = 4;</code>
      * @return This builder for chaining.
      */
-    public Builder clearClientId() {
+    public Builder clearMachineId() {
       
-      clientId_ = getDefaultInstance().getClientId();
+      machineId_ = getDefaultInstance().getMachineId();
       onChanged();
       return this;
     }
     /**
-     * <code>string clientId = 4;</code>
-     * @param value The bytes for clientId to set.
+     * <code>string machineId = 4;</code>
+     * @param value The bytes for machineId to set.
      * @return This builder for chaining.
      */
-    public Builder setClientIdBytes(
+    public Builder setMachineIdBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      clientId_ = value;
+      machineId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requestId_ = "";
+    /**
+     * <code>string requestId = 5;</code>
+     * @return The requestId.
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string requestId = 5;</code>
+     * @return The bytes for requestId.
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string requestId = 5;</code>
+     * @param value The requestId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRequestId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string requestId = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRequestId() {
+      
+      requestId_ = getDefaultInstance().getRequestId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string requestId = 5;</code>
+     * @param value The bytes for requestId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRequestIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestId_ = value;
       onChanged();
       return this;
     }
 
     private int type_ = 0;
     /**
-     * <code>.MessageType type = 5;</code>
+     * <code>.MessageType type = 6;</code>
      * @return The enum numeric value on the wire for type.
      */
-    @Override public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
-     * <code>.MessageType type = 5;</code>
+     * <code>.MessageType type = 6;</code>
      * @param value The enum numeric value on the wire for type to set.
      * @return This builder for chaining.
      */
@@ -979,21 +1117,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.MessageType type = 5;</code>
+     * <code>.MessageType type = 6;</code>
      * @return The type.
      */
-    @Override
-    public MessageType getType() {
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.MessageType getType() {
       @SuppressWarnings("deprecation")
-      MessageType result = MessageType.valueOf(type_);
-      return result == null ? MessageType.UNRECOGNIZED : result;
+      net.roxia.scheduler.message.protobuf.MessageType result = net.roxia.scheduler.message.protobuf.MessageType.valueOf(type_);
+      return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
     }
     /**
-     * <code>.MessageType type = 5;</code>
+     * <code>.MessageType type = 6;</code>
      * @param value The type to set.
      * @return This builder for chaining.
      */
-    public Builder setType(MessageType value) {
+    public Builder setType(net.roxia.scheduler.message.protobuf.MessageType value) {
       if (value == null) {
         throw new NullPointerException();
       }
@@ -1003,7 +1141,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.MessageType type = 5;</code>
+     * <code>.MessageType type = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearType() {
@@ -1012,13 +1150,13 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    @Override
+    @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @Override
+    @java.lang.Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -1029,18 +1167,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:Header)
-  private static final Header DEFAULT_INSTANCE;
+  private static final net.roxia.scheduler.message.protobuf.Header DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new Header();
+    DEFAULT_INSTANCE = new net.roxia.scheduler.message.protobuf.Header();
   }
 
-  public static Header getDefaultInstance() {
+  public static net.roxia.scheduler.message.protobuf.Header getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Header>
       PARSER = new com.google.protobuf.AbstractParser<Header>() {
-    @Override
+    @java.lang.Override
     public Header parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1053,13 +1191,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @Override
+  @java.lang.Override
   public com.google.protobuf.Parser<Header> getParserForType() {
     return PARSER;
   }
 
-  @Override
-  public Header getDefaultInstanceForType() {
+  @java.lang.Override
+  public net.roxia.scheduler.message.protobuf.Header getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

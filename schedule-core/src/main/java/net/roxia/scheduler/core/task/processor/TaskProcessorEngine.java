@@ -1,4 +1,4 @@
-package net.roxia.scheduler.core.processor;
+package net.roxia.scheduler.core.task.processor;
 
 import net.roxia.scheduler.TaskException;
 import net.roxia.scheduler.common.utils.DateUtil;
@@ -23,14 +23,11 @@ import java.util.List;
  * @Date 2018/7/9 11:24
  * @Version V1.0
  */
-public class TaskProcessorImpl implements TaskProcessor {
+public class TaskProcessorEngine implements TaskProcessor {
 
-    private static final Logger log = LoggerFactory.getLogger(TaskProcessorImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TaskProcessorEngine.class);
 
-    private final TaskOperate cacheOperate;
-    private final TaskOperate dbOperate;
-
-    public TaskProcessorImpl() {
+    public TaskProcessorEngine() {
         cacheOperate = CacheTaskOperate.getTaskOperate();
         dbOperate = DbTaskOperate.getTaskOperate();
         if (cacheOperate == null && dbOperate == null) {

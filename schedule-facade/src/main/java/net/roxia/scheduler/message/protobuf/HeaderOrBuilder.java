@@ -44,24 +44,36 @@ public interface HeaderOrBuilder extends
       getGroupBytes();
 
   /**
-   * <code>string clientId = 4;</code>
-   * @return The clientId.
+   * <code>string machineId = 4;</code>
+   * @return The machineId.
    */
-  String getClientId();
+  String getMachineId();
   /**
-   * <code>string clientId = 4;</code>
-   * @return The bytes for clientId.
+   * <code>string machineId = 4;</code>
+   * @return The bytes for machineId.
    */
   com.google.protobuf.ByteString
-      getClientIdBytes();
+      getMachineIdBytes();
 
   /**
-   * <code>.MessageType type = 5;</code>
+   * <code>string requestId = 5;</code>
+   * @return The requestId.
+   */
+  String getRequestId();
+  /**
+   * <code>string requestId = 5;</code>
+   * @return The bytes for requestId.
+   */
+  com.google.protobuf.ByteString
+      getRequestIdBytes();
+
+  /**
+   * <code>.MessageType type = 6;</code>
    * @return The enum numeric value on the wire for type.
    */
   int getTypeValue();
   /**
-   * <code>.MessageType type = 5;</code>
+   * <code>.MessageType type = 6;</code>
    * @return The type.
    */
   MessageType getType();
