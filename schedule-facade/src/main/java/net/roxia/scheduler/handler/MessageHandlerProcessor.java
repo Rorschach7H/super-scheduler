@@ -1,7 +1,9 @@
 package net.roxia.scheduler.handler;
 
 import net.roxia.scheduler.adapter.OperateAdapter;
-import net.roxia.scheduler.message.protobuf.ProtoMsg;
+import net.roxia.scheduler.message.protobuf.Header;
+import net.roxia.scheduler.message.protobuf.Message;
+import net.roxia.scheduler.message.protobuf.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +16,9 @@ import org.slf4j.LoggerFactory;
 public class MessageHandlerProcessor {
     private static final Logger log = LoggerFactory.getLogger(MessageHandlerProcessor.class);
 
-    public static String assignmentMsg(ProtoMsg.Message message) {
-        ProtoMsg.Header header = message.getHeader();
-        ProtoMsg.MessageType type = header.getType();
+    public static String assignmentMsg(Message message) {
+        Header header = message.getHeader();
+        MessageType type = header.getType();
         if (type == null) {
             log.warn("unknown message type! type={}", type);
         }

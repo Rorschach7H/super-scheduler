@@ -1,5 +1,6 @@
 package net.roxia.scheduler.common.utils;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -102,6 +103,11 @@ public class StringTools {
         }
         return camelTo(sb.toString(), split);
     }
+
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
 
     public static void main(String[] args) {
         String str = "helloWorldFuck";

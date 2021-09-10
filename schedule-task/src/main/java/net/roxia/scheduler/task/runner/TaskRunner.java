@@ -1,7 +1,6 @@
 package net.roxia.scheduler.task.runner;
 
 import net.roxia.scheduler.AppContext;
-import net.roxia.scheduler.holder.AppContextHolder;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi

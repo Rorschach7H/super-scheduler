@@ -2,7 +2,7 @@ package net.roxia.scheduler.store;
 
 import net.roxia.scheduler.common.utils.FileUtil;
 import net.roxia.scheduler.constant.ConstantsUtil;
-import net.roxia.scheduler.holder.AppContextHolder;
+import net.roxia.scheduler.holder.PersistenceContextHolder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import java.io.InputStream;
 public abstract class JdbcAbstractAccess {
 
     public SqlTemplate getSqlTemplate() {
-        return AppContextHolder.getSqlTemplate();
+        return PersistenceContextHolder.getSqlTemplate();
     }
 
     protected String readSqlFile(String path) {

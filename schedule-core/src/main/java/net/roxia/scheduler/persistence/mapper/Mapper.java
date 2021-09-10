@@ -15,19 +15,19 @@ import java.util.List;
  */
 public interface Mapper<T extends AbstractEntity> {
 
-    boolean insertSelective(T task);
+    boolean insertSelective(T entity);
 
-    boolean insert(T task);
+    boolean insert(T entity);
 
-    boolean insertBatch(List<T> task);
+    boolean insertBatch(List<T> entity);
 
-    boolean update(T task);
+    boolean update(T entity);
 
-    boolean updateBatch(List<T> tasks);
+    boolean updateBatch(List<T> list);
 
     boolean delete(Long id);
 
     T select(Long id);
 
-    List<T> select(TaskQuery query);
+    List<T> select(T entity);
 }

@@ -3,7 +3,6 @@ package net.roxia.scheduler.core.task;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.core.task.mysql.MysqlTaskMapper;
 import net.roxia.scheduler.core.task.mysql.TaskMapper;
-import net.roxia.scheduler.holder.AppContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

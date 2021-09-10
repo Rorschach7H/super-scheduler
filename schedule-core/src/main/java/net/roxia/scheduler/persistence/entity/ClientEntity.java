@@ -8,7 +8,7 @@ import net.roxia.scheduler.persistence.annotation.Table;
 import java.util.Date;
 
 /**
- * @ClassName Client
+ * @ClassName ClientEntity
  * @Description TODO
  * @Author huangjunwei01
  * @Date 2021/9/7 11:11
@@ -16,7 +16,7 @@ import java.util.Date;
 @Table("ror_client")
 @Setter
 @Getter
-public class Client extends AbstractEntity {
+public class ClientEntity extends AbstractEntity {
     @PrimaryKey
     private Long id;
     private String clientId;

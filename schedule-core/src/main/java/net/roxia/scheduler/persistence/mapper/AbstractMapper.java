@@ -36,8 +36,8 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
     }
 
     @Override
-    public boolean insertSelective(T task) {
-        Map<String, Object> keyValueMap = task.keyValueMap(true);
+    public boolean insertSelective(T entity) {
+        Map<String, Object> keyValueMap = entity.keyValueMap(true);
         List<String> columns = new ArrayList<>();
         List<Object> values = new ArrayList<>();
         keyValueMap.forEach((k, v) -> {
@@ -49,7 +49,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
         String[] columnArray = new String[columns.size()];
         columns.toArray(columnArray);
         InsertSql insertSql = new InsertSql(getSqlTemplate())
-                .insert(task.tableName())
+                .insert(entity.tableName())
                 .columns(columnArray)
                 .values(values.toArray());
 
@@ -57,38 +57,36 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
     }
 
     @Override
-    public boolean insert(T task) {
+    public boolean insert(T entity) {
 
         InsertSql insertSql = new InsertSql(getSqlTemplate())
-                .insert(task.tableName())
-                .columns(task.columns())
-                .values(task.values());
+                .insert(entity.tableName())
+                .columns(entity.columns())
+                .values(entity.values());
 
         return insertSql.doInsert() == 1;
     }
 
     @Override
-    public boolean insertBatch(List<T> tasks) {
-
-        if (CollectionUtils.isEmpty(tasks)) {
+    public boolean insertBatch(List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
             return false;
         }
-
         InsertSql insertSql = new InsertSql(getSqlTemplate())
-                .insert(tasks.get(0).tableName())
-                .columns(tasks.get(0).columns());
-        tasks.forEach(task -> insertSql.values(task.values()));
+                .insert(list.get(0).tableName())
+                .columns(list.get(0).columns());
+        list.forEach(task -> insertSql.values(task.values()));
 
-        return insertSql.doInsert() == tasks.size();
+        return insertSql.doInsert() == list.size();
     }
 
     @Override
-    public boolean update(AbstractEntity task) {
+    public boolean update(T entity) {
         UpdateSql updateSql = new UpdateSql(getSqlTemplate())
-                .update().table(task.tableName());
-        Map<String, Object> keyValueMap = task.keyValueMap(true);
+                .update().table(entity.tableName());
+        Map<String, Object> keyValueMap = entity.keyValueMap(true);
         keyValueMap.forEach(updateSql::set);
-        updateSql.where(task.primaryKey() + "=?", task.primaryValue());
+        updateSql.where(entity.primaryKey() + "=?", entity.primaryValue());
         return updateSql.doUpdate() == 1;
     }
 
@@ -124,7 +122,8 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
     }
 
     @Override
-    public List<T> select(TaskQuery query) {
+    public List<T> select(T entity) {
+        Map<String, Object> keyValueMap = entity.keyValueMap(true);
         return null;
     }
 }

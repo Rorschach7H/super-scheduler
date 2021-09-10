@@ -3,7 +3,6 @@ package net.roxia.scheduler.client;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
-import net.roxia.scheduler.message.protobuf.ProtoMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

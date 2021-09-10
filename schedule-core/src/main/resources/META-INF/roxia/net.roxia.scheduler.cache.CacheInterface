@@ -1,0 +1,1 @@
+cache=net.roxia.scheduler.cache.RedissonCache

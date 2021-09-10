@@ -2,9 +2,9 @@ package net.roxia.scheduler.task.runner;
 
 import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.adapter.OperateAdapter;
-import net.roxia.scheduler.core.processor.ClientRegAdapter;
+import net.roxia.scheduler.task.client.ClientRegAdapter;
 import net.roxia.scheduler.core.processor.TaskAddAdapter;
-import net.roxia.scheduler.holder.AppContextHolder;
+import net.roxia.scheduler.task.AppContextHolder;
 import net.roxia.scheduler.persistence.PersistenceContext;
 import net.roxia.scheduler.task.TaskAppContext;
 import org.slf4j.Logger;

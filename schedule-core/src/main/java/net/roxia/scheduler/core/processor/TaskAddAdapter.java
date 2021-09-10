@@ -3,7 +3,8 @@ package net.roxia.scheduler.core.processor;
 import net.roxia.scheduler.adapter.annotation.Operate;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
-import net.roxia.scheduler.message.protobuf.ProtoMsg;
+import net.roxia.scheduler.message.protobuf.Message;
+import net.roxia.scheduler.message.protobuf.MessageType;
 
 /**
  * @ClassName TaskAddAdapter
@@ -11,10 +12,10 @@ import net.roxia.scheduler.message.protobuf.ProtoMsg;
  * @Author huangjunwei01
  * @Date 2021/9/3 16:32
  **/
-@Operate(operate = ProtoMsg.MessageType.REG_TASK_VALUE)
+@Operate(operate = MessageType.REG_TASK_VALUE)
 public class TaskAddAdapter extends AbstractTaskAdapter {
     @Override
-    public String handle(ProtoMsg.Message message) {
+    public String handle(Message message) {
         String body = "";
         RunExecutingTask taskInfo;
         try {

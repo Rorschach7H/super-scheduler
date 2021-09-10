@@ -1,8 +1,6 @@
 package net.roxia.scheduler.core.task;
 
-import net.roxia.scheduler.constant.ConfigSpiKeys;
 import net.roxia.scheduler.core.task.domain.RunExecutingTask;
-import net.roxia.scheduler.spi.SPI;
 
 import java.util.List;
 
@@ -14,7 +12,6 @@ import java.util.List;
  * @Date 2018/8/27 17:35
  * @Version V1.0
  */
-@SPI(defaultName = "redis", dynamicKey = ConfigSpiKeys.CACHE_SPI)
 public interface TaskOperate {
 
     TaskOperate loadConfig();
