@@ -16,17 +16,17 @@ public interface MessageOrBuilder extends
    * <code>.Header header = 1;</code>
    * @return The header.
    */
-  Header getHeader();
+  net.roxia.scheduler.message.protobuf.Header getHeader();
   /**
    * <code>.Header header = 1;</code>
    */
-  HeaderOrBuilder getHeaderOrBuilder();
+  net.roxia.scheduler.message.protobuf.HeaderOrBuilder getHeaderOrBuilder();
 
   /**
    * <code>string body = 2;</code>
    * @return The body.
    */
-  String getBody();
+  java.lang.String getBody();
   /**
    * <code>string body = 2;</code>
    * @return The bytes for body.

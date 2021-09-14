@@ -43,4 +43,6 @@ public interface CacheInterface {
     public <T> List<T> getList(String key);
 
     public <T> void addList(String key, T t);
+
+    public <T> void removeList(String key, T t);
 }

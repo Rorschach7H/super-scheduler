@@ -8,11 +8,16 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.global.DefaultIdGenerator;
 import net.roxia.scheduler.global.IdGenerator;
+import net.roxia.scheduler.message.MsgVersion;
 import net.roxia.scheduler.message.body.ClientMsg;
 import net.roxia.scheduler.message.protobuf.Header;
 import net.roxia.scheduler.message.protobuf.Message;
 import net.roxia.scheduler.message.protobuf.MessageType;
+import net.roxia.scheduler.message.protobuf.MessageVersion;
 import org.apache.commons.lang3.StringUtils;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -61,15 +66,15 @@ public class Client {
      *
      * @param ctx
      */
-    public void regClient(ChannelHandlerContext ctx) {
+    public void regClient(ChannelHandlerContext ctx) throws UnknownHostException {
 
-        String requestId = MessageType.REG_CLIENT.name() + "_" + Long.toHexString(idGenerator.getUID());
-
+        String requestId = MessageType.CONNECT_CLIENT.name() + "_" + Long.toHexString(idGenerator.getUID());
+        InetAddress address = InetAddress.getLocalHost();
         Header header = Header.newBuilder()
-                .setVersion("1.0")
+                .setVersion(MsgVersion.VERSION_1.getValue())
                 .setAccessKey(config.getAccessKey())
                 .setGroup(config.getGroup())
-                .setType(MessageType.REG_CLIENT)
+                .setType(MessageType.CONNECT_CLIENT)
                 .setMachineId(machineId)
                 .setRequestId(StringUtils.lowerCase(requestId))
                 .setTimestamp(System.currentTimeMillis())
@@ -78,6 +83,8 @@ public class Client {
         ClientMsg client = ClientMsg.builder()
                 .accessKey(config.getAccessKey())
                 .group(config.getGroup())
+                .machineId(header.getMachineId())
+                .ip(address.getHostAddress())
                 .build();
 
         Message message = Message.newBuilder()

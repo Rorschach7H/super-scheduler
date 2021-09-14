@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.roxia.scheduler.persistence.annotation.PrimaryKey;
 import net.roxia.scheduler.persistence.annotation.Table;
+import net.roxia.scheduler.store.AbstractEntity;
 
 import java.util.Date;
 
@@ -19,10 +20,8 @@ import java.util.Date;
 public class ClientEntity extends AbstractEntity {
     @PrimaryKey
     private Long id;
-    private String clientId;
-    private String clientGroup;
+    private String group;
     private String accessKey;
-    private String ip;
     private Date createTime;
     private Date modifyTime;
     private int state;

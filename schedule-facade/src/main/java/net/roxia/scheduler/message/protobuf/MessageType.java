@@ -10,12 +10,12 @@ public enum MessageType
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
    * <pre>
-   *客户端注册
+   *客户端连接
    * </pre>
    *
-   * <code>REG_CLIENT = 0;</code>
+   * <code>CONNECT_CLIENT = 0;</code>
    */
-  REG_CLIENT(0),
+  CONNECT_CLIENT(0),
   /**
    * <pre>
    *客户端注销
@@ -61,12 +61,12 @@ public enum MessageType
 
   /**
    * <pre>
-   *客户端注册
+   *客户端连接
    * </pre>
    *
-   * <code>REG_CLIENT = 0;</code>
+   * <code>CONNECT_CLIENT = 0;</code>
    */
-  public static final int REG_CLIENT_VALUE = 0;
+  public static final int CONNECT_CLIENT_VALUE = 0;
   /**
    * <pre>
    *客户端注销
@@ -111,7 +111,7 @@ public enum MessageType
 
   public final int getNumber() {
     if (this == UNRECOGNIZED) {
-      throw new IllegalArgumentException(
+      throw new java.lang.IllegalArgumentException(
           "Can't get the number of an unknown enum value.");
     }
     return value;
@@ -122,7 +122,7 @@ public enum MessageType
    * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
-  @Deprecated
+  @java.lang.Deprecated
   public static MessageType valueOf(int value) {
     return forNumber(value);
   }
@@ -133,7 +133,7 @@ public enum MessageType
    */
   public static MessageType forNumber(int value) {
     switch (value) {
-      case 0: return REG_CLIENT;
+      case 0: return CONNECT_CLIENT;
       case 1: return LOGOFF_CLIENT;
       case 2: return REG_TASK;
       case 3: return LOGOFF_TASK;
@@ -158,7 +158,7 @@ public enum MessageType
   public final com.google.protobuf.Descriptors.EnumValueDescriptor
       getValueDescriptor() {
     if (this == UNRECOGNIZED) {
-      throw new IllegalStateException(
+      throw new java.lang.IllegalStateException(
           "Can't get the descriptor of an unrecognized enum value.");
     }
     return getDescriptor().getValues().get(ordinal());
@@ -169,7 +169,7 @@ public enum MessageType
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return MessageOuterClass.getDescriptor().getEnumTypes().get(0);
+    return net.roxia.scheduler.message.protobuf.MessageOuterClass.getDescriptor().getEnumTypes().get(0);
   }
 
   private static final MessageType[] VALUES = values();
@@ -177,7 +177,7 @@ public enum MessageType
   public static MessageType valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
-      throw new IllegalArgumentException(
+      throw new java.lang.IllegalArgumentException(
         "EnumValueDescriptor is not for this type.");
     }
     if (desc.getIndex() == -1) {

@@ -19,8 +19,8 @@ message Message {
 }
 
 enum MessageType {
-  //客户端注册
-  REG_CLIENT = 0;
+  //客户端连接
+  CONNECT_CLIENT = 0;
   //客户端注销
   LOGOFF_CLIENT = 1;
   //注册任务

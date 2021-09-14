@@ -2,7 +2,7 @@ package net.roxia.scheduler.store;
 
 import net.roxia.scheduler.store.dbutils.DbRunner;
 import net.roxia.scheduler.store.dbutils.ResultSetHandler;
-import net.roxia.scheduler.store.dbutils.ScalarHandler;
+import net.roxia.scheduler.store.dbutils.SingleEntityHandler;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -82,12 +82,8 @@ class SqlTemplateImpl implements SqlTemplate {
         return dbRunner.query(conn, sql, rsh, params);
     }
 
-    public <T> T queryForValue(final String sql, final Object... params) throws SQLException {
-        return query(sql, new ScalarHandler<T>(), params);
-    }
-
-    public <T> T queryForValue(final Connection conn, final String sql, final Object... params) throws SQLException {
-        return query(conn, sql, new ScalarHandler<T>(), params);
+    public <T> T queryForValue(Class<T> clazz, final String sql, final Object... params) throws SQLException {
+        return query(sql, new SingleEntityHandler<T>(clazz), params);
     }
 
     private SqlExecutor<Void> getWrapperExecutor(final SqlExecutorVoid voidExecutor) {

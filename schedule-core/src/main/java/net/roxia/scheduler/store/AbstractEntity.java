@@ -1,4 +1,4 @@
-package net.roxia.scheduler.persistence.entity;
+package net.roxia.scheduler.store;
 
 import net.roxia.scheduler.common.utils.StringTools;
 import net.roxia.scheduler.persistence.annotation.Column;

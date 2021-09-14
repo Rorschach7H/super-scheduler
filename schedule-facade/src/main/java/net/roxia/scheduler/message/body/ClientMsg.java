@@ -34,4 +34,10 @@ public class ClientMsg {
      * 准入密钥
      */
     private String accessKey;
+
+    /**
+     * 激活状态
+     * 0-未激活，1-已激活
+     */
+    private Boolean active;
 }

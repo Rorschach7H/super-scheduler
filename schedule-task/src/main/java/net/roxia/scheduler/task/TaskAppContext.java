@@ -37,9 +37,16 @@ public class TaskAppContext extends DefaultServiceFactory implements AppContext 
 
     private static final Map<String, IdGenerator> idGeneratorMap = Maps.newConcurrentMap();
 
-    public TaskAppContext(SchedulerConfig config) {
+    private static TaskAppContext taskAppContext;
+
+    private TaskAppContext(SchedulerConfig config) {
         this.clientContext = new ClientContext();
         this.config = config;
+    }
+
+    public static TaskAppContext init(SchedulerConfig config) {
+        taskAppContext = new TaskAppContext(config);
+        return taskAppContext;
     }
 
     @Override
@@ -47,8 +54,8 @@ public class TaskAppContext extends DefaultServiceFactory implements AppContext 
         return config;
     }
 
-    public void setConfig(SchedulerConfig config) {
-        this.config = config;
+    public static TaskAppContext getTaskAppContext() {
+        return taskAppContext;
     }
 
     public ClientContext getClientContext() {

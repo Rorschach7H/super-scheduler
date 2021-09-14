@@ -29,4 +29,10 @@ public class ClientMessageHandler extends ChannelInboundHandlerAdapter {
         client.regClient(ctx);
         super.channelActive(ctx);
     }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("==>channelInactive<==");
+        super.channelInactive(ctx);
+    }
 }

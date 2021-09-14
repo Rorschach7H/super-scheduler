@@ -3,6 +3,9 @@ package net.roxia.scheduler.task.client;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * @ClassName Client
  * @Description TODO
@@ -11,7 +14,7 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class Client {
+public class Client implements Serializable {
     /**
      * 注册客户端唯一标识
      */
@@ -31,4 +34,9 @@ public class Client {
      * 准入密钥
      */
     private String accessKey;
+
+    /**
+     * 激活时间
+     */
+    private Date activeTime;
 }

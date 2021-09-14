@@ -3,6 +3,7 @@ package net.roxia.scheduler.persistence.entity;
 import lombok.Getter;
 import lombok.Setter;
 import net.roxia.scheduler.persistence.annotation.Table;
+import net.roxia.scheduler.store.AbstractEntity;
 
 import java.util.Date;
 

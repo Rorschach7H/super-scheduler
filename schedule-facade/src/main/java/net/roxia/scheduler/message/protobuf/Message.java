@@ -19,14 +19,14 @@ private static final long serialVersionUID = 0L;
     body_ = "";
   }
 
-  @Override
+  @java.lang.Override
   @SuppressWarnings({"unused"})
-  protected Object newInstance(
+  protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
     return new Message();
   }
 
-  @Override
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -37,7 +37,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new NullPointerException();
+      throw new java.lang.NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -50,11 +50,11 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            Header.Builder subBuilder = null;
+            net.roxia.scheduler.message.protobuf.Header.Builder subBuilder = null;
             if (header_ != null) {
               subBuilder = header_.toBuilder();
             }
-            header_ = input.readMessage(Header.parser(), extensionRegistry);
+            header_ = input.readMessage(net.roxia.scheduler.message.protobuf.Header.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(header_);
               header_ = subBuilder.buildPartial();
@@ -63,7 +63,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 18: {
-            String s = input.readStringRequireUtf8();
+            java.lang.String s = input.readStringRequireUtf8();
 
             body_ = s;
             break;
@@ -89,24 +89,24 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return MessageOuterClass.internal_static_Message_descriptor;
+    return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Message_descriptor;
   }
 
-  @Override
-  protected FieldAccessorTable
+  @java.lang.Override
+  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return MessageOuterClass.internal_static_Message_fieldAccessorTable
+    return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Message_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            Message.class, Builder.class);
+            net.roxia.scheduler.message.protobuf.Message.class, net.roxia.scheduler.message.protobuf.Message.Builder.class);
   }
 
   public static final int HEADER_FIELD_NUMBER = 1;
-  private Header header_;
+  private net.roxia.scheduler.message.protobuf.Header header_;
   /**
    * <code>.Header header = 1;</code>
    * @return Whether the header field is set.
    */
-  @Override
+  @java.lang.Override
   public boolean hasHeader() {
     return header_ != null;
   }
@@ -114,33 +114,33 @@ private static final long serialVersionUID = 0L;
    * <code>.Header header = 1;</code>
    * @return The header.
    */
-  @Override
-  public Header getHeader() {
-    return header_ == null ? Header.getDefaultInstance() : header_;
+  @java.lang.Override
+  public net.roxia.scheduler.message.protobuf.Header getHeader() {
+    return header_ == null ? net.roxia.scheduler.message.protobuf.Header.getDefaultInstance() : header_;
   }
   /**
    * <code>.Header header = 1;</code>
    */
-  @Override
-  public HeaderOrBuilder getHeaderOrBuilder() {
+  @java.lang.Override
+  public net.roxia.scheduler.message.protobuf.HeaderOrBuilder getHeaderOrBuilder() {
     return getHeader();
   }
 
   public static final int BODY_FIELD_NUMBER = 2;
-  private volatile Object body_;
+  private volatile java.lang.Object body_;
   /**
    * <code>string body = 2;</code>
    * @return The body.
    */
-  @Override
-  public String getBody() {
-    Object ref = body_;
-    if (ref instanceof String) {
-      return (String) ref;
+  @java.lang.Override
+  public java.lang.String getBody() {
+    java.lang.Object ref = body_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
+      java.lang.String s = bs.toStringUtf8();
       body_ = s;
       return s;
     }
@@ -149,14 +149,14 @@ private static final long serialVersionUID = 0L;
    * <code>string body = 2;</code>
    * @return The bytes for body.
    */
-  @Override
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getBodyBytes() {
-    Object ref = body_;
-    if (ref instanceof String) {
+    java.lang.Object ref = body_;
+    if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
+              (java.lang.String) ref);
       body_ = b;
       return b;
     } else {
@@ -165,7 +165,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private byte memoizedIsInitialized = -1;
-  @Override
+  @java.lang.Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -175,7 +175,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (header_ != null) {
@@ -187,7 +187,7 @@ private static final long serialVersionUID = 0L;
     unknownFields.writeTo(output);
   }
 
-  @Override
+  @java.lang.Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -205,15 +205,15 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @Override
-  public boolean equals(final Object obj) {
+  @java.lang.Override
+  public boolean equals(final java.lang.Object obj) {
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof Message)) {
+    if (!(obj instanceof net.roxia.scheduler.message.protobuf.Message)) {
       return super.equals(obj);
     }
-    Message other = (Message) obj;
+    net.roxia.scheduler.message.protobuf.Message other = (net.roxia.scheduler.message.protobuf.Message) obj;
 
     if (hasHeader() != other.hasHeader()) return false;
     if (hasHeader()) {
@@ -226,7 +226,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -244,69 +244,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Message parseFrom(byte[] data)
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static Message parseFrom(java.io.InputStream input)
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static Message parseDelimitedFrom(java.io.InputStream input)
+  public static net.roxia.scheduler.message.protobuf.Message parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static Message parseDelimitedFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static Message parseFrom(
+  public static net.roxia.scheduler.message.protobuf.Message parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -314,23 +314,23 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  @Override
+  @java.lang.Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(Message prototype) {
+  public static Builder newBuilder(net.roxia.scheduler.message.protobuf.Message prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
-  @Override
+  @java.lang.Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @Override
+  @java.lang.Override
   protected Builder newBuilderForType(
-      BuilderParent parent) {
+      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -340,18 +340,18 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:Message)
-      MessageOrBuilder {
+      net.roxia.scheduler.message.protobuf.MessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MessageOuterClass.internal_static_Message_descriptor;
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Message_descriptor;
     }
 
-    @Override
-    protected FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MessageOuterClass.internal_static_Message_fieldAccessorTable
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Message_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              Message.class, Builder.class);
+              net.roxia.scheduler.message.protobuf.Message.class, net.roxia.scheduler.message.protobuf.Message.Builder.class);
     }
 
     // Construct using net.roxia.scheduler.message.protobuf.Message.newBuilder()
@@ -360,7 +360,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private Builder(
-        BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -369,7 +369,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
-    @Override
+    @java.lang.Override
     public Builder clear() {
       super.clear();
       if (headerBuilder_ == null) {
@@ -383,29 +383,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return MessageOuterClass.internal_static_Message_descriptor;
+      return net.roxia.scheduler.message.protobuf.MessageOuterClass.internal_static_Message_descriptor;
     }
 
-    @Override
-    public Message getDefaultInstanceForType() {
-      return Message.getDefaultInstance();
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Message getDefaultInstanceForType() {
+      return net.roxia.scheduler.message.protobuf.Message.getDefaultInstance();
     }
 
-    @Override
-    public Message build() {
-      Message result = buildPartial();
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Message build() {
+      net.roxia.scheduler.message.protobuf.Message result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    @Override
-    public Message buildPartial() {
-      Message result = new Message(this);
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.Message buildPartial() {
+      net.roxia.scheduler.message.protobuf.Message result = new net.roxia.scheduler.message.protobuf.Message(this);
       if (headerBuilder_ == null) {
         result.header_ = header_;
       } else {
@@ -416,50 +416,50 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
-    @Override
+    @java.lang.Override
     public Builder clone() {
       return super.clone();
     }
-    @Override
+    @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.setField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
       return super.clearField(field);
     }
-    @Override
+    @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
       return super.clearOneof(oneof);
     }
-    @Override
+    @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, Object value) {
+        int index, java.lang.Object value) {
       return super.setRepeatedField(field, index, value);
     }
-    @Override
+    @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        Object value) {
+        java.lang.Object value) {
       return super.addRepeatedField(field, value);
     }
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof Message) {
-        return mergeFrom((Message)other);
+      if (other instanceof net.roxia.scheduler.message.protobuf.Message) {
+        return mergeFrom((net.roxia.scheduler.message.protobuf.Message)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(Message other) {
-      if (other == Message.getDefaultInstance()) return this;
+    public Builder mergeFrom(net.roxia.scheduler.message.protobuf.Message other) {
+      if (other == net.roxia.scheduler.message.protobuf.Message.getDefaultInstance()) return this;
       if (other.hasHeader()) {
         mergeHeader(other.getHeader());
       }
@@ -472,21 +472,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public final boolean isInitialized() {
       return true;
     }
 
-    @Override
+    @java.lang.Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Message parsedMessage = null;
+      net.roxia.scheduler.message.protobuf.Message parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (Message) e.getUnfinishedMessage();
+        parsedMessage = (net.roxia.scheduler.message.protobuf.Message) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -496,9 +496,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Header header_;
+    private net.roxia.scheduler.message.protobuf.Header header_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        Header, Header.Builder, HeaderOrBuilder> headerBuilder_;
+        net.roxia.scheduler.message.protobuf.Header, net.roxia.scheduler.message.protobuf.Header.Builder, net.roxia.scheduler.message.protobuf.HeaderOrBuilder> headerBuilder_;
     /**
      * <code>.Header header = 1;</code>
      * @return Whether the header field is set.
@@ -510,9 +510,9 @@ private static final long serialVersionUID = 0L;
      * <code>.Header header = 1;</code>
      * @return The header.
      */
-    public Header getHeader() {
+    public net.roxia.scheduler.message.protobuf.Header getHeader() {
       if (headerBuilder_ == null) {
-        return header_ == null ? Header.getDefaultInstance() : header_;
+        return header_ == null ? net.roxia.scheduler.message.protobuf.Header.getDefaultInstance() : header_;
       } else {
         return headerBuilder_.getMessage();
       }
@@ -520,7 +520,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.Header header = 1;</code>
      */
-    public Builder setHeader(Header value) {
+    public Builder setHeader(net.roxia.scheduler.message.protobuf.Header value) {
       if (headerBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -537,7 +537,7 @@ private static final long serialVersionUID = 0L;
      * <code>.Header header = 1;</code>
      */
     public Builder setHeader(
-        Header.Builder builderForValue) {
+        net.roxia.scheduler.message.protobuf.Header.Builder builderForValue) {
       if (headerBuilder_ == null) {
         header_ = builderForValue.build();
         onChanged();
@@ -550,11 +550,11 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.Header header = 1;</code>
      */
-    public Builder mergeHeader(Header value) {
+    public Builder mergeHeader(net.roxia.scheduler.message.protobuf.Header value) {
       if (headerBuilder_ == null) {
         if (header_ != null) {
           header_ =
-            Header.newBuilder(header_).mergeFrom(value).buildPartial();
+            net.roxia.scheduler.message.protobuf.Header.newBuilder(header_).mergeFrom(value).buildPartial();
         } else {
           header_ = value;
         }
@@ -582,7 +582,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.Header header = 1;</code>
      */
-    public Header.Builder getHeaderBuilder() {
+    public net.roxia.scheduler.message.protobuf.Header.Builder getHeaderBuilder() {
       
       onChanged();
       return getHeaderFieldBuilder().getBuilder();
@@ -590,23 +590,23 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.Header header = 1;</code>
      */
-    public HeaderOrBuilder getHeaderOrBuilder() {
+    public net.roxia.scheduler.message.protobuf.HeaderOrBuilder getHeaderOrBuilder() {
       if (headerBuilder_ != null) {
         return headerBuilder_.getMessageOrBuilder();
       } else {
         return header_ == null ?
-            Header.getDefaultInstance() : header_;
+            net.roxia.scheduler.message.protobuf.Header.getDefaultInstance() : header_;
       }
     }
     /**
      * <code>.Header header = 1;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        Header, Header.Builder, HeaderOrBuilder>
+        net.roxia.scheduler.message.protobuf.Header, net.roxia.scheduler.message.protobuf.Header.Builder, net.roxia.scheduler.message.protobuf.HeaderOrBuilder> 
         getHeaderFieldBuilder() {
       if (headerBuilder_ == null) {
         headerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            Header, Header.Builder, HeaderOrBuilder>(
+            net.roxia.scheduler.message.protobuf.Header, net.roxia.scheduler.message.protobuf.Header.Builder, net.roxia.scheduler.message.protobuf.HeaderOrBuilder>(
                 getHeader(),
                 getParentForChildren(),
                 isClean());
@@ -615,21 +615,21 @@ private static final long serialVersionUID = 0L;
       return headerBuilder_;
     }
 
-    private Object body_ = "";
+    private java.lang.Object body_ = "";
     /**
      * <code>string body = 2;</code>
      * @return The body.
      */
-    public String getBody() {
-      Object ref = body_;
-      if (!(ref instanceof String)) {
+    public java.lang.String getBody() {
+      java.lang.Object ref = body_;
+      if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        java.lang.String s = bs.toStringUtf8();
         body_ = s;
         return s;
       } else {
-        return (String) ref;
+        return (java.lang.String) ref;
       }
     }
     /**
@@ -638,11 +638,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getBodyBytes() {
-      Object ref = body_;
+      java.lang.Object ref = body_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+                (java.lang.String) ref);
         body_ = b;
         return b;
       } else {
@@ -655,7 +655,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setBody(
-        String value) {
+        java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -690,13 +690,13 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    @Override
+    @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.setUnknownFields(unknownFields);
     }
 
-    @Override
+    @java.lang.Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -707,18 +707,18 @@ private static final long serialVersionUID = 0L;
   }
 
   // @@protoc_insertion_point(class_scope:Message)
-  private static final Message DEFAULT_INSTANCE;
+  private static final net.roxia.scheduler.message.protobuf.Message DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new Message();
+    DEFAULT_INSTANCE = new net.roxia.scheduler.message.protobuf.Message();
   }
 
-  public static Message getDefaultInstance() {
+  public static net.roxia.scheduler.message.protobuf.Message getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<Message>
       PARSER = new com.google.protobuf.AbstractParser<Message>() {
-    @Override
+    @java.lang.Override
     public Message parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -731,13 +731,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @Override
+  @java.lang.Override
   public com.google.protobuf.Parser<Message> getParserForType() {
     return PARSER;
   }
 
-  @Override
-  public Message getDefaultInstanceForType() {
+  @java.lang.Override
+  public net.roxia.scheduler.message.protobuf.Message getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

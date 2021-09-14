@@ -14,7 +14,7 @@ public class ServerMessageHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Message message = (Message) msg;
-        log.info("==>channelRead<== | {}", message.toString());
+        log.info("==>channelRead<== | \n{}", message.toString());
         MessageHandlerProcessor.assignmentMsg(message);
         super.channelRead(ctx, msg);
     }
@@ -40,6 +40,7 @@ public class ServerMessageHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.info("==>channelInactive<==");
+
         super.channelInactive(ctx);
     }
 

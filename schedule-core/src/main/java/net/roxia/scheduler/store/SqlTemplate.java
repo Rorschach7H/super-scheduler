@@ -23,5 +23,5 @@ public interface SqlTemplate {
 
     <T> T query(final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException;
 
-    <T> T queryForValue(final String sql, final Object... params) throws SQLException;
+    <T> T queryForValue(Class<T> clazz, final String sql, final Object... params) throws SQLException;
 }

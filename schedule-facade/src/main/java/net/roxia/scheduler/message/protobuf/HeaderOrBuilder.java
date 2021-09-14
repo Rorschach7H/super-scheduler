@@ -11,7 +11,7 @@ public interface HeaderOrBuilder extends
    * <code>string version = 1;</code>
    * @return The version.
    */
-  String getVersion();
+  java.lang.String getVersion();
   /**
    * <code>string version = 1;</code>
    * @return The bytes for version.
@@ -23,7 +23,7 @@ public interface HeaderOrBuilder extends
    * <code>string accessKey = 2;</code>
    * @return The accessKey.
    */
-  String getAccessKey();
+  java.lang.String getAccessKey();
   /**
    * <code>string accessKey = 2;</code>
    * @return The bytes for accessKey.
@@ -35,7 +35,7 @@ public interface HeaderOrBuilder extends
    * <code>string group = 3;</code>
    * @return The group.
    */
-  String getGroup();
+  java.lang.String getGroup();
   /**
    * <code>string group = 3;</code>
    * @return The bytes for group.
@@ -47,7 +47,7 @@ public interface HeaderOrBuilder extends
    * <code>string machineId = 4;</code>
    * @return The machineId.
    */
-  String getMachineId();
+  java.lang.String getMachineId();
   /**
    * <code>string machineId = 4;</code>
    * @return The bytes for machineId.
@@ -59,7 +59,7 @@ public interface HeaderOrBuilder extends
    * <code>string requestId = 5;</code>
    * @return The requestId.
    */
-  String getRequestId();
+  java.lang.String getRequestId();
   /**
    * <code>string requestId = 5;</code>
    * @return The bytes for requestId.
@@ -82,5 +82,5 @@ public interface HeaderOrBuilder extends
    * <code>.MessageType type = 7;</code>
    * @return The type.
    */
-  MessageType getType();
+  net.roxia.scheduler.message.protobuf.MessageType getType();
 }

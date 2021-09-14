@@ -42,7 +42,7 @@ public class SelectSql {
         for (String column : columns) {
             sql.append(split);
             split = ",";
-            sql.append(column.trim()).append(" ");
+            sql.append("`").append(column.trim()).append("`").append(" ");
         }
         return this;
     }
@@ -255,10 +255,10 @@ public class SelectSql {
         }
     }
 
-    public <T> T single() {
+    public <T> T single(Class<T> clazz) {
         String finalSQL = getSQL();
         try {
-            return sqlTemplate.queryForValue(finalSQL, params.toArray());
+            return sqlTemplate.queryForValue(clazz, finalSQL, params.toArray());
         } catch (Exception e) {
             throw new JdbcException("Select SQL Error:" + finalSQL, e);
         }

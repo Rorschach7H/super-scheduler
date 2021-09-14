@@ -1,7 +1,6 @@
 package net.roxia.scheduler.persistence.mapper;
 
-import net.roxia.scheduler.core.task.domain.TaskQuery;
-import net.roxia.scheduler.persistence.entity.AbstractEntity;
+import net.roxia.scheduler.store.AbstractEntity;
 
 import java.util.List;
 

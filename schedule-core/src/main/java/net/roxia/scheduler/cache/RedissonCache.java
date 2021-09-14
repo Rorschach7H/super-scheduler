@@ -158,4 +158,14 @@ public class RedissonCache implements CacheInterface{
             log.error("add list cache data error! | key : {}", key, e);
         }
     }
+
+    @Override
+    public <T> void removeList(String key, T t) {
+        try {
+            RList<T> list = redissonClient.getList(key);
+            list.remove(t);
+        } catch (Exception e) {
+            log.error("remove list cache data error! | key : {}", key, e);
+        }
+    }
 }

@@ -43,15 +43,15 @@ public class JdbcTest extends TestCase {
 //                "password varchar(20)" +
 //                ")");
 //        sqlTemplate.insert("insert into t_hello values (1,'meixiaoxi','1234')");
-        System.out.println(selectSql.select().all().from().table("t_hello").list(rs -> {
-            List<String> list = new ArrayList<>();
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String username = rs.getString(2);
-                String password = rs.getString(3);
-                list.add(id + "-" + username + "-" + password);
-            }
-            return list;
-        }));
+//        System.out.println(selectSql.select().all().from().table("t_hello").list(rs -> {
+//            List<String> list = new ArrayList<>();
+//            while (rs.next()) {
+//                int id = rs.getInt(1);
+//                String username = rs.getString(2);
+//                String password = rs.getString(3);
+//                list.add(id + "-" + username + "-" + password);
+//            }
+//            return list;
+//        }));
     }
 }

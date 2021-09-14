@@ -1,7 +1,7 @@
 package net.roxia.scheduler.persistence.mapper;
 
 import net.roxia.scheduler.holder.PersistenceContextHolder;
-import net.roxia.scheduler.persistence.entity.AbstractEntity;
+import net.roxia.scheduler.store.AbstractEntity;
 import net.roxia.scheduler.store.JdbcAbstractAccess;
 import net.roxia.scheduler.store.SqlTemplate;
 import net.roxia.scheduler.store.builder.DeleteSql;
@@ -121,7 +121,7 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
                 .from()
                 .table(AbstractEntity.tableName(entityClass))
                 .where(AbstractEntity.primaryKey(entityClass) + "=?", id)
-                .single();
+                .single(entityClass);
 
     }
 
@@ -129,5 +129,9 @@ public class AbstractMapper<T extends AbstractEntity> extends JdbcAbstractAccess
     public List<T> select(T entity) {
         Map<String, Object> keyValueMap = entity.keyValueMap(true);
         return null;
+    }
+
+    public SqlTemplate getSqlTemplate() {
+        return sqlTemplate;
     }
 }
