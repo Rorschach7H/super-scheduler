@@ -1,8 +1,8 @@
-package net.roxia.scheduler.client;
+package net.roxia.scheduler.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.roxia.scheduler.common.utils.JsonUtil;
+import net.roxia.scheduler.client.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,6 @@ public class ClientMessageHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("---------------{}----------------", "channelRead");
-        log.info("received server msg: {}", JsonUtil.obj2String(msg));
         super.channelRead(ctx, msg);
     }
 

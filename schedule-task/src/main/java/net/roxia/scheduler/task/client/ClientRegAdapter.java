@@ -19,7 +19,7 @@ import java.util.Date;
  * @Author huangjunwei01
  * @Date 2021/9/7 15:16
  **/
-@Operate(operate = MessageType.CONNECT_CLIENT_VALUE)
+@Operate(operate = MessageType.CONNECT_VALUE)
 public class ClientRegAdapter extends OperateAdapter {
 
     private final ClientMapper clientMapper;
@@ -37,7 +37,7 @@ public class ClientRegAdapter extends OperateAdapter {
         ClientMsg clientMsg = JsonUtil.string2Obj(body, ClientMsg.class);
         assert clientMsg != null;
         String clientGroup = clientMsg.getGroup();
-        ClientEntity clientEntity = clientMapper.selectByClientGroup(clientGroup);
+        ClientEntity clientEntity = clientMapper.selectByGroup(clientGroup);
         if (clientEntity == null) {
             clientMsg.setActive(false);
             return JsonUtil.obj2String(clientMsg);

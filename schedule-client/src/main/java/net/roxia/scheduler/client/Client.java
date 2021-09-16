@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import net.roxia.scheduler.client.handler.ClientMessageHandler;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.global.DefaultIdGenerator;
 import net.roxia.scheduler.global.IdGenerator;
@@ -13,7 +14,6 @@ import net.roxia.scheduler.message.body.ClientMsg;
 import net.roxia.scheduler.message.protobuf.Header;
 import net.roxia.scheduler.message.protobuf.Message;
 import net.roxia.scheduler.message.protobuf.MessageType;
-import net.roxia.scheduler.message.protobuf.MessageVersion;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetAddress;
@@ -43,21 +43,19 @@ public class Client {
     public Client(ClientConfig config) {
         this.config = config;
         this.idGenerator = new DefaultIdGenerator(1);
-        Client.machineId = Long.toHexString(idGenerator.getUID());
     }
 
     public void start() throws InterruptedException {
         ClientMessageHandler readHandler = new ClientMessageHandler(this);
-        ClientWriteHandler writeHandler = new ClientWriteHandler(this);
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup)
                     .channel(NioSocketChannel.class)
-                    .handler(new ClientInitializer(readHandler, writeHandler));
+                    .handler(new ClientInitializer(readHandler));
             bootstrap.connect(config.getHost(), config.getPort()).sync().channel();
         } finally {
-            eventLoopGroup.shutdownGracefully();
+            //eventLoopGroup.shutdownGracefully();
         }
     }
 
@@ -68,14 +66,13 @@ public class Client {
      */
     public void regClient(ChannelHandlerContext ctx) throws UnknownHostException {
 
-        String requestId = MessageType.CONNECT_CLIENT.name() + "_" + Long.toHexString(idGenerator.getUID());
+        String requestId = MessageType.CONNECT.name() + "_" + Long.toHexString(idGenerator.getId());
         InetAddress address = InetAddress.getLocalHost();
         Header header = Header.newBuilder()
                 .setVersion(MsgVersion.VERSION_1.getValue())
                 .setAccessKey(config.getAccessKey())
                 .setGroup(config.getGroup())
-                .setType(MessageType.CONNECT_CLIENT)
-                .setMachineId(machineId)
+                .setType(MessageType.CONNECT)
                 .setRequestId(StringUtils.lowerCase(requestId))
                 .setTimestamp(System.currentTimeMillis())
                 .build();

@@ -8,6 +8,9 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import net.roxia.scheduler.message.protobuf.Message;
+import net.roxia.scheduler.task.server.handler.BizMessageHandler;
+import net.roxia.scheduler.task.server.handler.ConnectHandler;
+import net.roxia.scheduler.task.server.handler.TokenAuthHandler;
 
 public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> {
     @Override
@@ -18,11 +21,15 @@ public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> 
                 .addLast(new ProtobufVarint32FrameDecoder())
                 //解码2 byte转化为消息实体
                 .addLast(new ProtobufDecoder(Message.getDefaultInstance()))
-                //编码3 byte数组头加上实体类长度
+                //编码1 byte数组头加上实体类长度
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
-                //编码4 处理实体
-                .addLast(new ServerMessageHandler())
                 //编码2 实体转化为byte数组
-                .addLast(new ProtobufEncoder());
+                .addLast(new ProtobufEncoder())
+                //连接消息处理
+                .addLast(new ConnectHandler())
+                //消息体校验
+                .addLast(new TokenAuthHandler())
+                //处理实体
+                .addLast(new BizMessageHandler());
     }
 }

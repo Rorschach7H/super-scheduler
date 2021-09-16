@@ -33,6 +33,11 @@ public class SelectSql {
         return this;
     }
 
+    public SelectSql count() {
+        sql.append(" COUNT(1) ");
+        return this;
+    }
+
     public SelectSql columns(String... columns) {
         if (columns == null || columns.length == 0) {
             throw new JdbcException("columns must have length");

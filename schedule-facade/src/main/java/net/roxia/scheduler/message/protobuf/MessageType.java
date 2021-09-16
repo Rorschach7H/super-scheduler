@@ -10,103 +10,119 @@ public enum MessageType
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
    * <pre>
-   *客户端连接
+   *客户端鉴权失败
    * </pre>
    *
-   * <code>CONNECT_CLIENT = 0;</code>
+   * <code>CLIENT_AUTH_ERROR = 0;</code>
    */
-  CONNECT_CLIENT(0),
+  CLIENT_AUTH_ERROR(0),
   /**
    * <pre>
-   *客户端注销
+   *连接
    * </pre>
    *
-   * <code>LOGOFF_CLIENT = 1;</code>
+   * <code>CONNECT = 1;</code>
    */
-  LOGOFF_CLIENT(1),
+  CONNECT(1),
+  /**
+   * <pre>
+   *注销
+   * </pre>
+   *
+   * <code>LOGOFF = 2;</code>
+   */
+  LOGOFF(2),
   /**
    * <pre>
    *注册任务
    * </pre>
    *
-   * <code>REG_TASK = 2;</code>
+   * <code>REG_TASK = 3;</code>
    */
-  REG_TASK(2),
+  REG_TASK(3),
   /**
    * <pre>
    *注销任务
    * </pre>
    *
-   * <code>LOGOFF_TASK = 3;</code>
+   * <code>LOGOFF_TASK = 4;</code>
    */
-  LOGOFF_TASK(3),
+  LOGOFF_TASK(4),
   /**
    * <pre>
    *执行任务
    * </pre>
    *
-   * <code>EXECUTE_TASK = 4;</code>
+   * <code>EXECUTE_TASK = 5;</code>
    */
-  EXECUTE_TASK(4),
+  EXECUTE_TASK(5),
   /**
    * <pre>
    *消息响应
    * </pre>
    *
-   * <code>MESSAGE_RESPONSE = 5;</code>
+   * <code>MESSAGE_RESPONSE = 6;</code>
    */
-  MESSAGE_RESPONSE(5),
+  MESSAGE_RESPONSE(6),
   UNRECOGNIZED(-1),
   ;
 
   /**
    * <pre>
-   *客户端连接
+   *客户端鉴权失败
    * </pre>
    *
-   * <code>CONNECT_CLIENT = 0;</code>
+   * <code>CLIENT_AUTH_ERROR = 0;</code>
    */
-  public static final int CONNECT_CLIENT_VALUE = 0;
+  public static final int CLIENT_AUTH_ERROR_VALUE = 0;
   /**
    * <pre>
-   *客户端注销
+   *连接
    * </pre>
    *
-   * <code>LOGOFF_CLIENT = 1;</code>
+   * <code>CONNECT = 1;</code>
    */
-  public static final int LOGOFF_CLIENT_VALUE = 1;
+  public static final int CONNECT_VALUE = 1;
+  /**
+   * <pre>
+   *注销
+   * </pre>
+   *
+   * <code>LOGOFF = 2;</code>
+   */
+  public static final int LOGOFF_VALUE = 2;
   /**
    * <pre>
    *注册任务
    * </pre>
    *
-   * <code>REG_TASK = 2;</code>
+   * <code>REG_TASK = 3;</code>
    */
-  public static final int REG_TASK_VALUE = 2;
+  public static final int REG_TASK_VALUE = 3;
   /**
    * <pre>
    *注销任务
    * </pre>
    *
-   * <code>LOGOFF_TASK = 3;</code>
+   * <code>LOGOFF_TASK = 4;</code>
    */
-  public static final int LOGOFF_TASK_VALUE = 3;
+  public static final int LOGOFF_TASK_VALUE = 4;
   /**
    * <pre>
    *执行任务
    * </pre>
    *
-   * <code>EXECUTE_TASK = 4;</code>
+   * <code>EXECUTE_TASK = 5;</code>
    */
-  public static final int EXECUTE_TASK_VALUE = 4;
+  public static final int EXECUTE_TASK_VALUE = 5;
   /**
    * <pre>
    *消息响应
    * </pre>
    *
-   * <code>MESSAGE_RESPONSE = 5;</code>
+   * <code>MESSAGE_RESPONSE = 6;</code>
    */
-  public static final int MESSAGE_RESPONSE_VALUE = 5;
+  public static final int MESSAGE_RESPONSE_VALUE = 6;
 
 
   public final int getNumber() {
@@ -133,12 +149,13 @@ public enum MessageType
    */
   public static MessageType forNumber(int value) {
     switch (value) {
-      case 0: return CONNECT_CLIENT;
-      case 1: return LOGOFF_CLIENT;
-      case 2: return REG_TASK;
-      case 3: return LOGOFF_TASK;
-      case 4: return EXECUTE_TASK;
-      case 5: return MESSAGE_RESPONSE;
+      case 0: return CLIENT_AUTH_ERROR;
+      case 1: return CONNECT;
+      case 2: return LOGOFF;
+      case 3: return REG_TASK;
+      case 4: return LOGOFF_TASK;
+      case 5: return EXECUTE_TASK;
+      case 6: return MESSAGE_RESPONSE;
       default: return null;
     }
   }

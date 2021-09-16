@@ -25,25 +25,25 @@ public interface IdGenerator {
     /**
      * Get a unique ID string
      *
-     * @return UID String
+     * @return ID String
      */
-    String getUIDString();
+    String getIdString();
 
     /**
      * Get a unique ID
      *
-     * @return UID
+     * @return ID
      * @throws IdGenerateException
      */
-    long getUID() throws IdGenerateException;
+    long getId() throws IdGenerateException;
 
     /**
      * Parse the UID into elements which are used to generate the UID. <br>
      * Such as timestamp & workerId & sequence...
      *
-     * @param uid
+     * @param id
      * @return Parsed info
      */
-    String parseUID(long uid);
+    String parseId(long id);
 
 }

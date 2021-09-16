@@ -7,6 +7,7 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import net.roxia.scheduler.client.handler.ClientMessageHandler;
 import net.roxia.scheduler.message.protobuf.Message;
 
 /**
@@ -25,11 +26,9 @@ import net.roxia.scheduler.message.protobuf.Message;
 public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 
     private final ClientMessageHandler clientMessageHandler;
-    private final ClientWriteHandler writeHandler;
 
-    public ClientInitializer(ClientMessageHandler handler, ClientWriteHandler writeHandler) {
+    public ClientInitializer(ClientMessageHandler handler) {
         this.clientMessageHandler = handler;
-        this.writeHandler = writeHandler;
     }
 
     @Override
@@ -40,11 +39,11 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
                 .addLast(new ProtobufVarint32FrameDecoder())
                 //解码2 byte转化为消息实体
                 .addLast(new ProtobufDecoder(Message.getDefaultInstance()))
-                //编码3 byte数组头加上实体类长度
+                //编码1 byte数组头加上实体类长度
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 //编码2 实体转化为byte数组
                 .addLast(new ProtobufEncoder())
-                //编码4 处理实体
+                //处理实体
                 .addLast(this.clientMessageHandler);
     }
 }

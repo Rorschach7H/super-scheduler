@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * <li>worker id: The next 22 bits, represents the worker's id which assigns based on database, max id is about 420W
  * <li>sequence: The next 13 bits, represents a sequence within the same second, max for 8192/s<br><br>
  * <p>
- * The {@link DefaultIdGenerator#parseUID(long)} is a tool method to parse the bits
+ * The {@link DefaultIdGenerator#parseId(long)} (long)} is a tool method to parse the bits
  *
  * <pre>{@code
  * +------+----------------------+----------------+-----------+
@@ -87,7 +87,7 @@ public class DefaultIdGenerator implements IdGenerator {
     }
 
     @Override
-    public String getUIDString() {
+    public String getIdString() {
         long id;
         try {
             id = nextId();
@@ -99,7 +99,7 @@ public class DefaultIdGenerator implements IdGenerator {
     }
 
     @Override
-    public long getUID() throws IdGenerateException {
+    public long getId() throws IdGenerateException {
         try {
             return nextId();
         } catch (Exception e) {
@@ -109,7 +109,7 @@ public class DefaultIdGenerator implements IdGenerator {
     }
 
     @Override
-    public String parseUID(long uid) {
+    public String parseId(long uid) {
         long totalBits = BitsAllocator.TOTAL_BITS;
         long signBits = bitsAllocator.getSignBits();
         long timestampBits = bitsAllocator.getTimestampBits();

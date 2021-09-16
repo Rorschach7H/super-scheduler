@@ -19,17 +19,21 @@ message Message {
 }
 
 enum MessageType {
-  //客户端连接
-  CONNECT_CLIENT = 0;
-  //客户端注销
-  LOGOFF_CLIENT = 1;
+
+  //客户端鉴权失败
+  CLIENT_AUTH_ERROR = 0;
+  //连接
+  CONNECT = 1;
+  //注销
+  LOGOFF = 2;
+
   //注册任务
-  REG_TASK = 2;
+  REG_TASK = 3;
   //注销任务
-  LOGOFF_TASK = 3;
+  LOGOFF_TASK = 4;
   //执行任务
-  EXECUTE_TASK = 4;
+  EXECUTE_TASK = 5;
 
   //消息响应
-  MESSAGE_RESPONSE = 5;
+  MESSAGE_RESPONSE = 6;
 }

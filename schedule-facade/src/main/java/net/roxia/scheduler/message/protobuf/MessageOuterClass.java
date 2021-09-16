@@ -38,11 +38,11 @@ public final class MessageOuterClass {
       "\tmachineId\030\004 \001(\t\022\021\n\trequestId\030\005 \001(\t\022\021\n\tt" +
       "imestamp\030\006 \001(\003\022\032\n\004type\030\007 \001(\0162\014.MessageTy" +
       "pe\"0\n\007Message\022\027\n\006header\030\001 \001(\0132\007.Header\022\014" +
-      "\n\004body\030\002 \001(\t*{\n\013MessageType\022\022\n\016CONNECT_C" +
-      "LIENT\020\000\022\021\n\rLOGOFF_CLIENT\020\001\022\014\n\010REG_TASK\020\002" +
-      "\022\017\n\013LOGOFF_TASK\020\003\022\020\n\014EXECUTE_TASK\020\004\022\024\n\020M" +
-      "ESSAGE_RESPONSE\020\005B(\n$net.roxia.scheduler" +
-      ".message.protobufP\001b\006proto3"
+      "\n\004body\030\002 \001(\t*\204\001\n\013MessageType\022\025\n\021CLIENT_A" +
+      "UTH_ERROR\020\000\022\013\n\007CONNECT\020\001\022\n\n\006LOGOFF\020\002\022\014\n\010" +
+      "REG_TASK\020\003\022\017\n\013LOGOFF_TASK\020\004\022\020\n\014EXECUTE_T" +
+      "ASK\020\005\022\024\n\020MESSAGE_RESPONSE\020\006B(\n$net.roxia" +
+      ".scheduler.message.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

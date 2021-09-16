@@ -20,9 +20,6 @@ public class MessageHandlerProcessor {
     public static void assignmentMsg(Message message) {
         Header header = message.getHeader();
         MessageType type = header.getType();
-        if (checkHeader(header)) {
-            log.warn("unknown message type! type={}", type);
-        }
         String result = OperateAdapter.getOperateAdapter(type).handle(message);
 
         Header responseHeader = Header.newBuilder(header)
@@ -36,21 +33,6 @@ public class MessageHandlerProcessor {
                 .build();
         log.info("client message deal result. \nrequest : {}, \nresponse: {}",
                 messageToString(message), messageToString(response));
-    }
-
-    /**
-     * 校验消息有效性
-     *
-     * @param header
-     * @return
-     */
-    private static boolean checkHeader(Header header) {
-        return !(StringUtils.isAnyEmpty(
-                header.getAccessKey(),
-                header.getVersion(),
-                header.getGroup(),
-                header.getMachineId(),
-                header.getRequestId()) && header.getType() == null);
     }
 
     private static String messageToString(Message message) {

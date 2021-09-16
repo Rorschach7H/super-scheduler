@@ -379,7 +379,7 @@ private static final long serialVersionUID = 0L;
     if (timestamp_ != 0L) {
       output.writeInt64(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT_CLIENT.getNumber()) {
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CLIENT_AUTH_ERROR.getNumber()) {
       output.writeEnum(7, type_);
     }
     unknownFields.writeTo(output);
@@ -410,7 +410,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT_CLIENT.getNumber()) {
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CLIENT_AUTH_ERROR.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(7, type_);
     }

@@ -1,6 +1,7 @@
 package net.roxia.scheduler.task.client;
 
 import com.google.common.collect.Maps;
+import io.netty.channel.ChannelHandlerContext;
 import net.roxia.scheduler.cache.CacheInterface;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.spi.ServiceLoader;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class ClientContext {
 
     private final Logger log = LoggerFactory.getLogger(ClientContext.class);
+
+    private static Map<String, ChannelHandlerContext> channelHandlerContextMap = Maps.newConcurrentMap();
 
     private static final Map<String, Map<String, Client>> onlineClientMap = Maps.newConcurrentMap();
 
@@ -71,5 +74,17 @@ public class ClientContext {
             return false;
         }
         return true;
+    }
+
+    public void putChannelHandlerContext(String machineId, ChannelHandlerContext channelHandlerContext) {
+        channelHandlerContextMap.put(machineId, channelHandlerContext);
+    }
+
+    public void removeChannelHandlerContext(String machineId) {
+        channelHandlerContextMap.remove(machineId);
+    }
+
+    public ChannelHandlerContext getChannelHandlerContext(String machineId) {
+        return channelHandlerContextMap.get(machineId);
     }
 }
