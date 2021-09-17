@@ -1,11 +1,9 @@
 package net.roxia.scheduler.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import net.roxia.scheduler.client.handler.ClientMessageHandler;
 import net.roxia.scheduler.common.utils.JsonUtil;
 import net.roxia.scheduler.global.DefaultIdGenerator;
 import net.roxia.scheduler.global.IdGenerator;
@@ -13,6 +11,7 @@ import net.roxia.scheduler.message.MsgVersion;
 import net.roxia.scheduler.message.body.ClientMsg;
 import net.roxia.scheduler.message.protobuf.Header;
 import net.roxia.scheduler.message.protobuf.Message;
+import net.roxia.scheduler.message.protobuf.MessageCode;
 import net.roxia.scheduler.message.protobuf.MessageType;
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,23 +35,22 @@ public class Client {
 
     public static String machineId;
 
-    private final ClientConfig config;
+    private static ClientConfig config;
 
-    private final IdGenerator idGenerator;
+    private static IdGenerator idGenerator;
 
-    public Client(ClientConfig config) {
-        this.config = config;
-        this.idGenerator = new DefaultIdGenerator(1);
+    public static void init(ClientConfig config) {
+        Client.config = config;
+        Client.idGenerator = new DefaultIdGenerator(1);
     }
 
-    public void start() throws InterruptedException {
-        ClientMessageHandler readHandler = new ClientMessageHandler(this);
+    public static void start() throws InterruptedException {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup)
                     .channel(NioSocketChannel.class)
-                    .handler(new ClientInitializer(readHandler));
+                    .handler(new ClientInitializer());
             bootstrap.connect(config.getHost(), config.getPort()).sync().channel();
         } finally {
             //eventLoopGroup.shutdownGracefully();
@@ -61,16 +59,20 @@ public class Client {
 
     /**
      * 客户端注册
-     *
-     * @param ctx
      */
-    public void regClient(ChannelHandlerContext ctx) throws UnknownHostException {
-
+    public static Message regClient() {
         String requestId = MessageType.CONNECT.name() + "_" + Long.toHexString(idGenerator.getId());
-        InetAddress address = InetAddress.getLocalHost();
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException ignored) {
+
+        }
         Header header = Header.newBuilder()
                 .setVersion(MsgVersion.VERSION_1.getValue())
                 .setAccessKey(config.getAccessKey())
+                .setMachineId(machineId)
+                .setCode(MessageCode.HANDSHAKE)
                 .setGroup(config.getGroup())
                 .setType(MessageType.CONNECT)
                 .setRequestId(StringUtils.lowerCase(requestId))
@@ -84,11 +86,9 @@ public class Client {
                 .ip(address.getHostAddress())
                 .build();
 
-        Message message = Message.newBuilder()
+        return Message.newBuilder()
                 .setHeader(header)
                 .setBody(JsonUtil.obj2String(client))
                 .build();
-
-        ctx.writeAndFlush(message);
     }
 }

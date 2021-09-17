@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
     machineId_ = "";
     requestId_ = "";
     type_ = 0;
+    code_ = 0;
   }
 
   @java.lang.Override
@@ -93,6 +94,12 @@ private static final long serialVersionUID = 0L;
             int rawValue = input.readEnum();
 
             type_ = rawValue;
+            break;
+          }
+          case 64: {
+            int rawValue = input.readEnum();
+
+            code_ = rawValue;
             break;
           }
           default: {
@@ -331,6 +338,10 @@ private static final long serialVersionUID = 0L;
   public static final int TYPE_FIELD_NUMBER = 7;
   private int type_;
   /**
+   * <pre>
+   *消息业务类型
+   * </pre>
+   *
    * <code>.MessageType type = 7;</code>
    * @return The enum numeric value on the wire for type.
    */
@@ -338,6 +349,10 @@ private static final long serialVersionUID = 0L;
     return type_;
   }
   /**
+   * <pre>
+   *消息业务类型
+   * </pre>
+   *
    * <code>.MessageType type = 7;</code>
    * @return The type.
    */
@@ -345,6 +360,33 @@ private static final long serialVersionUID = 0L;
     @SuppressWarnings("deprecation")
     net.roxia.scheduler.message.protobuf.MessageType result = net.roxia.scheduler.message.protobuf.MessageType.valueOf(type_);
     return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
+  }
+
+  public static final int CODE_FIELD_NUMBER = 8;
+  private int code_;
+  /**
+   * <pre>
+   *消息系统类型
+   * </pre>
+   *
+   * <code>.MessageCode code = 8;</code>
+   * @return The enum numeric value on the wire for code.
+   */
+  @java.lang.Override public int getCodeValue() {
+    return code_;
+  }
+  /**
+   * <pre>
+   *消息系统类型
+   * </pre>
+   *
+   * <code>.MessageCode code = 8;</code>
+   * @return The code.
+   */
+  @java.lang.Override public net.roxia.scheduler.message.protobuf.MessageCode getCode() {
+    @SuppressWarnings("deprecation")
+    net.roxia.scheduler.message.protobuf.MessageCode result = net.roxia.scheduler.message.protobuf.MessageCode.valueOf(code_);
+    return result == null ? net.roxia.scheduler.message.protobuf.MessageCode.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -379,8 +421,11 @@ private static final long serialVersionUID = 0L;
     if (timestamp_ != 0L) {
       output.writeInt64(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CLIENT_AUTH_ERROR.getNumber()) {
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT.getNumber()) {
       output.writeEnum(7, type_);
+    }
+    if (code_ != net.roxia.scheduler.message.protobuf.MessageCode.HANDSHAKE.getNumber()) {
+      output.writeEnum(8, code_);
     }
     unknownFields.writeTo(output);
   }
@@ -410,9 +455,13 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CLIENT_AUTH_ERROR.getNumber()) {
+    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(7, type_);
+    }
+    if (code_ != net.roxia.scheduler.message.protobuf.MessageCode.HANDSHAKE.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(8, code_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -442,6 +491,7 @@ private static final long serialVersionUID = 0L;
     if (getTimestamp()
         != other.getTimestamp()) return false;
     if (type_ != other.type_) return false;
+    if (code_ != other.code_) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -468,6 +518,8 @@ private static final long serialVersionUID = 0L;
         getTimestamp());
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
+    hash = (37 * hash) + CODE_FIELD_NUMBER;
+    hash = (53 * hash) + code_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -615,6 +667,8 @@ private static final long serialVersionUID = 0L;
 
       type_ = 0;
 
+      code_ = 0;
+
       return this;
     }
 
@@ -648,6 +702,7 @@ private static final long serialVersionUID = 0L;
       result.requestId_ = requestId_;
       result.timestamp_ = timestamp_;
       result.type_ = type_;
+      result.code_ = code_;
       onBuilt();
       return result;
     }
@@ -721,6 +776,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.type_ != 0) {
         setTypeValue(other.getTypeValue());
+      }
+      if (other.code_ != 0) {
+        setCodeValue(other.getCodeValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1164,6 +1222,10 @@ private static final long serialVersionUID = 0L;
 
     private int type_ = 0;
     /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
      * <code>.MessageType type = 7;</code>
      * @return The enum numeric value on the wire for type.
      */
@@ -1171,6 +1233,10 @@ private static final long serialVersionUID = 0L;
       return type_;
     }
     /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
      * <code>.MessageType type = 7;</code>
      * @param value The enum numeric value on the wire for type to set.
      * @return This builder for chaining.
@@ -1182,6 +1248,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
      * <code>.MessageType type = 7;</code>
      * @return The type.
      */
@@ -1192,6 +1262,10 @@ private static final long serialVersionUID = 0L;
       return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
     }
     /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
      * <code>.MessageType type = 7;</code>
      * @param value The type to set.
      * @return This builder for chaining.
@@ -1206,12 +1280,90 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
      * <code>.MessageType type = 7;</code>
      * @return This builder for chaining.
      */
     public Builder clearType() {
       
       type_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int code_ = 0;
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>.MessageCode code = 8;</code>
+     * @return The enum numeric value on the wire for code.
+     */
+    @java.lang.Override public int getCodeValue() {
+      return code_;
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>.MessageCode code = 8;</code>
+     * @param value The enum numeric value on the wire for code to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCodeValue(int value) {
+      
+      code_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>.MessageCode code = 8;</code>
+     * @return The code.
+     */
+    @java.lang.Override
+    public net.roxia.scheduler.message.protobuf.MessageCode getCode() {
+      @SuppressWarnings("deprecation")
+      net.roxia.scheduler.message.protobuf.MessageCode result = net.roxia.scheduler.message.protobuf.MessageCode.valueOf(code_);
+      return result == null ? net.roxia.scheduler.message.protobuf.MessageCode.UNRECOGNIZED : result;
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>.MessageCode code = 8;</code>
+     * @param value The code to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCode(net.roxia.scheduler.message.protobuf.MessageCode value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      code_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>.MessageCode code = 8;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCode() {
+      
+      code_ = 0;
       onChanged();
       return this;
     }

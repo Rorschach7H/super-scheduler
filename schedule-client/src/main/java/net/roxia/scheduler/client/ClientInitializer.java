@@ -7,8 +7,12 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import net.roxia.scheduler.client.handler.ClientMessageHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+import net.roxia.scheduler.client.handler.BizMessageHandler;
+import net.roxia.scheduler.client.handler.ConnectHandler;
 import net.roxia.scheduler.message.protobuf.Message;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -25,12 +29,6 @@ import net.roxia.scheduler.message.protobuf.Message;
  */
 public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final ClientMessageHandler clientMessageHandler;
-
-    public ClientInitializer(ClientMessageHandler handler) {
-        this.clientMessageHandler = handler;
-    }
-
     @Override
     protected void initChannel(SocketChannel channel) {
         ChannelPipeline pipeline = channel.pipeline();
@@ -44,6 +42,8 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
                 //编码2 实体转化为byte数组
                 .addLast(new ProtobufEncoder())
                 //处理实体
-                .addLast(this.clientMessageHandler);
+                .addLast(new IdleStateHandler(0, 0, 5, TimeUnit.SECONDS))
+                .addLast(new ConnectHandler())
+                .addLast(new BizMessageHandler());
     }
 }

@@ -23,7 +23,8 @@ public class MessageHandlerProcessor {
         String result = OperateAdapter.getOperateAdapter(type).handle(message);
 
         Header responseHeader = Header.newBuilder(header)
-                .setType(MessageType.MESSAGE_RESPONSE)
+                .setType(header.getType())
+                .setCode(header.getCode())
                 .setTimestamp(System.currentTimeMillis())
                 .build();
         Message response = Message.newBuilder(message)

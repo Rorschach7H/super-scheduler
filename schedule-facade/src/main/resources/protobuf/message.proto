@@ -10,7 +10,10 @@ message Header {
   string machineId = 4;
   string requestId = 5;
   int64 timestamp = 6;
+  //消息业务类型
   MessageType type = 7;
+  //消息系统类型
+  MessageCode code = 8;
 }
 
 message Message {
@@ -19,21 +22,25 @@ message Message {
 }
 
 enum MessageType {
-
-  //客户端鉴权失败
-  CLIENT_AUTH_ERROR = 0;
   //连接
-  CONNECT = 1;
+  CONNECT = 0;
   //注销
-  LOGOFF = 2;
-
+  LOGOFF = 1;
   //注册任务
-  REG_TASK = 3;
+  REG_TASK = 2;
   //注销任务
-  LOGOFF_TASK = 4;
+  LOGOFF_TASK = 3;
   //执行任务
-  EXECUTE_TASK = 5;
+  EXECUTE_TASK = 4;
+}
 
-  //消息响应
-  MESSAGE_RESPONSE = 6;
+enum MessageCode {
+  //首次连接打握手
+  HANDSHAKE = 0;
+  //服务器发送心跳PING消息
+  PING = 1;
+  //客户端回应心跳PONG消息
+  PONG = 2;
+  //服务端鉴权失败消息
+  AUTH_FAIL = 3;
 }

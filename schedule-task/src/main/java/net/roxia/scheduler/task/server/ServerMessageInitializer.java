@@ -7,10 +7,13 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import io.netty.handler.timeout.IdleStateHandler;
 import net.roxia.scheduler.message.protobuf.Message;
 import net.roxia.scheduler.task.server.handler.BizMessageHandler;
 import net.roxia.scheduler.task.server.handler.ConnectHandler;
 import net.roxia.scheduler.task.server.handler.TokenAuthHandler;
+
+import java.util.concurrent.TimeUnit;
 
 public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> {
     @Override
@@ -25,6 +28,7 @@ public class ServerMessageInitializer extends ChannelInitializer<SocketChannel> 
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 //编码2 实体转化为byte数组
                 .addLast(new ProtobufEncoder())
+                .addLast(new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS))
                 //连接消息处理
                 .addLast(new ConnectHandler())
                 //消息体校验

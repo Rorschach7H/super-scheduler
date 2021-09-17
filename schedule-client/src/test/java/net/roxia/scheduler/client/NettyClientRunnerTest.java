@@ -20,9 +20,9 @@ public class NettyClientRunnerTest {
         ClientConfig config = new ClientConfig();
         config.setHost("localhost");
         config.setPort(9088);
-        config.setGroup("test-schedule-client1");
+        config.setGroup("test-schedule-client");
         config.setAccessKey("6c3705c9f0df440097ec98563c404358");
-        Client client = new Client(config);
-        client.start();
+        Client.init(config);
+        Client.start();
     }
 }

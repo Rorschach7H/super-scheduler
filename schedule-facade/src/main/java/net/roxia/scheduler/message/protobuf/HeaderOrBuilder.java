@@ -74,13 +74,40 @@ public interface HeaderOrBuilder extends
   long getTimestamp();
 
   /**
+   * <pre>
+   *消息业务类型
+   * </pre>
+   *
    * <code>.MessageType type = 7;</code>
    * @return The enum numeric value on the wire for type.
    */
   int getTypeValue();
   /**
+   * <pre>
+   *消息业务类型
+   * </pre>
+   *
    * <code>.MessageType type = 7;</code>
    * @return The type.
    */
   net.roxia.scheduler.message.protobuf.MessageType getType();
+
+  /**
+   * <pre>
+   *消息系统类型
+   * </pre>
+   *
+   * <code>.MessageCode code = 8;</code>
+   * @return The enum numeric value on the wire for code.
+   */
+  int getCodeValue();
+  /**
+   * <pre>
+   *消息系统类型
+   * </pre>
+   *
+   * <code>.MessageCode code = 8;</code>
+   * @return The code.
+   */
+  net.roxia.scheduler.message.protobuf.MessageCode getCode();
 }
