@@ -23,9 +23,7 @@ class SqlTemplateImpl implements SqlTemplate {
     public <T> T execute(boolean isReadOnly, SqlExecutor<T> executor) throws SQLException {
         Connection conn = null;
         conn = ConnectionFactory.getConnection(dataSource);
-        if (isReadOnly) {
-            conn.setReadOnly(true);
-        }
+        conn.setReadOnly(isReadOnly);
         return executor.run(conn);
     }
 

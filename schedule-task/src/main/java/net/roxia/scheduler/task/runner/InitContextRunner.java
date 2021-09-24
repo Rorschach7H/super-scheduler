@@ -2,7 +2,6 @@ package net.roxia.scheduler.task.runner;
 
 import net.roxia.scheduler.SchedulerConfig;
 import net.roxia.scheduler.adapter.OperateAdapter;
-import net.roxia.scheduler.task.client.ClientRegAdapter;
 import net.roxia.scheduler.core.task.adapter.TaskAddAdapter;
 import net.roxia.scheduler.task.AppContextHolder;
 import net.roxia.scheduler.persistence.PersistenceContext;
@@ -32,6 +31,6 @@ public class InitContextRunner extends TaskRunner<TaskAppContext> {
         AppContextHolder.setAppContext(context);
         SchedulerConfig config = context.getConfig();
         AppContextHolder.setPersistenceContext(new PersistenceContext(config));
-        OperateAdapter.initAdapterMap(new TaskAddAdapter(), new ClientRegAdapter());
+        OperateAdapter.initAdapterMap(new TaskAddAdapter());
     }
 }

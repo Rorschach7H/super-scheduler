@@ -2,8 +2,8 @@ package net.roxia.scheduler.adapter;
 
 import com.google.common.collect.Maps;
 import net.roxia.scheduler.adapter.annotation.Operate;
+import net.roxia.scheduler.message.enums.BizMessageType;
 import net.roxia.scheduler.message.protobuf.Message;
-import net.roxia.scheduler.message.protobuf.MessageType;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import java.util.Map;
  **/
 public abstract class OperateAdapter {
 
-    private static final Map<MessageType, OperateAdapter> adapterMap = Maps.newConcurrentMap();
+    private static final Map<BizMessageType, OperateAdapter> adapterMap = Maps.newConcurrentMap();
 
     public abstract String handle(Message message);
 
@@ -25,12 +25,11 @@ public abstract class OperateAdapter {
             if (operate == null) {
                 return;
             }
-            MessageType type = MessageType.forNumber(operate.operate());
-            OperateAdapter.adapterMap.put(type, adapter);
+            OperateAdapter.adapterMap.put(operate.operate(), adapter);
         }
     }
 
-    public static OperateAdapter getOperateAdapter(MessageType operate) {
+    public static OperateAdapter getOperateAdapter(BizMessageType operate) {
         return adapterMap.get(operate);
     }
 }

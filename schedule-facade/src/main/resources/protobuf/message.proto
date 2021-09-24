@@ -11,36 +11,12 @@ message Header {
   string requestId = 5;
   int64 timestamp = 6;
   //消息业务类型
-  MessageType type = 7;
+  string bizType = 7;
   //消息系统类型
-  MessageCode code = 8;
+  string sysType = 8;
 }
 
 message Message {
   Header header = 1;
   string body = 2;
-}
-
-enum MessageType {
-  //连接
-  CONNECT = 0;
-  //注销
-  LOGOFF = 1;
-  //注册任务
-  REG_TASK = 2;
-  //注销任务
-  LOGOFF_TASK = 3;
-  //执行任务
-  EXECUTE_TASK = 4;
-}
-
-enum MessageCode {
-  //首次连接打握手
-  HANDSHAKE = 0;
-  //服务器发送心跳PING消息
-  PING = 1;
-  //客户端回应心跳PONG消息
-  PONG = 2;
-  //服务端鉴权失败消息
-  AUTH_FAIL = 3;
 }

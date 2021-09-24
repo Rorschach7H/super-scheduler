@@ -9,20 +9,22 @@ import net.roxia.scheduler.store.AbstractEntity;
 import java.util.Date;
 
 /**
- * @ClassName ClientEntity
+ * @ClassName ClientActive
  * @Description TODO
  * @Author huangjunwei01
  * @Date 2021/9/7 11:11
  **/
-@Table("ror_client")
+@Table("ror_client_active")
 @Setter
 @Getter
-public class ClientEntity extends AbstractEntity {
+public class ClientActive extends AbstractEntity {
     @PrimaryKey
     private Long id;
+    private String machineId;
     private String group;
-    private String accessKey;
-    private Date createTime;
-    private Date modifyTime;
-    private int state;
+    private String ip;
+    private Date activeTime;
+    private Date offlineTime;
+    private Integer active;
+    private Integer state;
 }

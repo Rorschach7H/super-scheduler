@@ -1,4 +1,4 @@
-package net.roxia.scheduler.message;
+package net.roxia.scheduler.message.enums;
 
 /**
  * @ClassName MsgVersion

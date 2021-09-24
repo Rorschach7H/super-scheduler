@@ -21,8 +21,8 @@ private static final long serialVersionUID = 0L;
     group_ = "";
     machineId_ = "";
     requestId_ = "";
-    type_ = 0;
-    code_ = 0;
+    bizType_ = "";
+    sysType_ = "";
   }
 
   @java.lang.Override
@@ -90,16 +90,16 @@ private static final long serialVersionUID = 0L;
             timestamp_ = input.readInt64();
             break;
           }
-          case 56: {
-            int rawValue = input.readEnum();
+          case 58: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            type_ = rawValue;
+            bizType_ = s;
             break;
           }
-          case 64: {
-            int rawValue = input.readEnum();
+          case 66: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            code_ = rawValue;
+            sysType_ = s;
             break;
           }
           default: {
@@ -335,58 +335,96 @@ private static final long serialVersionUID = 0L;
     return timestamp_;
   }
 
-  public static final int TYPE_FIELD_NUMBER = 7;
-  private int type_;
+  public static final int BIZTYPE_FIELD_NUMBER = 7;
+  private volatile java.lang.Object bizType_;
   /**
    * <pre>
    *消息业务类型
    * </pre>
    *
-   * <code>.MessageType type = 7;</code>
-   * @return The enum numeric value on the wire for type.
+   * <code>string bizType = 7;</code>
+   * @return The bizType.
    */
-  @java.lang.Override public int getTypeValue() {
-    return type_;
+  @java.lang.Override
+  public java.lang.String getBizType() {
+    java.lang.Object ref = bizType_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      bizType_ = s;
+      return s;
+    }
   }
   /**
    * <pre>
    *消息业务类型
    * </pre>
    *
-   * <code>.MessageType type = 7;</code>
-   * @return The type.
+   * <code>string bizType = 7;</code>
+   * @return The bytes for bizType.
    */
-  @java.lang.Override public net.roxia.scheduler.message.protobuf.MessageType getType() {
-    @SuppressWarnings("deprecation")
-    net.roxia.scheduler.message.protobuf.MessageType result = net.roxia.scheduler.message.protobuf.MessageType.valueOf(type_);
-    return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getBizTypeBytes() {
+    java.lang.Object ref = bizType_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      bizType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
-  public static final int CODE_FIELD_NUMBER = 8;
-  private int code_;
+  public static final int SYSTYPE_FIELD_NUMBER = 8;
+  private volatile java.lang.Object sysType_;
   /**
    * <pre>
    *消息系统类型
    * </pre>
    *
-   * <code>.MessageCode code = 8;</code>
-   * @return The enum numeric value on the wire for code.
+   * <code>string sysType = 8;</code>
+   * @return The sysType.
    */
-  @java.lang.Override public int getCodeValue() {
-    return code_;
+  @java.lang.Override
+  public java.lang.String getSysType() {
+    java.lang.Object ref = sysType_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sysType_ = s;
+      return s;
+    }
   }
   /**
    * <pre>
    *消息系统类型
    * </pre>
    *
-   * <code>.MessageCode code = 8;</code>
-   * @return The code.
+   * <code>string sysType = 8;</code>
+   * @return The bytes for sysType.
    */
-  @java.lang.Override public net.roxia.scheduler.message.protobuf.MessageCode getCode() {
-    @SuppressWarnings("deprecation")
-    net.roxia.scheduler.message.protobuf.MessageCode result = net.roxia.scheduler.message.protobuf.MessageCode.valueOf(code_);
-    return result == null ? net.roxia.scheduler.message.protobuf.MessageCode.UNRECOGNIZED : result;
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getSysTypeBytes() {
+    java.lang.Object ref = sysType_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sysType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -421,11 +459,11 @@ private static final long serialVersionUID = 0L;
     if (timestamp_ != 0L) {
       output.writeInt64(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT.getNumber()) {
-      output.writeEnum(7, type_);
+    if (!getBizTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, bizType_);
     }
-    if (code_ != net.roxia.scheduler.message.protobuf.MessageCode.HANDSHAKE.getNumber()) {
-      output.writeEnum(8, code_);
+    if (!getSysTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, sysType_);
     }
     unknownFields.writeTo(output);
   }
@@ -455,13 +493,11 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(6, timestamp_);
     }
-    if (type_ != net.roxia.scheduler.message.protobuf.MessageType.CONNECT.getNumber()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(7, type_);
+    if (!getBizTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, bizType_);
     }
-    if (code_ != net.roxia.scheduler.message.protobuf.MessageCode.HANDSHAKE.getNumber()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(8, code_);
+    if (!getSysTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, sysType_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -490,8 +526,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getRequestId())) return false;
     if (getTimestamp()
         != other.getTimestamp()) return false;
-    if (type_ != other.type_) return false;
-    if (code_ != other.code_) return false;
+    if (!getBizType()
+        .equals(other.getBizType())) return false;
+    if (!getSysType()
+        .equals(other.getSysType())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -516,10 +554,10 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTimestamp());
-    hash = (37 * hash) + TYPE_FIELD_NUMBER;
-    hash = (53 * hash) + type_;
-    hash = (37 * hash) + CODE_FIELD_NUMBER;
-    hash = (53 * hash) + code_;
+    hash = (37 * hash) + BIZTYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getBizType().hashCode();
+    hash = (37 * hash) + SYSTYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getSysType().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -665,9 +703,9 @@ private static final long serialVersionUID = 0L;
 
       timestamp_ = 0L;
 
-      type_ = 0;
+      bizType_ = "";
 
-      code_ = 0;
+      sysType_ = "";
 
       return this;
     }
@@ -701,8 +739,8 @@ private static final long serialVersionUID = 0L;
       result.machineId_ = machineId_;
       result.requestId_ = requestId_;
       result.timestamp_ = timestamp_;
-      result.type_ = type_;
-      result.code_ = code_;
+      result.bizType_ = bizType_;
+      result.sysType_ = sysType_;
       onBuilt();
       return result;
     }
@@ -774,11 +812,13 @@ private static final long serialVersionUID = 0L;
       if (other.getTimestamp() != 0L) {
         setTimestamp(other.getTimestamp());
       }
-      if (other.type_ != 0) {
-        setTypeValue(other.getTypeValue());
+      if (!other.getBizType().isEmpty()) {
+        bizType_ = other.bizType_;
+        onChanged();
       }
-      if (other.code_ != 0) {
-        setCodeValue(other.getCodeValue());
+      if (!other.getSysType().isEmpty()) {
+        sysType_ = other.sysType_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1220,62 +1260,64 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int type_ = 0;
+    private java.lang.Object bizType_ = "";
     /**
      * <pre>
      *消息业务类型
      * </pre>
      *
-     * <code>.MessageType type = 7;</code>
-     * @return The enum numeric value on the wire for type.
+     * <code>string bizType = 7;</code>
+     * @return The bizType.
      */
-    @java.lang.Override public int getTypeValue() {
-      return type_;
-    }
-    /**
-     * <pre>
-     *消息业务类型
-     * </pre>
-     *
-     * <code>.MessageType type = 7;</code>
-     * @param value The enum numeric value on the wire for type to set.
-     * @return This builder for chaining.
-     */
-    public Builder setTypeValue(int value) {
-      
-      type_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     *消息业务类型
-     * </pre>
-     *
-     * <code>.MessageType type = 7;</code>
-     * @return The type.
-     */
-    @java.lang.Override
-    public net.roxia.scheduler.message.protobuf.MessageType getType() {
-      @SuppressWarnings("deprecation")
-      net.roxia.scheduler.message.protobuf.MessageType result = net.roxia.scheduler.message.protobuf.MessageType.valueOf(type_);
-      return result == null ? net.roxia.scheduler.message.protobuf.MessageType.UNRECOGNIZED : result;
-    }
-    /**
-     * <pre>
-     *消息业务类型
-     * </pre>
-     *
-     * <code>.MessageType type = 7;</code>
-     * @param value The type to set.
-     * @return This builder for chaining.
-     */
-    public Builder setType(net.roxia.scheduler.message.protobuf.MessageType value) {
-      if (value == null) {
-        throw new NullPointerException();
+    public java.lang.String getBizType() {
+      java.lang.Object ref = bizType_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bizType_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
       }
-      
-      type_ = value.getNumber();
+    }
+    /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
+     * <code>string bizType = 7;</code>
+     * @return The bytes for bizType.
+     */
+    public com.google.protobuf.ByteString
+        getBizTypeBytes() {
+      java.lang.Object ref = bizType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bizType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
+     * <code>string bizType = 7;</code>
+     * @param value The bizType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBizType(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      bizType_ = value;
       onChanged();
       return this;
     }
@@ -1284,72 +1326,94 @@ private static final long serialVersionUID = 0L;
      *消息业务类型
      * </pre>
      *
-     * <code>.MessageType type = 7;</code>
+     * <code>string bizType = 7;</code>
      * @return This builder for chaining.
      */
-    public Builder clearType() {
+    public Builder clearBizType() {
       
-      type_ = 0;
+      bizType_ = getDefaultInstance().getBizType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *消息业务类型
+     * </pre>
+     *
+     * <code>string bizType = 7;</code>
+     * @param value The bytes for bizType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBizTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      bizType_ = value;
       onChanged();
       return this;
     }
 
-    private int code_ = 0;
+    private java.lang.Object sysType_ = "";
     /**
      * <pre>
      *消息系统类型
      * </pre>
      *
-     * <code>.MessageCode code = 8;</code>
-     * @return The enum numeric value on the wire for code.
+     * <code>string sysType = 8;</code>
+     * @return The sysType.
      */
-    @java.lang.Override public int getCodeValue() {
-      return code_;
-    }
-    /**
-     * <pre>
-     *消息系统类型
-     * </pre>
-     *
-     * <code>.MessageCode code = 8;</code>
-     * @param value The enum numeric value on the wire for code to set.
-     * @return This builder for chaining.
-     */
-    public Builder setCodeValue(int value) {
-      
-      code_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     *消息系统类型
-     * </pre>
-     *
-     * <code>.MessageCode code = 8;</code>
-     * @return The code.
-     */
-    @java.lang.Override
-    public net.roxia.scheduler.message.protobuf.MessageCode getCode() {
-      @SuppressWarnings("deprecation")
-      net.roxia.scheduler.message.protobuf.MessageCode result = net.roxia.scheduler.message.protobuf.MessageCode.valueOf(code_);
-      return result == null ? net.roxia.scheduler.message.protobuf.MessageCode.UNRECOGNIZED : result;
-    }
-    /**
-     * <pre>
-     *消息系统类型
-     * </pre>
-     *
-     * <code>.MessageCode code = 8;</code>
-     * @param value The code to set.
-     * @return This builder for chaining.
-     */
-    public Builder setCode(net.roxia.scheduler.message.protobuf.MessageCode value) {
-      if (value == null) {
-        throw new NullPointerException();
+    public java.lang.String getSysType() {
+      java.lang.Object ref = sysType_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sysType_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
       }
-      
-      code_ = value.getNumber();
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>string sysType = 8;</code>
+     * @return The bytes for sysType.
+     */
+    public com.google.protobuf.ByteString
+        getSysTypeBytes() {
+      java.lang.Object ref = sysType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sysType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>string sysType = 8;</code>
+     * @param value The sysType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSysType(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      sysType_ = value;
       onChanged();
       return this;
     }
@@ -1358,12 +1422,32 @@ private static final long serialVersionUID = 0L;
      *消息系统类型
      * </pre>
      *
-     * <code>.MessageCode code = 8;</code>
+     * <code>string sysType = 8;</code>
      * @return This builder for chaining.
      */
-    public Builder clearCode() {
+    public Builder clearSysType() {
       
-      code_ = 0;
+      sysType_ = getDefaultInstance().getSysType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *消息系统类型
+     * </pre>
+     *
+     * <code>string sysType = 8;</code>
+     * @param value The bytes for sysType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSysTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      sysType_ = value;
       onChanged();
       return this;
     }

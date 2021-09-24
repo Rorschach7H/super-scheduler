@@ -43,7 +43,7 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
                 .addLast(new ProtobufEncoder())
                 //处理实体
                 .addLast(new IdleStateHandler(0, 0, 5, TimeUnit.SECONDS))
-                .addLast(new ConnectHandler())
+                .addLast(new ConnectHandler(Client.getClient()))
                 .addLast(new BizMessageHandler());
     }
 }

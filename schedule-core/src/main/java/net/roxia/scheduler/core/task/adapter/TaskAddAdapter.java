@@ -3,10 +3,9 @@ package net.roxia.scheduler.core.task.adapter;
 import net.roxia.scheduler.adapter.OperateAdapter;
 import net.roxia.scheduler.adapter.annotation.Operate;
 import net.roxia.scheduler.common.utils.JsonUtil;
-import net.roxia.scheduler.core.task.domain.RunExecutingTask;
 import net.roxia.scheduler.message.body.TaskMsg;
+import net.roxia.scheduler.message.enums.BizMessageType;
 import net.roxia.scheduler.message.protobuf.Message;
-import net.roxia.scheduler.message.protobuf.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @Author huangjunwei01
  * @Date 2021/9/3 16:32
  **/
-@Operate(operate = MessageType.REG_TASK_VALUE)
+@Operate(operate = BizMessageType.REG_TASK)
 public class TaskAddAdapter extends OperateAdapter {
 
     private final Logger log = LoggerFactory.getLogger(TaskAddAdapter.class);

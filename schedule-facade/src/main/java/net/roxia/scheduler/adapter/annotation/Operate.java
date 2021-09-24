@@ -1,5 +1,7 @@
 package net.roxia.scheduler.adapter.annotation;
 
+import net.roxia.scheduler.message.enums.BizMessageType;
+
 import java.lang.annotation.*;
 
 /**
@@ -15,5 +17,5 @@ public @interface Operate {
     /**
      * 消息类型
      */
-    int operate();
+    BizMessageType operate();
 }

@@ -78,36 +78,38 @@ public interface HeaderOrBuilder extends
    *消息业务类型
    * </pre>
    *
-   * <code>.MessageType type = 7;</code>
-   * @return The enum numeric value on the wire for type.
+   * <code>string bizType = 7;</code>
+   * @return The bizType.
    */
-  int getTypeValue();
+  java.lang.String getBizType();
   /**
    * <pre>
    *消息业务类型
    * </pre>
    *
-   * <code>.MessageType type = 7;</code>
-   * @return The type.
+   * <code>string bizType = 7;</code>
+   * @return The bytes for bizType.
    */
-  net.roxia.scheduler.message.protobuf.MessageType getType();
+  com.google.protobuf.ByteString
+      getBizTypeBytes();
 
   /**
    * <pre>
    *消息系统类型
    * </pre>
    *
-   * <code>.MessageCode code = 8;</code>
-   * @return The enum numeric value on the wire for code.
+   * <code>string sysType = 8;</code>
+   * @return The sysType.
    */
-  int getCodeValue();
+  java.lang.String getSysType();
   /**
    * <pre>
    *消息系统类型
    * </pre>
    *
-   * <code>.MessageCode code = 8;</code>
-   * @return The code.
+   * <code>string sysType = 8;</code>
+   * @return The bytes for sysType.
    */
-  net.roxia.scheduler.message.protobuf.MessageCode getCode();
+  com.google.protobuf.ByteString
+      getSysTypeBytes();
 }

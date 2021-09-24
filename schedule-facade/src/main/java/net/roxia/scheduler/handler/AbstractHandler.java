@@ -4,10 +4,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AttributeKey;
+import net.roxia.scheduler.message.enums.SysMessageType;
 import net.roxia.scheduler.message.protobuf.Header;
 import net.roxia.scheduler.message.protobuf.Message;
-import net.roxia.scheduler.message.protobuf.MessageCode;
-import net.roxia.scheduler.message.protobuf.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +42,7 @@ public abstract class AbstractHandler extends ChannelInboundHandlerAdapter {
 
     protected void sendPingMsg(ChannelHandlerContext ctx) {
         Header header = Header.newBuilder()
-                .setCode(MessageCode.PING)
-                .setType(MessageType.CONNECT)
+                .setSysType(SysMessageType.PING.name())
                 .build();
         Message msg = Message.newBuilder().setHeader(header).build();
         heartbeatCount++;
@@ -53,8 +51,7 @@ public abstract class AbstractHandler extends ChannelInboundHandlerAdapter {
 
     protected void sendPongMsg(ChannelHandlerContext ctx) {
         Header header = Header.newBuilder()
-                .setCode(MessageCode.PONG)
-                .setType(MessageType.CONNECT)
+                .setSysType(SysMessageType.PONG.name())
                 .build();
         Message msg = Message.newBuilder().setHeader(header).build();
         heartbeatCount++;

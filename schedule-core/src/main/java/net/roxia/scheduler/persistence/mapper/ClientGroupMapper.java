@@ -1,30 +1,26 @@
 package net.roxia.scheduler.persistence.mapper;
 
 import net.roxia.scheduler.store.AbstractEntity;
-import net.roxia.scheduler.persistence.entity.ClientEntity;
+import net.roxia.scheduler.persistence.entity.ClientGroup;
 import net.roxia.scheduler.store.builder.SelectSql;
-import net.roxia.scheduler.store.dbutils.ResultSetHandler;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
- * @ClassName ClientMapper
+ * @ClassName ClientGroupMapper
  * @Description TODO
  * @Author huangjunwei01
  * @Date 2021/9/7 14:33
  **/
-public class ClientMapper extends AbstractMapper<ClientEntity> {
+public class ClientGroupMapper extends AbstractMapper<ClientGroup> {
 
-    public ClientEntity selectByGroup(String group) {
+    public ClientGroup selectByGroup(String group) {
         return new SelectSql(getSqlTemplate())
                 .select()
-                .columns(AbstractEntity.columns(ClientEntity.class))
+                .columns(AbstractEntity.columns(ClientGroup.class))
                 .from()
-                .table(AbstractEntity.tableName(ClientEntity.class))
+                .table(AbstractEntity.tableName(ClientGroup.class))
                 .where("`group`=?", group)
                 .and("`state`=?", 1)
-                .single(ClientEntity.class);
+                .single(ClientGroup.class);
 
     }
 
@@ -33,7 +29,7 @@ public class ClientMapper extends AbstractMapper<ClientEntity> {
                 .select()
                 .count()
                 .from()
-                .table(AbstractEntity.tableName(ClientEntity.class))
+                .table(AbstractEntity.tableName(ClientGroup.class))
                 .where("`group`=?", group)
                 .and("`state`=?", 1)
                 .single(rs -> {

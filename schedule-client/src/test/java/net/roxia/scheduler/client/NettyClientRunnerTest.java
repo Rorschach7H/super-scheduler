@@ -1,6 +1,8 @@
 package net.roxia.scheduler.client;
 
 import net.roxia.scheduler.common.utils.StringTools;
+import net.roxia.scheduler.global.DefaultIdGenerator;
+import net.roxia.scheduler.global.IdGenerator;
 
 /**
  * Copyright: Copyright (c) 2018 meixiaoxi
@@ -22,7 +24,9 @@ public class NettyClientRunnerTest {
         config.setPort(9088);
         config.setGroup("test-schedule-client");
         config.setAccessKey("6c3705c9f0df440097ec98563c404358");
-        Client.init(config);
-        Client.start();
+
+        IdGenerator idGenerator = new DefaultIdGenerator(1);
+        Client client = Client.init(config, idGenerator);
+        client.start();
     }
 }

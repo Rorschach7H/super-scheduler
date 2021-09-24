@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName Client
@@ -36,7 +35,12 @@ public class Client implements Serializable {
     private String accessKey;
 
     /**
-     * 激活时间
+     * 上线时间
      */
-    private Date activeTime;
+    private String activeTime;
+
+    /**
+     * 在线状态
+     */
+    private Boolean active;
 }
